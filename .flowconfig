@@ -1,0 +1,23 @@
+[ignore]
+
+[include]
+
+[libs]
+./flow-typed/
+./flow-typed/npm/
+
+[lints]
+
+[options]
+module.file_ext=.js
+module.file_ext=.jsx
+module.file_ext=.json
+module.file_ext=.css
+module.file_ext=.scss
+module.file_ext=.less
+module.name_mapper.extension='css' -> 'empty/object'
+module.name_mapper.extension='scss' -> 'empty/object'
+module.name_mapper.extension='less' -> 'empty/object'
+suppress_comment= \\(.\\|\n\\)*\\$flow-ignore
+
+[strict]
