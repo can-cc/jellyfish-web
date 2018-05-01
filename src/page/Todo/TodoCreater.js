@@ -5,11 +5,12 @@ import Button from 'antd/lib/button';
 import message from 'antd/lib/message';
 import Input from 'antd/lib/input';
 import DatePicker from 'antd/lib/date-picker';
+import { Subject } from 'rxjs';
 
 const InputGroup = Input.Group;
 
 export class TodoCreater extends Component<
-  {},
+  { add$: Subject<void> },
   {
     value: string
   }
@@ -21,12 +22,15 @@ export class TodoCreater extends Component<
   };
 
   handleKeyPress = async (event: SyntheticEvent<HTMLInputElement>) => {
+    console.log(this.props.add$);
     if (event.key === 'Enter') {
       try {
         await axios.post('/api/todo', { content: this.state.value });
         this.setState({ value: '' });
+        this.props.add$.next();
         message.success('Add todo successful');
       } catch (error) {
+        console.error(error);
         message.error('Add a todo failure, please retry later.');
       }
     }

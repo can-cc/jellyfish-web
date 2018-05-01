@@ -8,7 +8,7 @@ function responseSuccessInterceptor(response) {
 function responseFailureInterceptor(error) {
   if (error.response.status === 401) {
     window.localStorage.removeItem('jwt');
-    history.push('/login');
+    history.push('/signin');
   }
   return Promise.reject(error);
 }
@@ -18,7 +18,7 @@ function setupAxiosInterceptor() {
 }
 
 function setupAxiosJwtHeader(jwt: string) {
-  axios.defaults.headers.common['jwt'] = window.localStorage.getItem('jwt');
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('jwt');
 }
 
 export function setRequestAuth() {

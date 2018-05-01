@@ -6,21 +6,7 @@ import message from 'antd/lib/message';
 import DatePicker from 'antd/lib/date-picker';
 import List from 'antd/lib/list';
 
-export class TodoList extends Component<{}, { todos: [] }> {
-  state = {
-    todos: []
-  };
-
-  componentWillMount() {
-    this.getTodos();
-  }
-
-  async getTodos() {
-    const userId = window.localStorage.getItem('userId');
-    const resp = await axios.get(`/api/todos?userId=${userId}`);
-    this.setState({ todos: resp.data });
-  }
-
+export class TodoList extends Component<{ todos: [] }> {
   render() {
     return (
       <div>
@@ -29,8 +15,8 @@ export class TodoList extends Component<{}, { todos: [] }> {
           header={<div>Header</div>}
           footer={<div>Footer</div>}
           bordered
-          dataSource={this.state.todos}
-          renderItem={item => <List.Item>{item}</List.Item>}
+          dataSource={this.props.todos}
+          renderItem={todo => <List.Item key={todo.id}>{todo.content}</List.Item>}
         />
       </div>
     );
