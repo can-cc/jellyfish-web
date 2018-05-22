@@ -4,22 +4,29 @@ import axios from 'axios';
 import Button from 'antd/lib/button';
 import { SignInForm } from './SignInForm';
 import { setRequestAuth } from '../helper/interceptor.helper';
+import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
 
-export class SignIn extends Component<{}> {
-  signIn = async (data: SignInFormData) => {
-    try {
-      const resp: AxiosXHR<{ token: string, id: string }> = await axios.post('/api/signin', data);
-      window.localStorage.setItem('jwt', resp.data.token);
-      window.localStorage.setItem('userId', resp.data.id);
-      setRequestAuth();
-    } catch (error) {}
-  };
+export const SignIn = withRouter(
+  class extends Component<{
+    history: RouterHistory
+  }> {
+    signIn = async (data: SignInFormData) => {
+      try {
+        const resp: AxiosXHR<{ token: string, id: string }> = await axios.post('/api/signin', data);
+        window.localStorage.setItem('jwt', resp.data.token);
+        window.localStorage.setItem('userId', resp.data.id);
+        setRequestAuth();
 
-  render() {
-    return (
-      <div>
-        <SignInForm submit={this.signIn} />
-      </div>
-    );
+        this.props.history.push('/todo');
+      } catch (error) {}
+    };
+
+    render() {
+      return (
+        <div>
+          <SignInForm submit={this.signIn} />
+        </div>
+      );
+    }
   }
-}
+);
