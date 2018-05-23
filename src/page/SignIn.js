@@ -6,6 +6,8 @@ import { SignInForm } from './SignInForm';
 import { setRequestAuth } from '../helper/interceptor.helper';
 import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
 
+import './SignIn.scss';
+
 export const SignIn = withRouter(
   class extends Component<{
     history: RouterHistory
@@ -24,6 +26,7 @@ export const SignIn = withRouter(
     render() {
       return (
         <div>
+          <img className="signin-logo" alt="logo" src="/assets/imgs/logo.png" />
           <SignInForm submit={this.signIn} />
         </div>
       );
