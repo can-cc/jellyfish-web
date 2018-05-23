@@ -3,8 +3,6 @@
 [include]
 
 [libs]
-flow-typed/
-flow-typed/npm/
 
 [lints]
 
