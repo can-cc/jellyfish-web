@@ -12,13 +12,17 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class Form extends Component<{
-  submit: any => void,
-  form: WrappedFormUtils
-}> {
-  componentDidMount() {
-    this.props.form.validateFields();
-  }
+class Form extends Component<
+  {
+    submit: any => void,
+    form: WrappedFormUtils
+  },
+  { confirmDirty: boolean }
+> {
+  state = {
+    confirmDirty: false
+  };
+  componentDidMount() {}
 
   handleSubmit = e => {
     e.preventDefault();
@@ -27,14 +31,28 @@ class Form extends Component<{
     });
   };
 
+  compareToFirstPassword = (rule, value, callback) => {
+    const form = this.props.form;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('两次密码输入不符');
+    } else {
+      callback();
+    }
+  };
+
+  validateToNextPassword = (rule, value, callback) => {
+    const form = this.props.form;
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirm'], { force: true });
+    }
+    callback();
+  };
+
   render() {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-
-    const usernameError = isFieldTouched('username') && getFieldError('username');
-    const passwordError = isFieldTouched('password') && getFieldError('password');
     return (
-      <AntForm style={{ width: '500px', margin: 'auto auto' }} onSubmit={this.handleSubmit}>
-        <FormItem validateStatus={usernameError ? 'error' : ''} help={usernameError || ''}>
+      <AntForm style={{ textAlign: 'left' }} onSubmit={this.handleSubmit}>
+        <FormItem>
           {getFieldDecorator('username', {
             rules: [{ required: true, message: '请输入用户名' }]
           })(
@@ -44,9 +62,14 @@ class Form extends Component<{
             />
           )}
         </FormItem>
-        <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
+        <FormItem>
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: '请输入密码' }]
+            rules: [
+              { required: true, message: '请输入密码' },
+              {
+                validator: this.validateToNextPassword
+              }
+            ]
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0, 0, 0, .25)' }} />}
@@ -55,14 +78,19 @@ class Form extends Component<{
             />
           )}
         </FormItem>
-        <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
-          {getFieldDecorator('passwordRepeat', {
-            rules: [{ required: true, message: '请输入密码' }]
+        <FormItem>
+          {getFieldDecorator('confirm', {
+            rules: [
+              { required: true, message: '请输入确认密码' },
+              {
+                validator: this.compareToFirstPassword
+              }
+            ]
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
-              placeholder="验证密码"
+              placeholder="确认密码"
             />
           )}
         </FormItem>

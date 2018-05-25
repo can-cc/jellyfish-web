@@ -35,11 +35,15 @@ export const SignUp = withRouter(
 
     render() {
       return (
-        <div className="signup-page">
+        <div
+          className="signup-page"
+          style={{ padding: '20px', maxWidth: '500px', margin: 'auto auto' }}
+        >
           <img
             style={{
-              width: '100px',
-              height: '100px'
+              width: '70px',
+              height: '70px',
+              marginBottom: '30px'
             }}
             className="signup-logo"
             alt="logo"
