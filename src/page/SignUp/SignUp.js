@@ -2,30 +2,50 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Button from 'antd/lib/button';
-import { SignInForm } from './SignInForm';
+import { SignUpForm } from './SignUpForm';
 import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
 
-import './SignUp.scss';
+import './SignUp.css';
 
-export const SignIn = withRouter(
-  class extends Component<{
-    history: RouterHistory
-  }> {
+export const SignUp = withRouter(
+  class extends Component<
+    {
+      history: RouterHistory
+    },
+    {
+      fromApp: boolean
+    }
+  > {
+    state = {
+      fromApp: false
+    };
+
+    componentWillMount() {
+      const fromApp = this.props.history.location.search.indexOf('fromApp=true') >= 0;
+      this.setState({ fromApp });
+    }
+
     signIn = async (data: SignInFormData) => {
       try {
-        const resp: AxiosXHR<{ token: string, id: string }> = await axios.post('/api/signin', data);
-        window.localStorage.setItem('jwt', resp.data.token);
-        window.localStorage.setItem('userId', resp.data.id);
+        const resp: AxiosXHR<{ token: string, id: string }> = await axios.post('/api/signup', data);
 
-        this.props.history.push('/todo');
+        this.props.history.push('/signin');
       } catch (error) {}
     };
 
     render() {
       return (
-        <div>
-          <img className="signin-logo" alt="logo" src="/assets/imgs/logo.png" />
-          <SignInForm submit={this.signIn} />
+        <div className="signup-page">
+          <img
+            style={{
+              width: '100px',
+              height: '100px'
+            }}
+            className="signup-logo"
+            alt="logo"
+            src="/assets/imgs/logo.png"
+          />
+          <SignUpForm submit={this.signIn} />
         </div>
       );
     }

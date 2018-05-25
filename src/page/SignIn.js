@@ -6,7 +6,7 @@ import { SignInForm } from './SignInForm';
 import { setRequestAuth } from '../helper/interceptor.helper';
 import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
 
-import './SignIn.scss';
+import './SignIn.css';
 
 export const SignIn = withRouter(
   class extends Component<{

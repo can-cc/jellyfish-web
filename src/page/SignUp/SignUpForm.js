@@ -17,7 +17,6 @@ class Form extends Component<{
   form: WrappedFormUtils
 }> {
   componentDidMount() {
-    // To disabled submit button at the beginning.
     this.props.form.validateFields();
   }
 
@@ -31,35 +30,45 @@ class Form extends Component<{
   render() {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
-    // Only show error after a field is touched.
     const usernameError = isFieldTouched('username') && getFieldError('username');
     const passwordError = isFieldTouched('password') && getFieldError('password');
     return (
-      <AntForm onSubmit={this.handleSubmit}>
+      <AntForm style={{ width: '500px', margin: 'auto auto' }} onSubmit={this.handleSubmit}>
         <FormItem validateStatus={usernameError ? 'error' : ''} help={usernameError || ''}>
           {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please input your username!' }]
+            rules: [{ required: true, message: '请输入用户名' }]
           })(
             <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="Username"
+              prefix={<Icon type="user" style={{ color: 'rgba(0, 0, 0, .25)' }} />}
+              placeholder="用户名"
             />
           )}
         </FormItem>
         <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }]
+            rules: [{ required: true, message: '请输入密码' }]
+          })(
+            <Input
+              prefix={<Icon type="lock" style={{ color: 'rgba(0, 0, 0, .25)' }} />}
+              type="password"
+              placeholder="密码"
+            />
+          )}
+        </FormItem>
+        <FormItem validateStatus={passwordError ? 'error' : ''} help={passwordError || ''}>
+          {getFieldDecorator('passwordRepeat', {
+            rules: [{ required: true, message: '请输入密码' }]
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
-              placeholder="Password"
+              placeholder="验证密码"
             />
           )}
         </FormItem>
         <FormItem>
           <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>
-            Log in
+            注册
           </Button>
         </FormItem>
       </AntForm>
@@ -67,4 +76,4 @@ class Form extends Component<{
   }
 }
 
-export const SignInForm = AntForm.create()(Form);
+export const SignUpForm = AntForm.create()(Form);
