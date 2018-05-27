@@ -1,6 +1,12 @@
 
 .signup-page {
+
 }
+
+.signup-page .ant-form-explain {
+  margin-top: 0;
+}
+
 
 .signup-logo {
 }

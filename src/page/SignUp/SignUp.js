@@ -4,6 +4,7 @@ import axios from 'axios';
 import Button from 'antd/lib/button';
 import { SignUpForm } from './SignUpForm';
 import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import message from 'antd/lib/message';
 
 import './SignUp.css';
 
@@ -25,12 +26,19 @@ export const SignUp = withRouter(
       this.setState({ fromApp });
     }
 
-    signIn = async (data: SignInFormData) => {
-      try {
-        const resp: AxiosXHR<{ token: string, id: string }> = await axios.post('/api/signup', data);
-
-        this.props.history.push('/signin');
-      } catch (error) {}
+    signUp = (data: SignInFormData) => {
+      axios
+        .post('/api/signup', data)
+        .then(() => {
+          this.props.history.push('/signin');
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 401) {
+            message.error('验证码错误，请重试');
+          } else {
+            message.error('注册失败，请检查是否用户名重复');
+          }
+        });
     };
 
     render() {
@@ -49,7 +57,7 @@ export const SignUp = withRouter(
             alt="logo"
             src="/assets/imgs/logo.png"
           />
-          <SignUpForm submit={this.signIn} />
+          <SignUpForm submit={this.signUp} />
         </div>
       );
     }

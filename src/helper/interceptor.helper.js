@@ -8,7 +8,6 @@ function responseSuccessInterceptor(response) {
 function responseFailureInterceptor(error) {
   if (error.response.status === 401) {
     window.localStorage.removeItem('jwt');
-    history.push('/signin');
   }
   return Promise.reject(error);
 }

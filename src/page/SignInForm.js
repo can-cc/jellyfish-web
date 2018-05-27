@@ -59,7 +59,7 @@ class Form extends Component<{
         </FormItem>
         <FormItem>
           <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())}>
-            Log in
+            登录
           </Button>
         </FormItem>
       </AntForm>
