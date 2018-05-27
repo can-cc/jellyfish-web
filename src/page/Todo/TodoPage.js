@@ -27,7 +27,7 @@ export class TodoPage extends Component<{}, { todos: [] }> {
 
   async getTodos() {
     const userId = window.localStorage.getItem('userId');
-    const resp = await axios.get(`/api/todo?userId=${userId}`);
+    const resp = await axios.get(`/api/auth/todo?userId=${userId}`);
     this.setState({ todos: resp.data });
   }
 
