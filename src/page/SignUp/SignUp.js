@@ -1,9 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import axios from 'axios';
-import Button from 'antd/lib/button';
 import { SignUpForm } from './SignUpForm';
-import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, withRouter } from 'react-router-dom';
 import message from 'antd/lib/message';
 
 import './SignUp.css';

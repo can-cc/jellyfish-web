@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
 const InputGroup = Input.Group;
 
 export class TodoCreater extends Component<
-  { add$: Subject<void> },
+  { add$: Subject<void>, style: any },
   {
     value: string
   }
@@ -22,7 +22,6 @@ export class TodoCreater extends Component<
   };
 
   handleKeyPress = async (event: SyntheticEvent<HTMLInputElement>) => {
-    console.log(this.props.add$);
     if (event.key === 'Enter') {
       try {
         await axios.post('/api/todo', { content: this.state.value });
@@ -38,15 +37,23 @@ export class TodoCreater extends Component<
 
   render() {
     return (
-      <InputGroup compact>
-        <Input
-          style={{ width: '50%' }}
-          value={this.state.value}
-          onChange={this.handleChange}
-          onKeyPress={this.handleKeyPress}
-        />
-        <DatePicker />
-      </InputGroup>
+      <div style={this.props.style}>
+        <InputGroup
+          compact
+          style={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <Input
+            style={{ width: '50%' }}
+            value={this.state.value}
+            onChange={this.handleChange}
+            onKeyPress={this.handleKeyPress}
+          />
+          <DatePicker />
+        </InputGroup>
+      </div>
     );
   }
 }

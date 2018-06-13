@@ -1,10 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import axios from 'axios';
-import Button from 'antd/lib/button';
 import { SignInForm } from './SignInForm';
 import { setRequestAuth } from '../helper/interceptor.helper';
-import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import './SignIn.css';
 
