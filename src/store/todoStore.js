@@ -1,15 +1,13 @@
-import { observable, action, computed } from 'mobx';
-import agent from '../agent';
+import { runInAction, observable, action, computed } from 'mobx';
 import axios from 'axios';
 
 const LIMIT = 10;
 
 export class TodoStore {
   @observable isLoading = false;
-  @observable todosRegistry = observable.map();
+  todosRegistry = observable.map({});
 
-  @computed
-  get todos() {
+  @computed get todos() {
     return this.todosRegistry.values();
   }
 
@@ -22,43 +20,24 @@ export class TodoStore {
   }
 
   @action
-  loadTodos() {
+  loadTodos(userId: string) {
     this.isLoading = true;
-    axios
+    return axios
       .get(`/api/auth/todo?userId=${userId}`)
       .then(
-        action(resp => {
-          this.todosRegistry.clear();
-          resp.data.forEach(todo => this.todosRegistry.set(todo.id, todo));
-          return resp.data;
+        action("fetchSuccess", resp => {
+          console.log(resp);
+          /* this.todosRegistry.clear(); */
+          let i = 0;
+          resp.data.forEach(todo => {
+            console.log(todo);
+            runInAction(() => {
+              this.todosRegistry.set(i++, observable.map(todo));
+              window.todo = this.todosRegistry
+            })
+          });
         })
       )
-      .finally(() => {
-        action(() => {
-          this.isLoading = false;
-        });
-      });
-  }
-
-  @action
-  loadArticle(slug, { acceptCached = false } = {}) {
-    if (acceptCached) {
-      const article = this.getArticle(slug);
-      if (article) return Promise.resolve(article);
-    }
-    this.isLoading = true;
-    return agent.Articles.get(slug)
-      .then(
-        action(({ article }) => {
-          this.articlesRegistry.set(article.slug, article);
-          return article;
-        })
-      )
-      .finally(
-        action(() => {
-          this.isLoading = false;
-        })
-      );
   }
 
   @action
@@ -72,9 +51,8 @@ export class TodoStore {
 
   @action
   updateTodo(todo) {
-    return agent.Articles.update(data).then(({ article }) => {
-      this.articlesRegistry.set(article.slug, article);
-      return article;
+    return axios.put(`/api/todo/${todo.id}`, todo).then(({ todo }) => {
+      return todo;
     });
   }
 }

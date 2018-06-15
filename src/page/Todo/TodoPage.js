@@ -17,13 +17,10 @@ import './TodoPage.css';
 @inject('todoStore')
 @withRouter
 @observer
-export class TodoPage extends Component<{}, { todos: [] }> {
-  state = {
-    todos: []
-  };
+export class TodoPage extends Component<{ todoStore: any }, {}> {
   add$: Subject<void> = new Subject();
 
-  componentWillMount() {
+  componentDidMount() {
     this.getTodos();
 
     this.add$.subscribe(() => {
@@ -35,10 +32,13 @@ export class TodoPage extends Component<{}, { todos: [] }> {
     this.add$.complete();
   }
 
-  async getTodos() {
+  getTodos() {
     const userId = window.localStorage.getItem('userId');
-    const resp = await axios.get(`/api/auth/todo?userId=${userId}`);
-    this.setState({ todos: resp.data });
+    this.props.todoStore.loadTodos(userId);
+
+    /* const userId = window.localStorage.getItem('userId');
+     * const resp = await axios.get(`/api/auth/todo?userId=${userId}`);
+     * this.setState({ todos: resp.data }); */
   }
 
   onTodoChange = (changedTodo: any) => {
@@ -53,12 +53,15 @@ export class TodoPage extends Component<{}, { todos: [] }> {
           ...this.state.todos[oldTodoIndex],
           ...changedTodo
         },
-        this.state.todos
+        this.tate.todos
       )
     });
   };
 
   render() {
+    const { todos } = this.props.todoStore;
+    console.log(this.props.todoStore);
+    console.log(todos);
     return (
       <div
         style={{
@@ -71,7 +74,7 @@ export class TodoPage extends Component<{}, { todos: [] }> {
           }}
           add$={this.add$}
         />
-        <TodoList todos={this.state.todos} onTodoChange={this.onTodoChange} />
+        <TodoList todos={todos} onTodoChange={this.onTodoChange} />
       </div>
     );
   }

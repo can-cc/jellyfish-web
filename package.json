@@ -5,8 +5,6 @@
   "dependencies": {
     "antd": "^3.4.1",
     "axios": "^0.18.0",
-    "mobx": "^5.0.2",
-    "mobx-react": "^5.2.3",
     "ramda": "^0.25.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -16,9 +14,9 @@
     "rxjs": "^6.0.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test --env=jsdom",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow"
   },
@@ -31,8 +29,6 @@
     }
   },
   "devDependencies": {
-    "flow-bin": "^0.72.0",
-    "react-app-rewire-mobx": "^1.0.8",
-    "react-app-rewired": "^1.5.2"
+    "flow-bin": "^0.72.0"
   }
 }
