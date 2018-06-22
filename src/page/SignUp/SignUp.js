@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { SignUpForm } from './SignUpForm';
-import { BrowserRouter as Router, Route, Redirect, withRouter } from 'react-router-dom';
+import { withRouter, RouterHistory } from 'react-router-dom';
 import message from 'antd/lib/message';
 
 import './SignUp.css';

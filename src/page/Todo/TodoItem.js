@@ -13,7 +13,7 @@ export class TodoItem extends Component<{ todo: any, onChange: any }> {
           checked={todo.done}
           onChange={(event: SyntheticEvent<HTMLInputElement>) =>
             this.props.onChange({
-              id: todo.id,
+              ...todo,
               done: event.target.checked
             })
           }

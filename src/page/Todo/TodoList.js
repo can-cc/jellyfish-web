@@ -1,13 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import axios from 'axios';
-import Button from 'antd/lib/button';
-import message from 'antd/lib/message';
-import DatePicker from 'antd/lib/date-picker';
 import Collapse from 'antd/lib/collapse';
 import List from 'antd/lib/list';
-import filter from 'ramda/src/filter';
-import propEq from 'ramda/src/propEq';
 
 import { TodoItem } from './TodoItem';
 

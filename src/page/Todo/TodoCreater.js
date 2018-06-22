@@ -24,7 +24,7 @@ export class TodoCreater extends Component<
   handleKeyPress = async (event: SyntheticEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       try {
-        await axios.post('/api/todo', { content: this.state.value });
+        await axios.post('/api/auth/todo', { content: this.state.value });
         this.setState({ value: '' });
         this.props.add$.next();
         message.success('Add todo successful');
