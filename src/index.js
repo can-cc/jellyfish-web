@@ -7,4 +7,5 @@ import { setRequestAuth } from './helper/interceptor.helper';
 
 setRequestAuth();
 ReactDOM.render(<App />, document.getElementById('root'));
+
 registerServiceWorker();

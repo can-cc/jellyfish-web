@@ -1,4 +1,5 @@
 // @flow
+
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -10,21 +11,24 @@ import { Subject } from 'rxjs';
 import findIndex from 'ramda/src/findIndex';
 import update from 'ramda/src/update';
 import propEq from 'ramda/src/propEq';
-import { inject, observer } from 'mobx-react';
 
 import './TodoPage.css';
 
-@inject('todoStore')
-@withRouter
-@observer
-export class TodoPage extends Component<{ todoStore: any }, {}> {
+import store from '../../store/';
+
+export class TodoPage extends Component<{}, {}> {
   add$: Subject<void> = new Subject();
+  state = { todos: [] };
 
   componentDidMount() {
     this.getTodos();
 
     this.add$.subscribe(() => {
       this.getTodos();
+    });
+
+    store.todoMap$.subscribe((todoMap: any) => {
+      this.setState({ todos: Object.values(todoMap) });
     });
   }
 
@@ -34,34 +38,33 @@ export class TodoPage extends Component<{ todoStore: any }, {}> {
 
   getTodos() {
     const userId = window.localStorage.getItem('userId');
-    this.props.todoStore.loadTodos(userId);
 
-    /* const userId = window.localStorage.getItem('userId');
-     * const resp = await axios.get(`/api/auth/todo?userId=${userId}`);
-     * this.setState({ todos: resp.data }); */
+    const resp = axios.get(`/api/auth/todo?userId=${userId}`).then((resp: any) => {
+      resp.data.forEach((todo: any) => {
+        store.todoAdd$.next(todo);
+      });
+    });
   }
 
   onTodoChange = (changedTodo: any) => {
-    const oldTodoIndex = findIndex(propEq('id', changedTodo.id), this.state.todos);
-    if (oldTodoIndex <= -1) {
-      return;
-    }
-    this.setState({
-      todos: update(
-        oldTodoIndex,
-        {
-          ...this.state.todos[oldTodoIndex],
-          ...changedTodo
-        },
-        this.tate.todos
-      )
-    });
+    /* const oldTodoIndex = findIndex(propEq('id', changedTodo.id), this.state.todos);
+     * if (oldTodoIndex <= -1) {
+     *   return;
+     * }
+     * this.setState({
+     *   todos: update(
+     *     oldTodoIndex,
+     *     {
+     *       ...this.state.todos[oldTodoIndex],
+     *       ...changedTodo
+     *     },
+     *     this.tate.todos
+     *   )
+     * }); */
   };
 
   render() {
-    const { todos } = this.props.todoStore;
-    console.log(this.props.todoStore);
-    console.log(todos);
+    const { todos } = this.state;
     return (
       <div
         style={{
