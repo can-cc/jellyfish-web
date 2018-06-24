@@ -7,6 +7,7 @@ import update from 'ramda/src/update';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Upload, Icon, message } from 'antd';
 import store from '../store/';
+import { ImageUpload } from '../component/ImageUpload/ImageUpload';
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -26,53 +27,45 @@ function beforeUpload(file) {
   return isJPG && isLt2M;
 }
 
-export class Profile extends Component<{}, {}> {
+export class Profile extends Component<
+  {},
+  {
+    loading: boolean,
+    avatar: string,
+    username: string
+  }
+> {
   state = {
-    loading: false
+    loading: false,
+    avatar: null,
+    username: ''
   };
 
   componentDidMount() {}
 
-  componentWillUnmount() {}
+  componentWillMount() {
+    axios.get(`/api/auth/user/${window.localStorage.getItem('userId')}`).then(resp => {
+      this.setState({ avatar: resp.data.avatar, username: resp.data.username });
+    });
+  }
 
-  handleChange = info => {
-    if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl =>
-        this.setState({
-          imageUrl,
-          loading: false
-        })
-      );
-    }
+  uploadAvatar = (imageBase64: string) => {
+    axios
+      .post('/api/auth/avatar/base64', {
+        avatar: imageBase64
+      })
+      .then(resp => {
+        this.setState({ avatar: resp.data.avatar });
+      });
   };
 
   render() {
-    const uploadButton = (
-      <div>
-        <Icon type={this.state.loading ? 'loading' : 'plus'} />
-        <div className="ant-upload-text">Upload</div>
-      </div>
-    );
-    const imageUrl = this.state.imageUrl;
     return (
       <div>
-        <Upload
-          name="avatar"
-          listType="picture-card"
-          className="avatar-uploader"
-          headers={{ Authorization: `Bearer ${window.localStorage.getItem('jwt')}` }}
-          showUploadList={false}
-          action="/api/auth/avatar"
-          beforeUpload={beforeUpload}
-          onChange={this.handleChange}
-        >
-          {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
-        </Upload>
+        <div style={{ textAlign: 'center' }}>
+          <ImageUpload source={this.state.avatar} upload={this.uploadAvatar} />
+          <div>{this.state.username}</div>
+        </div>
       </div>
     );
   }

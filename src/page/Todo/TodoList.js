@@ -7,18 +7,23 @@ import { TodoItem } from './TodoItem';
 
 const Panel = Collapse.Panel;
 
-export class TodoList extends Component<{ todos: [], onTodoChange: any }> {
+class TodoCollection extends Component<{ todos: any[], onTodoChange: any }, {}> {
+  return() {
+    <List
+      size="large"
+      header={null}
+      footer={null}
+      dataSource={this.props.todos}
+      renderItem={todo => <TodoItem todo={todo} onChange={this.props.onTodoChange} />}
+    />;
+  }
+}
+
+export class TodoList extends Component<{ todos: any[], onTodoChange: any }> {
   render() {
     return (
       <div>
-        <List
-          size="large"
-          header={null}
-          footer={null}
-          bordered
-          dataSource={this.props.todos}
-          renderItem={todo => <TodoItem todo={todo} onChange={this.props.onTodoChange} />}
-        />
+        <TodoCollection todos={this.props.todos} onTodoChange={this.props.onTodoChange} />
         <Collapse>
           <Panel header="This is panel header 1" key="1">
             <List
