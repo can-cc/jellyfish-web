@@ -8,8 +8,9 @@ export class TodoItem extends Component<{ todo: any, onChange: any }> {
   render() {
     const todo = this.props.todo;
     return (
-      <List.Item style={{ height: '40px' }} key={todo.id}>
+      <List.Item style={{ height: '60px', fontSize: '26px', lineHeight: '60px' }} key={todo.id}>
         <Checkbox
+          style={{ fontSize: 40 }}
           checked={todo.done}
           onChange={(event: SyntheticEvent<HTMLInputElement>) =>
             this.props.onChange({
@@ -18,7 +19,7 @@ export class TodoItem extends Component<{ todo: any, onChange: any }> {
             })
           }
         />
-        {todo.content}
+        <div>{todo.content}</div>
       </List.Item>
     );
   }

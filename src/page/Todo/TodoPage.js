@@ -29,8 +29,8 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
 
     store.todoUpdate$
       .pipe(
-        debounceTime(500),
         distinctUntilChanged(),
+        debounceTime(500),
         switchMap(todo => axios.put(`/api/auth/todo/${todo.id}`, todo))
       )
       .subscribe();
