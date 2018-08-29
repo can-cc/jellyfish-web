@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import List from 'antd/lib/list';
+import Icon from 'antd/lib/icon';
 import { TodoItem } from './TodoItem';
 
 class TodoCollection extends Component<{ todos: any[], onTodoChange: any }, {}> {
@@ -38,6 +39,7 @@ export class TodoList extends Component<
       <div>
         <TodoCollection todos={undonedTodos} onTodoChange={this.props.onTodoChange} />
         <div style={{ cursor: 'pointer' }} onClick={this.onToggleShowDoneTodo}>
+          <Icon style={{ fontSize: 20 }} type="tags-o" />
           显示已完成
         </div>
         {this.state.showDone && (

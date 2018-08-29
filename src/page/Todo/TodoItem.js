@@ -28,7 +28,11 @@ export class TodoItem extends Component<{ todo: any, onChange: any }> {
           }
         />
         <div>{todo.content}</div>
-        {todo.deadline && <Tag color="#f50">{moment(todo.deadline).format('YYYY-MM-DD')}</Tag>}
+        {todo.deadline && (
+          <Tag color="#f50" style={{ marginLeft: '10px' }}>
+            {moment(todo.deadline).format('YYYY-MM-DD')}
+          </Tag>
+        )}
       </List.Item>
     );
   }
