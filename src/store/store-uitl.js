@@ -7,7 +7,7 @@ export function addTodo(todo: any) {
   };
 }
 
-export function updateTodo(todo: any) => {
+export function updateTodo(todo: any) {
   return (todoMap: any) => {
     return {
       ...todoMap,

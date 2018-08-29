@@ -58,7 +58,7 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
     return (
       <div
         style={{
-          padding: '40px 20px'
+          padding: '40px 100px'
         }}
       >
         <TodoCreater

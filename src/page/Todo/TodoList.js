@@ -27,16 +27,22 @@ export class TodoList extends Component<
     showDone: false
   };
 
-  onToggleShowDone = () => {
+  onToggleShowDoneTodo = () => {
     this.setState({ showDone: !this.state.showDone });
   };
 
   render() {
-    const todos = this.props.todos.filter(todo => (this.state.showDone ? true : !todo.done));
+    const undonedTodos = this.props.todos.filter(todo => !todo.done);
+    const donedTodos = this.props.todos.filter(todo => todo.done);
     return (
       <div>
-        <TodoCollection todos={todos} onTodoChange={this.props.onTodoChange} />
-        <div onClick={this.onToggleShowDoneTodo}>显示已完成</div>
+        <TodoCollection todos={undonedTodos} onTodoChange={this.props.onTodoChange} />
+        <div style={{ cursor: 'pointer' }} onClick={this.onToggleShowDoneTodo}>
+          显示已完成
+        </div>
+        {this.state.showDone && (
+          <TodoCollection todos={donedTodos} onTodoChange={this.props.onTodoChange} />
+        )}
       </div>
     );
   }
