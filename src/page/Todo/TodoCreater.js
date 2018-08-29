@@ -7,6 +7,7 @@ import Input from 'antd/lib/input';
 import Select from 'antd/lib/select';
 import DatePicker from 'antd/lib/date-picker';
 import { Subject } from 'rxjs';
+import Moment from 'moment';
 
 const InputGroup = Input.Group;
 const Option = Select.Option;
@@ -14,20 +15,24 @@ const Option = Select.Option;
 export class TodoCreater extends Component<
   { add$: Subject<void>, style: any },
   {
-    value: string
+    content: string,
+    deadline: Moment
   }
 > {
   state = { value: '' };
 
   handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
-    this.setState({ value: event.target.value });
+    this.setState({ content: event.target.value });
   };
 
   handleKeyPress = async (event: SyntheticEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       try {
-        await axios.post('/api/auth/todo', { content: this.state.value });
-        this.setState({ value: '' });
+        await axios.post('/api/auth/todo', {
+          content: this.state.content,
+          deadline: this.state.deadline ? this.state.deadline.valueOf() : null
+        });
+        this.setState({ content: null, deadline: null });
         this.props.add$.next();
         message.success('Add todo successful');
       } catch (error) {
@@ -35,6 +40,10 @@ export class TodoCreater extends Component<
         message.error('Add a todo failure, please retry later.');
       }
     }
+  };
+
+  onDeadlineChange = value => {
+    this.setState({ deadline: value });
   };
 
   render() {
@@ -54,11 +63,15 @@ export class TodoCreater extends Component<
           </Select>
           <Input
             style={{ width: '50%' }}
-            value={this.state.value}
+            value={this.state.content}
             onChange={this.handleChange}
             onKeyPress={this.handleKeyPress}
           />
-          <DatePicker placeholder="截止时间" />
+          <DatePicker
+            value={this.state.deadline}
+            onChange={this.onDeadlineChange}
+            placeholder="截止时间"
+          />
         </InputGroup>
       </div>
     );

@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import message from 'antd/lib/message';
 import List from 'antd/lib/list';
+import Tag from 'antd/lib/tag';
 import Checkbox from 'antd/lib/checkbox';
+import moment from 'moment';
 
 import './TodoItem.css';
 
@@ -26,6 +28,7 @@ export class TodoItem extends Component<{ todo: any, onChange: any }> {
           }
         />
         <div>{todo.content}</div>
+        {todo.deadline && <Tag color="#f50">{moment(todo.deadline).format('YYYY-MM-DD')}</Tag>}
       </List.Item>
     );
   }
