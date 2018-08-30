@@ -38,8 +38,8 @@ export class TodoList extends Component<
     return (
       <div>
         <TodoCollection todos={undonedTodos} onTodoChange={this.props.onTodoChange} />
-        <div style={{ cursor: 'pointer' }} onClick={this.onToggleShowDoneTodo}>
-          <Icon style={{ fontSize: 20 }} type="tags-o" />
+        <div style={{ marginLeft: -10, cursor: 'pointer' }} onClick={this.onToggleShowDoneTodo}>
+          <Icon style={{ fontSize: 22, verticalAlign: 'middle' }} type="tags-o" />
           显示已完成
         </div>
         {this.state.showDone && (
