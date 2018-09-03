@@ -16,10 +16,11 @@ export class TodoCreater extends Component<
   { add$: Subject<void>, style: any },
   {
     content: string,
-    deadline: Moment
+    deadline: Moment,
+    type: string
   }
 > {
-  state = { value: '' };
+  state = { value: '', type: 'NORMAL' };
 
   handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
     this.setState({ content: event.target.value });
@@ -30,7 +31,8 @@ export class TodoCreater extends Component<
       try {
         await axios.post('/api/auth/todo', {
           content: this.state.content,
-          deadline: this.state.deadline ? this.state.deadline.valueOf() : null
+          deadline: this.state.deadline ? this.state.deadline.valueOf() : null,
+          type: this.state.type
         });
         this.setState({ content: null, deadline: null });
         this.props.add$.next();
@@ -46,6 +48,10 @@ export class TodoCreater extends Component<
     this.setState({ deadline: value });
   };
 
+  onTodoTypeChange = value => {
+    this.setState({ type: value });
+  };
+
   render() {
     return (
       <div style={this.props.style}>
@@ -57,7 +63,7 @@ export class TodoCreater extends Component<
             transform: 'scale(1.3, 1.3)'
           }}
         >
-          <Select defaultValue="NORMAL">
+          <Select defaultValue="NORMAL" onChange={this.onTodoTypeChange}>
             <Option value="NORMAL">待办</Option>
             <Option value="HABIT">习惯</Option>
           </Select>

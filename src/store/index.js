@@ -1,7 +1,7 @@
 // @flow
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, scan } from 'rxjs/operators';
-import { addTodo, updateTodo } from './store-uitl';
+import { addTodo, updateTodo, updateCycleTodo } from './store-uitl';
 
 const INIT_TODO_MAP = {};
 
@@ -9,6 +9,7 @@ class Store {
   todoMap$: Subject<any>;
   todoAdd$ = new Subject();
   todoUpdate$ = new Subject();
+  todoCycleUpdate$ = new Subject();
   todoMapUpdate$ = new Subject();
 
   constructor() {
@@ -21,6 +22,7 @@ class Store {
     this.todoAdd$.pipe(map(addTodo)).subscribe(this.todoMapUpdate$);
 
     this.todoUpdate$.pipe(map(updateTodo)).subscribe(this.todoMapUpdate$);
+    this.todoCycleUpdate$.pipe(map(updateCycleTodo)).subscribe(this.todoMapUpdate$);
   }
 }
 

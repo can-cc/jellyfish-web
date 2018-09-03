@@ -4,7 +4,7 @@ import List from 'antd/lib/list';
 import Icon from 'antd/lib/icon';
 import { TodoItem } from './TodoItem';
 
-class TodoCollection extends Component<{ todos: any[], onTodoChange: any }, {}> {
+class TodoCollection extends Component<{ todos: any[], onTodoDoneChange: any }, {}> {
   render() {
     return (
       <List
@@ -12,14 +12,14 @@ class TodoCollection extends Component<{ todos: any[], onTodoChange: any }, {}> 
         header={null}
         footer={null}
         dataSource={this.props.todos}
-        renderItem={todo => <TodoItem todo={todo} onChange={this.props.onTodoChange} />}
+        renderItem={todo => <TodoItem todo={todo} onDoneChange={this.props.onTodoDoneChange} />}
       />
     );
   }
 }
 
 export class TodoList extends Component<
-  { todos: any[], onTodoChange: any },
+  { todos: any[], onTodoDoneChange: any },
   {
     showDone: boolean
   }
@@ -37,13 +37,13 @@ export class TodoList extends Component<
     const donedTodos = this.props.todos.filter(todo => todo.done);
     return (
       <div>
-        <TodoCollection todos={undonedTodos} onTodoChange={this.props.onTodoChange} />
+        <TodoCollection todos={undonedTodos} onTodoDoneChange={this.props.onTodoDoneChange} />
         <div style={{ marginLeft: -10, cursor: 'pointer' }} onClick={this.onToggleShowDoneTodo}>
           <Icon style={{ fontSize: 22, verticalAlign: 'middle' }} type="tags-o" />
           显示已完成
         </div>
         {this.state.showDone && (
-          <TodoCollection todos={donedTodos} onTodoChange={this.props.onTodoChange} />
+          <TodoCollection todos={donedTodos} onTodoDoneChange={this.props.onTodoDoneChange} />
         )}
       </div>
     );

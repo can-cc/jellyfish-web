@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import './TodoItem.css';
 
-export class TodoItem extends Component<{ todo: any, onChange: any }> {
+export class TodoItem extends Component<{ todo: any, onDoneChange: any }> {
   render() {
     const todo = this.props.todo;
     return (
@@ -21,7 +21,7 @@ export class TodoItem extends Component<{ todo: any, onChange: any }> {
           style={{ fontSize: 40, marginRight: 30 }}
           checked={todo.done}
           onChange={(event: SyntheticEvent<HTMLInputElement>) =>
-            this.props.onChange({
+            this.props.onDoneChange({
               ...todo,
               done: event.target.checked
             })
@@ -31,6 +31,12 @@ export class TodoItem extends Component<{ todo: any, onChange: any }> {
         {todo.deadline && (
           <Tag color="#f50" style={{ marginLeft: '10px' }}>
             {moment(todo.deadline).format('YYYY-MM-DD')}
+          </Tag>
+        )}
+
+        {todo.type === 'HABIT' && (
+          <Tag color="#2db7f5" style={{ marginLeft: '10px' }}>
+            习惯
           </Tag>
         )}
       </List.Item>

@@ -28,10 +28,18 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
     });
 
     store.todoUpdate$
+      .pipe(distinctUntilChanged(), switchMap(todo => axios.put(`/api/auth/todo/${todo.id}`, todo)))
+      .subscribe();
+
+    store.todoCycleUpdate$
       .pipe(
         distinctUntilChanged(),
-        debounceTime(500),
-        switchMap(todo => axios.put(`/api/auth/todo/${todo.id}`, todo))
+        switchMap(todo =>
+          axios.post(`/api/auth/todo/${todo.id}/cycle`, {
+            todoId: todo.id,
+            done: todo.done
+          })
+        )
       )
       .subscribe();
   }
@@ -49,8 +57,12 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
     });
   }
 
-  onTodoChange = (changedTodo: any) => {
-    store.todoUpdate$.next(changedTodo);
+  onTodoDoneChange = (changedTodo: any) => {
+    if (changedTodo.type === 'HABIT') {
+      store.todoCycleUpdate$.next(changedTodo);
+    } else {
+      store.todoUpdate$.next(changedTodo);
+    }
   };
 
   render() {
@@ -67,7 +79,7 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
           }}
           add$={this.add$}
         />
-        <TodoList todos={todos} onTodoChange={this.onTodoChange} />
+        <TodoList todos={todos} onTodoDoneChange={this.onTodoDoneChange} />
       </div>
     );
   }
