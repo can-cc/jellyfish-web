@@ -22,7 +22,11 @@ export function updateTodo(todo: any) {
 export function updateCycleTodo(todo) {
   return (todoMap: any) => {
     return {
-      ...todoMap
+      ...todoMap,
+      [todo.id]: {
+        ...(todoMap[todo.id] || {}),
+        ...todo
+      }
     };
   };
 }

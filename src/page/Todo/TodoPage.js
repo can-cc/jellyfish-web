@@ -18,6 +18,7 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
 
   componentDidMount() {
     this.getTodos();
+    this.getCycleTodoDone();
 
     this.add$.subscribe(() => {
       this.getTodos();
@@ -57,6 +58,13 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
     });
   }
 
+  getCycleTodoDone() {
+    const userId = window.localStorage.getItem('userId');
+    const resp = axios.get(`/api/auth/todo/cycle?userId=${userId}`).then((resp: any) => {
+      console.log('resp', resp);
+    });
+  }
+
   onTodoDoneChange = (changedTodo: any) => {
     if (changedTodo.type === 'HABIT') {
       store.todoCycleUpdate$.next(changedTodo);
@@ -70,7 +78,9 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
     return (
       <div
         style={{
-          padding: '40px 100px'
+          padding: '40px 100px',
+          width: '50%',
+          margin: 'auto auto'
         }}
       >
         <TodoCreater
