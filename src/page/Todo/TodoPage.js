@@ -87,7 +87,17 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
           margin: 'auto auto'
         }}
       >
-        <img src={this.state.avatar} />
+        <img
+          src={this.state.avatar}
+          style={{
+            width: '150px',
+            height: '150px',
+            borderRadius: '50%',
+            display: 'block',
+            margin: 'auto',
+            marginBottom: '50px'
+          }}
+        />
         <TodoCreater
           style={{
             marginBottom: '30px'
