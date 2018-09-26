@@ -43,6 +43,10 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
         )
       )
       .subscribe();
+
+    axios.get(`/api/auth/user/${window.localStorage.getItem('userId')}`).then(resp => {
+      this.setState({ avatar: resp.data.avatar, username: resp.data.username });
+    });
   }
 
   componentWillUnmount() {
@@ -83,6 +87,7 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
           margin: 'auto auto'
         }}
       >
+        <img src={this.state.avatar} />
         <TodoCreater
           style={{
             marginBottom: '30px'
