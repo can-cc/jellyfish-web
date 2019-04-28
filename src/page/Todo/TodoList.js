@@ -1,10 +1,10 @@
-// @flow
+//      
 import React, { Component } from 'react';
 import List from 'antd/lib/list';
 import Icon from 'antd/lib/icon';
 import { TodoItem } from './TodoItem';
 
-class TodoCollection extends Component<{ todos: any[], onTodoDoneChange: any }, {}> {
+class TodoCollection extends Component                                              {
   render() {
     return (
       <List
@@ -18,12 +18,12 @@ class TodoCollection extends Component<{ todos: any[], onTodoDoneChange: any }, 
   }
 }
 
-export class TodoList extends Component<
-  { todos: any[], onTodoDoneChange: any },
+export class TodoList extends Component 
+                                          
+   
+                     
+   
   {
-    showDone: boolean
-  }
-> {
   state = {
     showDone: false
   };

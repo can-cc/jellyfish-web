@@ -1,4 +1,4 @@
-// @flow
+//      
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -12,8 +12,8 @@ import './TodoPage.css';
 
 import store from '../../store/';
 
-export class TodoPage extends Component<{}, { todos: any[] }> {
-  add$: Subject<void> = new Subject();
+export class TodoPage extends Component                       {
+  add$                = new Subject();
   state = { todos: [] };
 
   componentDidMount() {
@@ -24,7 +24,7 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
       this.getTodos();
     });
 
-    store.todoMap$.subscribe((todoMap: any) => {
+    store.todoMap$.subscribe((todoMap     ) => {
       this.setState({ todos: Object.values(todoMap) });
     });
 
@@ -55,8 +55,8 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
 
   getTodos() {
     const userId = window.localStorage.getItem('userId');
-    const resp = axios.get(`/api/auth/todo?userId=${userId}`).then((resp: any) => {
-      resp.data.forEach((todo: any) => {
+    const resp = axios.get(`/api/auth/todo?userId=${userId}`).then((resp     ) => {
+      resp.data.forEach((todo     ) => {
         store.todoAdd$.next(todo);
       });
     });
@@ -64,12 +64,12 @@ export class TodoPage extends Component<{}, { todos: any[] }> {
 
   getCycleTodoDone() {
     const userId = window.localStorage.getItem('userId');
-    const resp = axios.get(`/api/auth/todo/cycle?userId=${userId}`).then((resp: any) => {
+    const resp = axios.get(`/api/auth/todo/cycle?userId=${userId}`).then((resp     ) => {
       console.log('resp', resp);
     });
   }
 
-  onTodoDoneChange = (changedTodo: any) => {
+  onTodoDoneChange = (changedTodo     ) => {
     if (changedTodo.type === 'HABIT') {
       store.todoCycleUpdate$.next(changedTodo);
     } else {

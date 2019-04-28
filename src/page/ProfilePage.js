@@ -1,4 +1,4 @@
-// @flow
+//      
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -9,7 +9,7 @@ import { Profile } from './Profile';
 
 import store from '../store/';
 
-export class ProfilePage extends Component<{}, {}> {
+export class ProfilePage extends Component         {
   componentDidMount() {}
 
   componentWillUnmount() {}

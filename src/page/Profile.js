@@ -1,4 +1,4 @@
-// @flow
+//      
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -27,14 +27,14 @@ function beforeUpload(file) {
   return isJPG && isLt2M;
 }
 
-export class Profile extends Component<
-  {},
+export class Profile extends Component 
+     
+   
+                     
+                   
+                    
+   
   {
-    loading: boolean,
-    avatar: string,
-    username: string
-  }
-> {
   state = {
     loading: false,
     avatar: null,
@@ -49,7 +49,7 @@ export class Profile extends Component<
     });
   }
 
-  uploadAvatar = (imageBase64: string) => {
+  uploadAvatar = (imageBase64        ) => {
     axios
       .post('/api/auth/avatar/base64', {
         avatar: imageBase64

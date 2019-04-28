@@ -1,4 +1,4 @@
-// @flow
+//      
 import React, { Component } from 'react';
 import axios from 'axios';
 import { SignUpForm } from './SignUpForm';
@@ -8,14 +8,14 @@ import message from 'antd/lib/message';
 import './SignUp.css';
 
 export const SignUp = withRouter(
-  class extends Component<
+  class extends Component 
+     
+                            
+      
+     
+                      
+     
     {
-      history: RouterHistory
-    },
-    {
-      fromApp: boolean
-    }
-  > {
     state = {
       fromApp: false
     };
@@ -25,7 +25,7 @@ export const SignUp = withRouter(
       this.setState({ fromApp });
     }
 
-    signUp = (data: SignInFormData) => {
+    signUp = (data                ) => {
       axios
         .post('/api/signup', data)
         .then(() => {

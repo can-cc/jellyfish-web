@@ -1,4 +1,4 @@
-// @flow
+//      
 import React, { Component } from 'react';
 import message from 'antd/lib/message';
 import List from 'antd/lib/list';
@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import './TodoItem.css';
 
-export class TodoItem extends Component<{ todo: any, onDoneChange: any }> {
+export class TodoItem extends Component                                   {
   render() {
     const todo = this.props.todo;
     return (
@@ -20,7 +20,7 @@ export class TodoItem extends Component<{ todo: any, onDoneChange: any }> {
         <Checkbox
           style={{ fontSize: 40, marginRight: 30 }}
           checked={todo.done}
-          onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+          onChange={(event                                  ) =>
             this.props.onDoneChange({
               ...todo,
               done: event.target.checked

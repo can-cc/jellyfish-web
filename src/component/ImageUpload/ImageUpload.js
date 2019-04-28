@@ -1,4 +1,4 @@
-// @flow
+//      
 import React, { Component } from 'react';
 import ReactCrop from 'react-image-crop';
 import { Button, Modal } from 'antd';
@@ -7,18 +7,18 @@ import { imageCrop } from './ImageUpload.helper';
 import './ImageUpload.css';
 import 'react-image-crop/dist/ReactCrop.css';
 
-export class ImageUpload extends Component<
+export class ImageUpload extends Component 
+   
+                
+                  
+    
+   
+                          
+                         
+                               
+             
+   
   {
-    upload: any,
-    source: string
-  },
-  {
-    modalVisible: boolean,
-    imageDataURL: string,
-    cropedimageDataUrl: string,
-    crop: any
-  }
-> {
   state = {
     modalVisible: false,
     imageDataURL: '',
@@ -31,7 +31,7 @@ export class ImageUpload extends Component<
       width: 50
     }
   };
-  fileInput: any;
+                 
 
   handleCancelModal = () => {
     this.setState({
@@ -44,7 +44,7 @@ export class ImageUpload extends Component<
     this.closeModal();
   };
 
-  cropImage = async (crop: any, pixelCrop: any) => {
+  cropImage = async (crop     , pixelCrop     ) => {
     if (!pixelCrop) {
       return;
     }
@@ -59,15 +59,15 @@ export class ImageUpload extends Component<
     this.setState({ crop });
   };
 
-  onCropChange = (crop: any, pixelCrop: any) => {
+  onCropChange = (crop     , pixelCrop     ) => {
     this.setState({ crop });
   };
 
-  onCropComplete = (crop: any, pixelCrop: any) => {
+  onCropComplete = (crop     , pixelCrop     ) => {
     this.cropImage(crop, pixelCrop);
   };
 
-  onImageLoaded = (crop: any, image: any, pixelCrop: any) => {
+  onImageLoaded = (crop     , image     , pixelCrop     ) => {
     this.cropImage(crop, pixelCrop);
   };
 

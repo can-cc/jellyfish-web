@@ -1,4 +1,4 @@
-// @flow
+//      
 import React, { Component } from 'react';
 import Button from 'antd/lib/button';
 import { Router, Route, Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ import { history } from './history';
 
 import './App.css';
 
-class App extends Component<{}> {
+class App extends Component     {
   render() {
     return (
       <Router history={history}>

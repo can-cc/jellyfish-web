@@ -1,4 +1,4 @@
-// @flow
+//      
 import React, { Component } from 'react';
 import axios from 'axios';
 import Button from 'antd/lib/button';
@@ -12,21 +12,21 @@ import Moment from 'moment';
 const InputGroup = Input.Group;
 const Option = Select.Option;
 
-export class TodoCreater extends Component<
-  { add$: Subject<void>, style: any },
+export class TodoCreater extends Component 
+                                      
+   
+                    
+                     
+                
+   
   {
-    content: string,
-    deadline: Moment,
-    type: string
-  }
-> {
   state = { value: '', type: 'NORMAL' };
 
-  handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
+  handleChange = (event                                  ) => {
     this.setState({ content: event.target.value });
   };
 
-  handleKeyPress = async (event: SyntheticEvent<HTMLInputElement>) => {
+  handleKeyPress = async (event                                  ) => {
     if (event.key === 'Enter') {
       try {
         await axios.post('/api/auth/todo', {
