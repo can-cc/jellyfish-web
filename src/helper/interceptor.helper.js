@@ -16,7 +16,7 @@ function setupAxiosInterceptor() {
   axios.interceptors.response.use(responseSuccessInterceptor, responseFailureInterceptor);
 }
 
-function setupAxiosJwtHeader(jwt: string) {
+function setupAxiosJwtHeader(jwt) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('jwt');
 }
 

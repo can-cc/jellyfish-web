@@ -1,5 +1,5 @@
-export function addTodo(todo: any) {
-  return (todoMap: any) => {
+export function addTodo(todo) {
+  return (todoMap) => {
     return {
       ...todoMap,
       [todo.id]: todo
@@ -7,8 +7,8 @@ export function addTodo(todo: any) {
   };
 }
 
-export function updateTodo(todo: any) {
-  return (todoMap: any) => {
+export function updateTodo(todo) {
+  return (todoMap) => {
     return {
       ...todoMap,
       [todo.id]: {
@@ -20,7 +20,7 @@ export function updateTodo(todo: any) {
 }
 
 export function updateCycleTodo(todo) {
-  return (todoMap: any) => {
+  return (todoMap) => {
     return {
       ...todoMap,
       [todo.id]: {

@@ -1,7 +1,5 @@
-//      
 import React, { Component } from 'react';
-import Button from 'antd/lib/button';
-import { Router, Route, Link } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 
 import { SignIn } from './page/SignIn';
 import { SignUp } from './page/SignUp/SignUp';
@@ -12,7 +10,7 @@ import { history } from './history';
 
 import './App.css';
 
-class App extends Component     {
+class App extends Component<any> {
   render() {
     return (
       <Router history={history}>
