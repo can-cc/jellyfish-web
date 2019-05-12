@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { history } from '../history';
 
-function responseSuccessInterceptor(response) {
+function responseSuccessInterceptor(response: any) {
   return response;
 }
 
-function responseFailureInterceptor(error) {
+function responseFailureInterceptor(error: any) {
   if (error.response.status === 401) {
     window.localStorage.removeItem('jwt');
   }
@@ -16,7 +16,7 @@ function setupAxiosInterceptor() {
   axios.interceptors.response.use(responseSuccessInterceptor, responseFailureInterceptor);
 }
 
-function setupAxiosJwtHeader(jwt) {
+function setupAxiosJwtHeader() {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('jwt');
 }
 
