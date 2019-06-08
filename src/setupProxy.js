@@ -1,13 +1,13 @@
-const proxy = require("http-proxy-middleware");
+const proxy = require('http-proxy-middleware');
 
 module.exports = function(app) {
   app.use(
-    proxy("/api", {
-      target: "http://localhost:8000/",
+    proxy('/api', {
+      target: 'http://localhost:8000/',
       pathRewrite: {
-        "^/api/": "/"
+        '^/api/': '/'
       }
     })
   );
-  app.use(proxy("/upload", { target: "http://localhost:8000/" }));
+  app.use(proxy('/upload', { target: 'http://localhost:8000/' }));
 };

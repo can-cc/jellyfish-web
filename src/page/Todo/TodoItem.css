@@ -1,9 +1,3 @@
-
-
-.todo-item .ant-list-item-content  {
+.todo-item .ant-list-item-content {
   align-items: center;
-}
-
-.todo-item .ant-checkbox {
-  transform: scale(1.8, 1.8);
 }

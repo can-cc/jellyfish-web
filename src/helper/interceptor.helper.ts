@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { history } from '../history';
 
 function responseSuccessInterceptor(response: any) {
   return response;
@@ -17,7 +16,8 @@ function setupAxiosInterceptor() {
 }
 
 function setupAxiosJwtHeader() {
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('jwt');
+  axios.defaults.headers.common['App-Authorization'] =
+    'Bearer ' + window.localStorage.getItem('auth-token');
 }
 
 export function setRequestAuth() {

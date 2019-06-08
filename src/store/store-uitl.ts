@@ -18,15 +18,3 @@ export function updateTodo(todo: any) {
     };
   };
 }
-
-export function updateCycleTodo(todo: any) {
-  return (todoMap: any) => {
-    return {
-      ...todoMap,
-      [todo.id]: {
-        ...(todoMap[todo.id] || {}),
-        ...todo
-      }
-    };
-  };
-}

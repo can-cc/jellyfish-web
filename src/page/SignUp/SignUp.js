@@ -1,4 +1,4 @@
-//      
+//
 import React, { Component } from 'react';
 import axios from 'axios';
 import { SignUpForm } from './SignUpForm';
@@ -8,14 +8,7 @@ import message from 'antd/lib/message';
 import './SignUp.css';
 
 export const SignUp = withRouter(
-  class extends Component 
-     
-                            
-      
-     
-                      
-     
-    {
+  class extends Component {
     state = {
       fromApp: false
     };
@@ -25,7 +18,7 @@ export const SignUp = withRouter(
       this.setState({ fromApp });
     }
 
-    signUp = (data                ) => {
+    signUp = data => {
       axios
         .post('/api/signup', data)
         .then(() => {

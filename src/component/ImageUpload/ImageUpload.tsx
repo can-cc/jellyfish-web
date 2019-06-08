@@ -1,4 +1,3 @@
-//      
 import React, { Component } from 'react';
 import ReactCrop from 'react-image-crop';
 import { Button, Modal } from 'antd';
@@ -7,18 +6,7 @@ import { imageCrop } from './ImageUpload.helper';
 import './ImageUpload.css';
 import 'react-image-crop/dist/ReactCrop.css';
 
-export class ImageUpload extends Component 
-   
-                
-                  
-    
-   
-                          
-                         
-                               
-             
-   
-  {
+export class ImageUpload extends Component<any, any> {
   state = {
     modalVisible: false,
     imageDataURL: '',
@@ -31,7 +19,7 @@ export class ImageUpload extends Component
       width: 50
     }
   };
-                 
+  fileInput: any;
 
   handleCancelModal = () => {
     this.setState({
@@ -44,7 +32,7 @@ export class ImageUpload extends Component
     this.closeModal();
   };
 
-  cropImage = async (crop     , pixelCrop     ) => {
+  cropImage = async (crop, pixelCrop) => {
     if (!pixelCrop) {
       return;
     }
@@ -59,15 +47,15 @@ export class ImageUpload extends Component
     this.setState({ crop });
   };
 
-  onCropChange = (crop     , pixelCrop     ) => {
+  onCropChange = (crop, pixelCrop) => {
     this.setState({ crop });
   };
 
-  onCropComplete = (crop     , pixelCrop     ) => {
+  onCropComplete = (crop, pixelCrop) => {
     this.cropImage(crop, pixelCrop);
   };
 
-  onImageLoaded = (crop     , image     , pixelCrop     ) => {
+  onImageLoaded = (crop, image, pixelCrop) => {
     this.cropImage(crop, pixelCrop);
   };
 
@@ -84,7 +72,7 @@ export class ImageUpload extends Component
       return;
     }
     const reader = new FileReader();
-    reader.onload = e => {
+    reader.onload = (e: any) => {
       this.setState({ imageDataURL: e.target.result });
     };
     reader.readAsDataURL(this.fileInput.files[0]);

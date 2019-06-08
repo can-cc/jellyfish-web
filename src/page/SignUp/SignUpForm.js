@@ -1,4 +1,4 @@
-//      
+//
 import React, { Component } from 'react';
 import axios from 'axios';
 import AntForm from 'antd/lib/form';
@@ -7,7 +7,6 @@ import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
-                                             
 
 const FormItem = AntForm.Item;
 
@@ -15,13 +14,7 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class FormComponent extends Component 
-   
-                        
-                          
-    
-                                              
-  {
+class FormComponent extends Component {
   state = {
     confirmDirty: false,
     captchaId: null
@@ -43,7 +36,7 @@ class FormComponent extends Component
   handleSubmit = e => {
     this.props.form.validateFields();
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err       , values                ) => {
+    this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.submit(values);
       }

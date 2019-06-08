@@ -1,10 +1,9 @@
-//      
+//
 import React, { Component } from 'react';
 import AntForm from 'antd/lib/form';
 import Icon from 'antd/lib/icon';
 import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
-                                             
 
 const FormItem = AntForm.Item;
 
@@ -12,10 +11,7 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class Form extends Component  
-                      
-                        
-   {
+class Form extends Component {
   componentDidMount() {
     // To disabled submit button at the beginning.
     this.props.form.validateFields();
@@ -23,7 +19,7 @@ class Form extends Component
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err       , values                ) => {
+    this.props.form.validateFields((err, values) => {
       this.props.submit(values);
     });
   };
