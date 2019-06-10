@@ -1,6 +1,7 @@
 import { Subject, Observable } from 'rxjs';
 import { map, scan } from 'rxjs/operators';
 import { addTodo, updateTodo } from './store-uitl';
+import { UserInfo } from '../model/user-info';
 
 export interface TodoMap {
   [id: string]: any;
@@ -13,6 +14,7 @@ class Store {
   public todoUpdate$ = new Subject();
   public todoMapUpdate$ = new Subject();
   public user$ = new Subject();
+  public userInfo$: Subject<UserInfo> = new Subject();
   public todoMap$: Observable<TodoMap>;
 
   constructor() {

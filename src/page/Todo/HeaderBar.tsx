@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
+import { Link } from "react-router-dom";
+
 export class HeaderBar extends Component<any, any> {
+
+
+
   render() {
     return (
       <div>
@@ -15,6 +20,8 @@ export class HeaderBar extends Component<any, any> {
             marginBottom: '50px'
           }}
         />
+
+        <Link to="/profile">user</Link>
       </div>
     );
   }
