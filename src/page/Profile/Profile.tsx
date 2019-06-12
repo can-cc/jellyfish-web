@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { ImageUpload } from '../component/ImageUpload/ImageUpload';
-import { AppAction } from '../action';
-import store from '../store/store';
-import { UserInfo } from '../model/user-info';
+import { ImageUpload } from '../../component/ImageUpload/ImageUpload';
+import { AppAction } from '../../action';
+import store from '../../store/store';
+import { UserInfo } from '../../model/user-info';
 
 export class Profile extends Component<any, {
   loading: boolean,

@@ -11,7 +11,7 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class Form extends Component {
+class Form extends Component<any, any> {
   componentDidMount() {
     // To disabled submit button at the beginning.
     this.props.form.validateFields();
@@ -63,4 +63,4 @@ class Form extends Component {
   }
 }
 
-export const SignInForm = AntForm.create()(Form);
+export const SignInForm = AntForm.create<any>()(Form);
