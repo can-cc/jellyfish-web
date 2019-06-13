@@ -1,0 +1,35 @@
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.modal-header::after {
+  display: block;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -30px;
+  width: calc(100% + 60px);
+  height: 1px;
+  background-color: #d8d8d8;
+}
+
+.modal-header--title {
+  font-weight: 700;
+}
+
+.modal-header--close {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-header--close:hover {
+  color: #16a8f8;
+  cursor: pointer;
+}

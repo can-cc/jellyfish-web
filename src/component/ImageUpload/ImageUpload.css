@@ -1,27 +1,44 @@
-.image-upload {
+.app-image-upload {
   display: inline-block;
   position: relative;
   cursor: pointer;
 }
 
-.image-uploader-modal .crop-image-container {
-  text-align: center;
+.app-image-upload img {
+  display: block;
 }
 
-.image-upload .ReactCrop__image {
+.app-image-upload .ReactCrop__image {
   margin: 0 auto;
   user-select: none;
+  display: block;
 }
 
-.image-upload .ReactCrop {
+.app-image-upload .ReactCrop {
   background-color: transparent !important;
 }
 
-.image-upload input {
-  visibility: hidden;
+.app-image-upload--upload-button {
   position: absolute;
-  height: 0;
-  width: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+  z-index: 1;
+}
+
+.app-image-upload:hover .app-image-upload--upload-button {
+  opacity: 1; 
+}
+
+.app-image-upload input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
   top: 0;
   left: 0;
+  z-index: 10;
+  opacity: 0;
+  cursor: pointer;
 }

@@ -1,0 +1,15 @@
+
+.app-button {
+  border: none;
+  -webkit-appearance: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+}
+
+.app-button.primary {
+  background-color: #16a8f8;
+  color: white;
+}

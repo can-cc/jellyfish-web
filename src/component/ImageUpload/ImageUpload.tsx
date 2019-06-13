@@ -1,33 +1,45 @@
 import React, { Component } from 'react';
 import ReactCrop from 'react-image-crop';
-import { Button } from 'antd';
-import ReactModal from 'react-modal';
+import ReactModal from '../Modal';
 import { getCroppedImage } from './ImageUpload.helper';
+import { ModalHeader } from '../ModalHeader';
+import { Button } from '../Button';
 
 import './ImageUpload.css';
 import 'react-image-crop/dist/ReactCrop.css';
 
 const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    transform             : 'translate(-50%, -50%)'
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)'
   }
 };
 
-export class ImageUpload extends Component<any, any> {
-  
+export class ImageUpload extends Component<{
+  imageSource: string;
+  onCrop: (data: string) => void;
+}, {
+  modalVisible: boolean;
+  cropedImageData: string;
+  imageDataURL: string;
+  crop: {
+    x: number;
+    y: number;
+    aspect: number;
+  }
+}> {
   state = {
     modalVisible: false,
     imageDataURL: '',
-    cropedimageDataUrl: '',
+    cropedImageData: '',
     crop: {
       x: 0,
       y: 0,
-      aspect: 1,
-    },
+      aspect: 1
+    }
   };
   fileInput: any;
   imageRef: HTMLImageElement;
@@ -39,24 +51,20 @@ export class ImageUpload extends Component<any, any> {
   };
 
   upload = () => {
-    this.props.upload(this.state.cropedimageDataUrl);
+    this.props.onCrop(this.state.cropedImageData);
     this.closeModal();
   };
 
-  cropImage = (crop) => {
-    console.log(crop)
-    console.log('pixelCrop', crop, this);
+  cropImage = crop => {
     if (!crop || !this.imageRef) {
       return;
     }
-    const cropedimageDataUrl = getCroppedImage(
-      this.imageRef, crop
-    );
-    this.setState({ cropedimageDataUrl });
+    const cropedImageData = getCroppedImage(this.imageRef, crop);
+    this.setState({ cropedImageData });
     this.setState({ crop });
   };
 
-  onCropChange = (crop) => {
+  onCropChange = crop => {
     this.setState({ crop });
   };
 
@@ -69,15 +77,15 @@ export class ImageUpload extends Component<any, any> {
     this.cropImage(this.state.crop);
   };
 
-  openFilePicker = () => {
+  openFilePicker = (): void => {
     this.fileInput.click();
   };
 
-  closeModal = () => {
+  closeModal = (): void => {
     this.setState({ modalVisible: false });
   };
 
-  openModal = () => {
+  openModal = (): void => {
     if (!this.fileInput.files) {
       return;
     }
@@ -92,7 +100,7 @@ export class ImageUpload extends Component<any, any> {
 
   render() {
     return (
-      <div className="image-upload">
+      <div className="app-image-upload">
         <img
           style={{
             width: '180px',
@@ -102,9 +110,15 @@ export class ImageUpload extends Component<any, any> {
             backgroundColor: '#f8f8f8'
           }}
           alt=""
-          src={this.props.source}
+          src={this.props.imageSource}
           onClick={this.openFilePicker}
         />
+        <Button
+          className="app-image-upload--upload-button"
+          onClick={this.upload}
+          title="Upload Avatar"
+        />
+
         <input
           ref={ref => (this.fileInput = ref)}
           type="file"
@@ -114,10 +128,12 @@ export class ImageUpload extends Component<any, any> {
 
         <ReactModal
           style={customStyles}
-          title="裁剪您的新头像2:"
           isOpen={this.state.modalVisible}
+          // isOpen={true}
         >
-          <div className="crop-image-container">
+          <ModalHeader title="Crop your avatar" closeable={true} onClose={this.closeModal} />
+
+          <div className="app-crop-image-container">
             <ReactCrop
               crop={this.state.crop}
               onChange={this.onCropChange}
@@ -127,9 +143,7 @@ export class ImageUpload extends Component<any, any> {
             />
           </div>
 
-          <Button type="primary" key="1" onClick={this.upload}>
-              上传头像
-            </Button>
+          <Button type="primary" onClick={this.upload} title="上传头像" />
         </ReactModal>
       </div>
     );

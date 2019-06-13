@@ -29,13 +29,13 @@ export class Profile extends Component<any, {
     });
   }
 
-  public uploadAvatar = (imageBase64: any) => {
+  public uploadAvatar = (imageBase64: string) => {
     axios
       .post('/api/auth/avatar/base64', {
         avatarData: imageBase64
       })
       .then(resp => {
-        this.setState({ avatarUrl: resp.data.avatar });
+        this.setState({ avatarUrl: resp.data.avatarUrl });
       });
   };
 
@@ -43,7 +43,7 @@ export class Profile extends Component<any, {
     return (
       <div>
         <div style={{ textAlign: 'center' }}>
-          <ImageUpload source={this.state.avatarUrl} upload={this.uploadAvatar} />
+          <ImageUpload imageSource={this.state.avatarUrl} onCrop={this.uploadAvatar} />
           <div>{this.state.username}</div>
         </div>
       </div>

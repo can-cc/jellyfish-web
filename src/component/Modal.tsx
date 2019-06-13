@@ -1,1 +1,5 @@
-export * from 'react-modal';
+import './Modal.css';
+
+import ReactModal from 'react-modal';
+
+export default ReactModal;
