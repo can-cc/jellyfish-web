@@ -5,12 +5,12 @@ import { TodoCreator } from './TodoCreator';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 import store from '../../store/store';
 import { Todo } from '../../model/todo';
-import { HeaderBar } from './HeaderBar';
+import { AsideBar } from './AsideBar';
 
 import './TodoPage.css';
 
 export class TodoPage extends Component<any, any> {
-  state = { todos: [], avatar: '' };
+  state = { todos: [], avatar: '', avatarUrl: '', username: '' };
 
   componentDidMount() {
     this.getTodos();
@@ -27,7 +27,7 @@ export class TodoPage extends Component<any, any> {
       .subscribe();
 
     axios.get(`/api/auth/user/${window.localStorage.getItem('userId')}`).then(resp => {
-      this.setState({ avatarUrl: resp.data.avatar, username: resp.data.username });
+      this.setState({ avatarUrl: resp.data.avatarUrl, username: resp.data.username });
     });
   }
 
@@ -54,16 +54,18 @@ export class TodoPage extends Component<any, any> {
     const { todos } = this.state;
     return (
       <div
+        className="todo-page"
         style={{
           padding: '40px 100px',
-          width: '50%',
           margin: 'auto auto'
         }}
       >
-        <HeaderBar />
+        <AsideBar avatarUrl={this.state.avatarUrl} username={this.state.username}/>
 
-        <TodoCreator onCreate={this.onCreateTodo} />
-        <TodoList todos={todos} onTodoDoneChange={this.onTodoDoneChange} />
+        <div>
+          <TodoCreator onCreate={this.onCreateTodo} />
+          <TodoList todos={todos} onTodoDoneChange={this.onTodoDoneChange} />
+        </div>
       </div>
     );
   }

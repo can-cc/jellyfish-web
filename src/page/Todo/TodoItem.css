@@ -1,3 +1,13 @@
 .todo-item .ant-list-item-content {
   align-items: center;
 }
+
+.app-checkbox {
+  flex-shrink: 0;
+}
+
+.todo-item--content {
+  padding-left: 18px;
+  width: 100%;
+}
+

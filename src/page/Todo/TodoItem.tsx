@@ -3,8 +3,10 @@ import List from 'antd/lib/list';
 import Tag from 'antd/lib/tag';
 import moment from 'moment';
 
-import './TodoItem.css';
 import { Checkbox } from '../../component/Checkbox';
+
+import './TodoItem.css';
+
 
 export class TodoItem extends Component<any, any> {
   render() {
@@ -16,21 +18,24 @@ export class TodoItem extends Component<any, any> {
         key={todo.id}
       >
         <Checkbox
-          style={{ fontSize: 40, marginRight: 30 }}
-          checked={todo.done}
-          onChange={event =>
+          defaultChecked={todo.done}
+          onChange={(checked: boolean) =>
             this.props.onDoneChange({
               ...todo,
-              done: event.target.checked
+              done: checked
             })
           }
         />
-        <div>{todo.content}</div>
-        {todo.deadline && (
-          <Tag color="#f50" style={{ marginLeft: '10px' }}>
-            {moment(todo.deadline).format('YYYY-MM-DD')}
-          </Tag>
-        )}
+
+        <div className="todo-item--content">
+          <div>{todo.content}</div>
+
+          {todo.deadline && (
+            <Tag color="#f50" style={{ marginLeft: '10px' }}>
+              {moment(todo.deadline).format('YYYY-MM-DD')}
+            </Tag>
+          )}
+        </div>
       </List.Item>
     );
   }

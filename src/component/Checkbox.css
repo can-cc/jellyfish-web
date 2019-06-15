@@ -1,0 +1,46 @@
+.app-rounded-checkbox {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  margin: 20px auto;
+  background: #80d7ff;
+  border-radius: 50px;
+}
+
+.app-rounded-checkbox .label {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  cursor: pointer;
+  background: white;
+  border-radius: 50px;
+}
+
+.app-rounded-checkbox .label::after {
+  content: "";
+  width: 13px;
+  height: 8px;
+  position: absolute;
+  top: 7px;
+  left: 5px;
+  border: 3.5px solid #28bbff;
+  border-top: none;
+  border-right: none;
+  background: transparent;
+  opacity: 0;
+  transform: rotate(-45deg);
+}
+
+.app-rounded-checkbox .label:after:hover::after {
+  opacity: 0.3;
+}
+
+.app-rounded-checkbox input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.app-rounded-checkbox input[type="checkbox"]:checked + .label::after {
+  opacity: 1;
+}
