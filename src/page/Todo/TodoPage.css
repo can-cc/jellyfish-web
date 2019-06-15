@@ -1,4 +1,10 @@
 .todo-page {
   display: flex;
   justify-content: center;
+  padding: 40px 100px;
+  margin: auto auto;
+}
+
+.todo-creator {
+  margin-top: 16px;
 }

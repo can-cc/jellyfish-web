@@ -14,6 +14,7 @@ export class AsideBar extends Component<{
     return (
       <aside className="todo-page-aside">
         <img
+          alt="todo-page-aside--avatar"
           className="todo-page-aside--avatar"
           src={this.props.avatarUrl}
         />

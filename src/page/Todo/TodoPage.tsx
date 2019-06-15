@@ -2,18 +2,31 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { TodoList } from './TodoList';
 import { TodoCreator } from './TodoCreator';
-import { distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
 import store from '../../store/store';
-import { Todo } from '../../model/todo';
 import { AsideBar } from './AsideBar';
 
 import './TodoPage.css';
+import { AppAction } from '../../action';
+import { Todo } from '../../model/todo';
+import { Subject } from 'rxjs';
+import { UserInfo } from '../../model/user-info';
+import { userInfo } from 'os';
 
-export class TodoPage extends Component<any, any> {
-  state = { todos: [], avatar: '', avatarUrl: '', username: '' };
+export class TodoPage extends Component<
+  {},
+  {
+    todos: Todo[];
+    avatarUrl: string;
+    username: string;
+  }
+> {
+  state = { todos: [], avatarUrl: '', username: '' };
+  complete$ = new Subject<void>();
 
   componentDidMount() {
-    this.getTodos();
+    AppAction.getTodos();
+    AppAction.getUserInfo();
 
     store.todoMap$.subscribe(todoMap => {
       this.setState({ todos: Object.values(todoMap) });
@@ -26,45 +39,27 @@ export class TodoPage extends Component<any, any> {
       )
       .subscribe();
 
-    axios.get(`/api/auth/user/${window.localStorage.getItem('userId')}`).then(resp => {
-      this.setState({ avatarUrl: resp.data.avatarUrl, username: resp.data.username });
-    });
-  }
-
-  componentWillUnmount() {}
-
-  getTodos() {
-    const userId = window.localStorage.getItem('userId');
-    axios.get(`/api/auth/todo?userId=${userId}`).then(resp => {
-      resp.data.forEach((todo: Todo) => {
-        store.todoAdd$.next(todo);
+    store.userInfo$.pipe(takeUntil(this.complete$)).subscribe((userInfo: UserInfo) => {
+      this.setState({
+        username: userInfo.username,
+        avatarUrl: userInfo.avatarUrl
       });
     });
   }
 
-  onTodoDoneChange = (changedTodo: any) => {
-    store.todoUpdate$.next(changedTodo);
-  };
-
-  onCreateTodo = () => {
-    this.getTodos();
-  };
+  componentWillUnmount() {
+    this.complete$.next();
+  }
 
   render() {
     const { todos } = this.state;
     return (
-      <div
-        className="todo-page"
-        style={{
-          padding: '40px 100px',
-          margin: 'auto auto'
-        }}
-      >
-        <AsideBar avatarUrl={this.state.avatarUrl} username={this.state.username}/>
+      <div className="todo-page">
+        <AsideBar avatarUrl={this.state.avatarUrl} username={this.state.username} />
 
         <div>
-          <TodoCreator onCreate={this.onCreateTodo} />
-          <TodoList todos={todos} onTodoDoneChange={this.onTodoDoneChange} />
+          <TodoCreator />
+          <TodoList todos={todos} />
         </div>
       </div>
     );

@@ -2,13 +2,23 @@ import React, { Component } from 'react';
 import List from 'antd/lib/list';
 import Tag from 'antd/lib/tag';
 import moment from 'moment';
-
 import { Checkbox } from '../../component/Checkbox';
+import { Todo } from '../../model/todo';
 
 import './TodoItem.css';
+import { AppAction } from '../../action';
 
+export class TodoItem extends Component<{
+  todo: Todo
+}, any> {
 
-export class TodoItem extends Component<any, any> {
+  onDoneChanged(checked: boolean) {
+    AppAction.updateTodo({
+      ...this.props.todo,
+      done: checked
+    });
+  }
+
   render() {
     const todo = this.props.todo;
     return (
@@ -20,10 +30,7 @@ export class TodoItem extends Component<any, any> {
         <Checkbox
           defaultChecked={todo.done}
           onChange={(checked: boolean) =>
-            this.props.onDoneChange({
-              ...todo,
-              done: checked
-            })
+            this.onDoneChanged(checked)
           }
         />
 

@@ -1,17 +1,19 @@
 import React, { Component, KeyboardEvent } from 'react';
-import axios from 'axios';
 import message from 'antd/lib/message';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import './TodoCreator.css';
+import { AppAction } from '../../action';
   
 export interface CreateTodoInput {
   content: string;
 }
 
 export class TodoCreator extends Component<
-  any,
+  {
+    onCreated?: () => void
+  },
   {
     value: string;
     content: string;
@@ -28,23 +30,17 @@ export class TodoCreator extends Component<
     if (event.key !== 'Enter') {
       return;
     }
-    try {
-      const deadline: number = this.state.deadline ? this.state.deadline!.valueOf() : null;
 
-      axios
-        .post('/api/auth/todo', {
-          content: this.state.content,
-          deadline
-        })
-        .then();
+    AppAction.createTodo({
+      content: this.state.content,
+      deadline: this.state.deadline
+    });
 
-      this.resetForm();
-      this.props.add$.next();
-      message.success('Add todo successful');
-    } catch (error) {
-      console.error(error);
-      message.error('Add a todo failure, please retry later.');
-    }
+    this.props.onCreated && this.props.onCreated();
+
+    this.resetForm();
+
+    message.success('Add todo successful');
   };
 
   onDeadlineChange = (value: any) => {
@@ -60,6 +56,7 @@ export class TodoCreator extends Component<
       <div className="todo-creator">
         <FontAwesomeIcon icon={faPlus} />
         <input
+          placeholder="Add Todo.."
           value={this.state.content}
           onChange={this.handleChange}
           onKeyPress={this.handleKeyPress}
