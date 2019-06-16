@@ -19,11 +19,12 @@ class TodoCollection extends Component<any, any> {
   }
 }
 
-export class TodoList extends Component<any, any> {
-  state = {
-    showDone: false
-  };
-
+export class TodoList extends Component<
+  {
+    todos: Todo[];
+  },
+  {}
+> {
   render() {
     const undonedTodos = this.props.todos.filter(todo => !todo.done);
     return (

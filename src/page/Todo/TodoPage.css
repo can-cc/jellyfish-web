@@ -5,6 +5,11 @@
   margin: auto auto;
 }
 
+.todo-page .tag-select {
+  margin-top: 12px;
+  margin-left: 24px;
+}
+
 .todo-creator {
   margin-top: 16px;
 }

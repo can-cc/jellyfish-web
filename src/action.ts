@@ -32,7 +32,6 @@ export class AppAction {
       });
     });
   }
-
   static updateTodo(updatedTodo: Todo): Promise<void> {
     return axios.put(`/api/todo/${updatedTodo.id}`, updatedTodo).then(() => {
       AppAction.getTodos();

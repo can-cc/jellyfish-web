@@ -11,7 +11,7 @@ import { AppAction } from '../../action';
 import { Todo } from '../../model/todo';
 import { Subject } from 'rxjs';
 import { UserInfo } from '../../model/user-info';
-import { userInfo } from 'os';
+import { TodoFilter } from './TodoFilter';
 
 export class TodoPage extends Component<
   {},
@@ -61,6 +61,8 @@ export class TodoPage extends Component<
           <TodoCreator />
           <TodoList todos={todos} />
         </div>
+
+        <TodoFilter />
       </div>
     );
   }
