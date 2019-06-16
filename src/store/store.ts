@@ -1,7 +1,9 @@
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { map, scan } from 'rxjs/operators';
 import { addTodo, updateTodo } from './store-uitl';
 import { UserInfo } from '../model/user-info';
+import { TodoTag } from '../model/todo-tag';
+import { Todo } from '../model/todo';
 
 export interface TodoMap {
   [id: string]: any;
@@ -10,24 +12,13 @@ export interface TodoMap {
 const INIT_TODO_MAP: TodoMap = {};
 
 class Store {
-  public todoAdd$ = new Subject();
-  public todoUpdate$ = new Subject();
-  public todoMapUpdate$ = new Subject();
+  public todos$: Subject<Todo[]> = new Subject<Todo[]>();
+  
   public user$ = new Subject();
   public userInfo$: Subject<UserInfo> = new Subject();
-  public todoMap$: Observable<TodoMap>;
 
-  constructor() {
-    this.todoMap$ = this.todoMapUpdate$.pipe(
-      scan((todoMap: any, operation: any) => {
-        return operation(todoMap);
-      }, INIT_TODO_MAP)
-    );
-
-    this.todoAdd$.pipe(map(addTodo)).subscribe(this.todoMapUpdate$);
-
-    this.todoUpdate$.pipe(map(updateTodo)).subscribe(this.todoMapUpdate$);
-  }
+  public filterTag$: BehaviorSubject<TodoTag> = new BehaviorSubject<TodoTag>(TodoTag.Doing);
 }
 
-export default new Store();
+export const AppStore = new Store();
+export default AppStore;

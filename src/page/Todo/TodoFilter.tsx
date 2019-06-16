@@ -1,32 +1,64 @@
 import React, { Component } from 'react';
 import { TagSelect } from '../../component/TagSelect';
-import { TodoStatus } from '../../model/todo-status';
+import { TodoTag } from '../../model/todo-tag';
 import './TodoFilter.css';
+import { AppAction } from '../../action';
+import { Subject } from 'rxjs';
+import AppStore from '../../store/store';
+import { takeUntil } from 'rxjs/operators';
+import { faTshirt } from '@fortawesome/free-solid-svg-icons';
+import { tsImportEqualsDeclaration } from '@babel/types';
 
 const tagOptions = [
   {
-    value: TodoStatus.Doning,
-    viewValue: 'Doning',
+    value: TodoTag.Doing,
+    viewValue: 'Doing',
     icon: 'walking'
   },
   {
-    value: TodoStatus.All,
-    viewValue: 'All Todo',
+    value: TodoTag.All,
+    viewValue: 'All',
     icon: 'list'
   },
   {
-    value: TodoStatus.Done,
+    value: TodoTag.Done,
     viewValue: 'Done',
     icon: 'checkSquare'
-  },
- 
+  }
 ];
 
-export class TodoFilter extends Component {
+export class TodoFilter extends Component<
+  any,
+  {
+    selectedTag: TodoTag;
+  }
+> {
+  state = {
+    selectedTag: null
+  };
+  complete$ = new Subject();
+
+  componentWillMount() {
+    AppStore.filterTag$.pipe(takeUntil(this.complete$)).subscribe((tag: TodoTag) => {
+      this.setState({
+        selectedTag: tag
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.complete$.next();
+    this.complete$.complete();
+  }
+
+  onTagChange(selectedTag: TodoTag): void {
+    AppAction.updateTodoTag(selectedTag);
+  }
+
   render() {
     return (
       <div>
-        <TagSelect options={tagOptions} defaultSelectedValue={TodoStatus.Doning} />
+        <TagSelect options={tagOptions} defaultSelectedValue={this.state.selectedTag} onChange={this.onTagChange}/>
       </div>
     );
   }

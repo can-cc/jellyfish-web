@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TodoList } from './TodoList';
 import { TodoCreator } from './TodoCreator';
 import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
-import store from '../../store/store';
+import store, { AppStore } from '../../store/store';
 import { AsideBar } from './AsideBar';
 
 import './TodoPage.css';
@@ -28,18 +28,11 @@ export class TodoPage extends Component<
     AppAction.getTodos();
     AppAction.getUserInfo();
 
-    store.todoMap$.subscribe(todoMap => {
-      this.setState({ todos: Object.values(todoMap) });
+    AppStore.todos$.subscribe((todos: Todo[]) => {
+      this.setState({ todos });
     });
 
-    store.todoUpdate$
-      .pipe(
-        distinctUntilChanged(),
-        switchMap((todo: any) => axios.put(`/api/auth/todo/${todo.id}`, todo))
-      )
-      .subscribe();
-
-    store.userInfo$.pipe(takeUntil(this.complete$)).subscribe((userInfo: UserInfo) => {
+    AppStore.userInfo$.pipe(takeUntil(this.complete$)).subscribe((userInfo: UserInfo) => {
       this.setState({
         username: userInfo.username,
         avatarUrl: userInfo.avatarUrl
@@ -49,6 +42,7 @@ export class TodoPage extends Component<
 
   componentWillUnmount() {
     this.complete$.next();
+    this.complete$.complete();
   }
 
   render() {

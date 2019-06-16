@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import List from 'antd/lib/list';
 import { TodoItem } from './TodoItem';
-
-import './TodoList.css';
 import { Todo } from '../../model/todo';
 
-class TodoCollection extends Component<any, any> {
+import './TodoList.css';
+
+class TodoCollection extends Component<{
+  todos: Todo[];
+}> {
   render() {
     return (
       <List
@@ -26,10 +28,9 @@ export class TodoList extends Component<
   {}
 > {
   render() {
-    const undonedTodos = this.props.todos.filter(todo => !todo.done);
     return (
       <div className="todo-list-container">
-        <TodoCollection todos={undonedTodos} />
+        <TodoCollection todos={this.props.todos} />
       </div>
     );
   }

@@ -5,7 +5,7 @@
 
 .tag-select--item {
     height: 34px;
-    line-height: 33px;
+    line-height: 34px;
     font-size: 18px;
     border-radius: 6px;
     padding: 0 12px;
@@ -13,6 +13,7 @@
     background-color: #e8e8e8;
     margin-bottom: 8px;
 }
+
 
 .tag-select--item svg {
     width: 32px !important;

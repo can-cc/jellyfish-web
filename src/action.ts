@@ -1,10 +1,13 @@
-import store from './store/store';
+import store, { AppStore } from './store/store';
 import axios from 'axios';
 import { CreateTodoInput, Todo } from './model/todo';
+import { TodoTag } from './model/todo-tag';
+import { take } from 'rxjs/operators';
 
 export class AppAction {
   static getUserInfo() {
     const userId = window.localStorage.getItem('userId');
+
     axios
       .get<{
         avatarUrl: string;
@@ -25,16 +28,36 @@ export class AppAction {
   }
 
   static getTodos(): void {
-    const userId = window.localStorage.getItem('userId');
-    axios.get(`/api/todo?userId=${userId}`).then(resp => {
-      resp.data.forEach((todo: Todo) => {
-        store.todoAdd$.next(todo);
+    AppStore.filterTag$.pipe(take(1)).subscribe((statusTag: TodoTag) => {
+      let requestUrl: string;
+      switch (statusTag) {
+        case TodoTag.All:
+          requestUrl = `/api/todos`;
+          break;
+        case TodoTag.Done:
+          requestUrl = `/api/todos/done`;
+          break;
+        case TodoTag.Doing:
+          requestUrl = `/api/todos/doing`;
+          break;
+      }
+      if (!requestUrl) {
+        throw new Error('Todo tag incorrect');
+      }
+      axios.get<Todo[]>(requestUrl).then(resp => {
+        AppStore.todos$.next(resp.data);
       });
     });
   }
+
   static updateTodo(updatedTodo: Todo): Promise<void> {
     return axios.put(`/api/todo/${updatedTodo.id}`, updatedTodo).then(() => {
       AppAction.getTodos();
     });
-  } 
+  }
+
+  static updateTodoTag(todoTag: TodoTag): void {
+    store.filterTag$.next(todoTag);
+    AppAction.getTodos();
+  }
 }

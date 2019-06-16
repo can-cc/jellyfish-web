@@ -12,7 +12,7 @@ const faIconMap = {
 
 export interface TagSelectOption {
   viewValue: string;
-  value: string;
+  value: any;
   bgColor?: string;
   color?: string;
   icon?: string;
@@ -24,7 +24,8 @@ export class TagSelect extends Component<
     options: TagSelectOption[];
     defaultSelectedValue: string;
     selectedBgColor?: string;
-    onChange?: (selectedValue: string) => void;
+    selectedColor?: string;
+    onChange?: (selectedValue: any) => void;
   },
   {
     selectValue: string;
@@ -49,6 +50,7 @@ export class TagSelect extends Component<
 
   render() {
     const selectedBgColor = this.props.selectedBgColor || '#80d7ff';
+    const selectedColor = this.props.selectedColor || '#fff';
     return (
       <div className="tag-select">
         {this.props.options.map((option: TagSelectOption) => {
@@ -59,7 +61,7 @@ export class TagSelect extends Component<
               style={{
                 backgroundColor:
                   this.state.selectValue === option.value ? selectedBgColor : option.bgColor,
-                color: option.color
+                color: this.state.selectValue === option.value ? selectedColor: option.color
               }}
               onClick={() => {
                 this.onChange(option.value);
