@@ -6,8 +6,6 @@ import { AppAction } from '../../action';
 import { Subject } from 'rxjs';
 import AppStore from '../../store/store';
 import { takeUntil } from 'rxjs/operators';
-import { faTshirt } from '@fortawesome/free-solid-svg-icons';
-import { tsImportEqualsDeclaration } from '@babel/types';
 
 const tagOptions = [
   {

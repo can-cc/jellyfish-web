@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { TodoList } from './TodoList';
 import { TodoCreator } from './TodoCreator';
-import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
-import store, { AppStore } from '../../store/store';
+import { takeUntil } from 'rxjs/operators';
+import { AppStore } from '../../store/store';
 import { AsideBar } from './AsideBar';
 
 import './TodoPage.css';
