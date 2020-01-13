@@ -38,7 +38,7 @@ class Form extends Component<any, any> {
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="Username"
+              placeholder="用户名"
             />
           )}
         </FormItem>
@@ -49,7 +49,7 @@ class Form extends Component<any, any> {
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
-              placeholder="Password"
+              placeholder="密码"
             />
           )}
         </FormItem>

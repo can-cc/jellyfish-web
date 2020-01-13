@@ -1,0 +1,19 @@
+.signin-logo {
+  width: 120px;
+  height: 120px;
+  margin: 18px auto;
+  display: block;
+}
+
+.signin-window {
+  width: 500px;
+  margin: auto auto;
+  border-radius: 6px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0px 0px 7px #e8e8e8;
+  padding: 18px 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
