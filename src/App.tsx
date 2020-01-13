@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Router, Route, Redirect } from 'react-router-dom';
-import ReactModal from 'react-modal';
 import { SignIn } from './page/SignIn';
 import { SignUp } from './page/SignUp/SignUp';
 import { TodoPage } from './page/Todo/TodoPage';
@@ -8,8 +7,6 @@ import { ProfilePage } from './page/Profile/ProfilePage';
 import { history } from './history';
 
 import './App.css';
-
-ReactModal.setAppElement('#root')
 
 export class App extends Component<any> {
   render() {
