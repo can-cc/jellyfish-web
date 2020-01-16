@@ -4,7 +4,7 @@ import { TodoTag } from '../../model/todo-tag';
 import './TodoFilter.css';
 import { AppAction } from '../../action';
 import { Subject } from 'rxjs';
-import AppStore from '../../store/store';
+import { AppStore } from '../../store/store';
 import { takeUntil } from 'rxjs/operators';
 
 const tagOptions = [
@@ -56,7 +56,11 @@ export class TodoFilter extends Component<
   render() {
     return (
       <div>
-        <TagSelect options={tagOptions} defaultSelectedValue={this.state.selectedTag} onChange={this.onTagChange}/>
+        <TagSelect
+          options={tagOptions}
+          defaultSelectedValue={this.state.selectedTag}
+          onChange={this.onTagChange}
+        />
       </div>
     );
   }

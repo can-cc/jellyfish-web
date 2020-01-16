@@ -7,8 +7,10 @@ import { setRequestAuth } from './helper/interceptor.helper';
 
 import './index.css';
 
-setRequestAuth();
-ReactModal.setAppElement('#root')
+import { appInterceptorService } from './service/interceptor.service';
+
+appInterceptorService.setupAxiosInterceptor();
+ReactModal.setAppElement('#root');
 ReactDOM.render(<App />, document.getElementById('root'));
 
 registerServiceWorker();

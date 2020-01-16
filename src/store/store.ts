@@ -16,5 +16,5 @@ class Store {
   public filterTag$: BehaviorSubject<TodoTag> = new BehaviorSubject<TodoTag>(TodoTag.Doing);
 }
 
+// TODO: wrap in context
 export const AppStore = new Store();
-export default AppStore;

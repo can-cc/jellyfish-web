@@ -1,4 +1,3 @@
-//
 import React, { Component } from 'react';
 import AntForm from 'antd/lib/form';
 import Icon from 'antd/lib/icon';

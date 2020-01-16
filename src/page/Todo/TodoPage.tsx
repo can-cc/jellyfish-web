@@ -33,8 +33,7 @@ export class TodoPage extends Component<
 
     AppStore.userInfo$.pipe(takeUntil(this.complete$)).subscribe((userInfo: UserInfo) => {
       this.setState({
-        username: userInfo.username,
-        avatarUrl: userInfo.avatarUrl
+        username: userInfo.username
       });
     });
   }

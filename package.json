@@ -48,6 +48,8 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^4.3.3",
-    "http-proxy-middleware": "^0.19.1"
+    "http-proxy-middleware": "^0.19.1",
+    "prettier": "^1.19.1",
+    "randomstring": "^1.1.5"
   }
 }

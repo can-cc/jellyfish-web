@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { ImageUpload } from '../../component/ImageUpload/ImageUpload';
 import { AppAction } from '../../action';
-import store from '../../store/store';
+import { AppStore } from '../../store/store';
 import { UserInfo } from '../../model/user-info';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { mergeMap, takeUntil } from 'rxjs/operators';
 
-export class Profile extends Component<any, {
-  loading: boolean,
-  avatarUrl: string | null,
-  username: string
-}> {
-
+export class Profile extends Component<
+  any,
+  {
+    loading: boolean;
+    avatarUrl: string | null;
+    username: string;
+  }
+> {
   public state = {
     loading: false,
     avatarUrl: null,
@@ -25,11 +27,18 @@ export class Profile extends Component<any, {
   public componentWillMount() {
     AppAction.getUserInfo();
 
-    store.userInfo$.pipe(takeUntil(this.complete$)).subscribe((userInfo: UserInfo) => {
-      this.setState({
-        avatarUrl: userInfo.avatarUrl
-      })
-    });
+    AppStore.userInfo$
+      .pipe(
+        takeUntil(this.complete$),
+        mergeMap((userInfo: UserInfo) => {
+          return axios.get(`/api/avatar/${userInfo.id}`).then(r => r.data);
+        })
+      )
+      .subscribe(avatarBase64 => {
+        this.setState({
+          avatarUrl: avatarBase64
+        });
+      });
   }
 
   public componentWillUnmount() {
@@ -38,8 +47,8 @@ export class Profile extends Component<any, {
 
   public uploadAvatar = (imageBase64: string) => {
     axios
-      .post('/api/avatar/base64', {
-        avatarData: imageBase64
+      .post('/api/user/avatar', {
+        avatar: imageBase64
       })
       .then(resp => {
         this.setState({ avatarUrl: resp.data.avatarUrl });

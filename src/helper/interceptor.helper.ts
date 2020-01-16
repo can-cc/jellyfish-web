@@ -15,6 +15,7 @@ function responseFailureInterceptor(error: any) {
 
 function setupAxiosInterceptor() {
   axios.interceptors.response.use(responseSuccessInterceptor, responseFailureInterceptor);
+
 }
 
 function setupAxiosJwtHeader() {
