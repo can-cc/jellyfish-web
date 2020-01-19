@@ -1,4 +1,4 @@
-import { AppStore } from './store/store';
+import { appStore } from './store/store';
 import axios from 'axios';
 import { CreateTodoInput, Todo } from './model/todo';
 import { TodoTag } from './model/todo-tag';
@@ -13,7 +13,7 @@ export class AppAction {
         username: string;
       }>(`/api/user/me`)
       .then(resp => {
-        AppStore.userInfo$.next(
+        appStore.userInfo$.next(
           UserInfo.new({
             id: resp.data.id,
             username: resp.data.username
@@ -29,7 +29,7 @@ export class AppAction {
   }
 
   static getTodos(): void {
-    AppStore.filterTag$.pipe(take(1)).subscribe((statusTag: TodoTag) => {
+    appStore.filterTag$.pipe(take(1)).subscribe((statusTag: TodoTag) => {
       let requestUrl: string;
       switch (statusTag) {
         case TodoTag.All:
@@ -46,7 +46,7 @@ export class AppAction {
         throw new Error('Todo tag incorrect');
       }
       axios.get<Todo[]>(requestUrl).then(resp => {
-        AppStore.todos$.next(resp.data);
+        appStore.todos$.next(resp.data);
       });
     });
   }
@@ -58,7 +58,7 @@ export class AppAction {
   }
 
   static updateTodoTag(todoTag: TodoTag): void {
-    AppStore.filterTag$.next(todoTag);
+    appStore.filterTag$.next(todoTag);
     AppAction.getTodos();
   }
 }

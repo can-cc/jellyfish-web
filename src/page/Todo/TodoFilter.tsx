@@ -4,7 +4,7 @@ import { TodoTag } from '../../model/todo-tag';
 import './TodoFilter.css';
 import { AppAction } from '../../action';
 import { Subject } from 'rxjs';
-import { AppStore } from '../../store/store';
+import { appStore } from '../../store/store';
 import { takeUntil } from 'rxjs/operators';
 
 const tagOptions = [
@@ -37,7 +37,7 @@ export class TodoFilter extends Component<
   complete$ = new Subject();
 
   componentWillMount() {
-    AppStore.filterTag$.pipe(takeUntil(this.complete$)).subscribe((tag: TodoTag) => {
+    appStore.filterTag$.pipe(takeUntil(this.complete$)).subscribe((tag: TodoTag) => {
       this.setState({
         selectedTag: tag
       });

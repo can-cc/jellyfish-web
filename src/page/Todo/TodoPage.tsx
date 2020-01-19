@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { TodoList } from './TodoList';
 import { TodoCreator } from './TodoCreator';
-import { takeUntil } from 'rxjs/operators';
-import { AppStore } from '../../store/store';
+import { appStore } from '../../store/store';
 import { AsideBar } from './AsideBar';
 
 import './TodoPage.css';
@@ -11,6 +10,7 @@ import { Todo } from '../../model/todo';
 import { Subject } from 'rxjs';
 import { UserInfo } from '../../model/user-info';
 import { TodoFilter } from './TodoFilter';
+import axios from 'axios';
 
 export class TodoPage extends Component<
   {},
@@ -27,15 +27,24 @@ export class TodoPage extends Component<
     AppAction.getTodos();
     AppAction.getUserInfo();
 
-    AppStore.todos$.subscribe((todos: Todo[]) => {
+    appStore.todos$.subscribe((todos: Todo[]) => {
       this.setState({ todos });
     });
 
-    AppStore.userInfo$.pipe(takeUntil(this.complete$)).subscribe((userInfo: UserInfo) => {
-      this.setState({
-        username: userInfo.username
-      });
-    });
+    // appStore.userInfo$.pipe(takeUntil(this.complete$)).subscribe((userInfo: UserInfo) => {
+    //   this.setState({
+    //     username: userInfo.username
+    //   });
+    //
+    //   // axios
+    //   //   .get(`/api/avatar/${userInfo.id}`)
+    //   //   .then(r => r.data)
+    //   //   .then(avatar => {
+    //   //     this.setState({
+    //   //       avatarUrl: avatar
+    //   //     });
+    //   //   });
+    // });
   }
 
   componentWillUnmount() {
@@ -47,7 +56,7 @@ export class TodoPage extends Component<
     const { todos } = this.state;
     return (
       <div className="todo-page">
-        <AsideBar avatarUrl={this.state.avatarUrl} username={this.state.username} />
+        <AsideBar />
 
         <div>
           <TodoCreator />
