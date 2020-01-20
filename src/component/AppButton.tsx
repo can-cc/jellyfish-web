@@ -4,10 +4,11 @@ import './Button.css';
 
 export type ButtonType = 'primary';
 
-export class Button extends Component<{
-  title: string;
+export class AppButton extends Component<{
+  title?: string;
   type?: ButtonType;
   onClick: () => void;
+  bgColor?: string;
   className?: string;
 }> {
   onClick = (): void => {
@@ -23,8 +24,10 @@ export class Button extends Component<{
 
   render() {
     return (
-      <button className={this.buildClassName()} onClick={this.onClick}>
-        {this.props.title}
+      <button style={{
+        background: this.props.bgColor
+      }} className={this.buildClassName()} onClick={this.onClick}>
+        {this.props.title ? this.props.title : this.props.children}
       </button>
     );
   }

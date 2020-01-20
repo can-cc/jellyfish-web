@@ -4,6 +4,7 @@ import './TodoBoxes.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faStar, faSun } from '@fortawesome/free-regular-svg-icons';
 import { faPlus, faTasks } from '@fortawesome/free-solid-svg-icons';
+import { AppButton } from '../../../../component/AppButton';
 
 export function TodoBoxes() {
   return (
@@ -29,9 +30,11 @@ export function TodoBoxes() {
 
       <div className="divider"></div>
 
-      <div>
-        <FontAwesomeIcon color="#fff" icon={faPlus} />
-        <span>新建清单</span>
+      <div className="add-todo-list">
+        <AppButton bgColor={'transparent'} onClick={() => {}}>
+          <FontAwesomeIcon color="#fff" icon={faPlus} />
+          <span>新建清单</span>
+        </AppButton>
       </div>
     </div>
   );
