@@ -5,6 +5,7 @@ import { AppAction } from '../../action';
 import { AppStore } from '../../store/store';
 import { Subject } from 'rxjs';
 import { AppStoreContext } from '../../context/store-context';
+import { takeUntil } from 'rxjs/operators';
 
 export class Profile extends Component<
   any,
@@ -45,7 +46,9 @@ export class Profile extends Component<
     return (
       <AppStoreContext.Consumer>
         {(appStore: AppStore) => {
-          appStore.userAvatar$.subscribe(a => this.setState({ avatar: a }));
+          appStore.userAvatar$
+            .pipe(takeUntil(this.complete$))
+            .subscribe(a => this.setState({ avatar: a }));
           return (
             <div>
               <div style={{ textAlign: 'center' }}>

@@ -1,0 +1,22 @@
+.TodoSearcher {
+  position: relative;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.TodoSearcher svg {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+}
+
+.TodoSearcher input {
+  -webkit-appearance: none;
+  border: 0;
+  border-style: none;
+  border-radius: 3px;
+  display: block;
+  width: 100%;
+  padding: 3px 10px 3px 28px;
+  font-size: 14px;
+}

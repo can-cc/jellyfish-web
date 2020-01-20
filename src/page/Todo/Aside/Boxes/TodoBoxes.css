@@ -1,0 +1,29 @@
+.TodoBoxes {
+}
+.TodoBoxes ul {
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 8px;
+  list-style: none;
+}
+
+.TodoBoxes ul li {
+  cursor: pointer;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+
+.TodoBoxes ul li svg {
+  width: 28px !important;
+  margin-left: -6px;
+}
+
+.TodoBoxes ul li.selected {
+  background-color: #eeeeee;
+}
+
+.TodoBoxes .divider {
+  height: 1px;
+  width: 100%;
+  background-color: #fff;
+}
