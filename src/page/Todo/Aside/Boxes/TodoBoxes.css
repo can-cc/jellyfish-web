@@ -20,6 +20,7 @@
 
 .TodoBoxes ul li.selected {
   background-color: #eeeeee;
+  font-weight: bolder;
 }
 
 .TodoBoxes .divider {

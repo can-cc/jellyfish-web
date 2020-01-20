@@ -23,42 +23,41 @@ export class AppAction {
   }
 
   static createTodo(createTodoInput: CreateTodoInput): Promise<void> {
-    return axios.post('/api/taco', createTodoInput).then(() => {
-      AppAction.getTodos();
-    });
+    return axios.post('/api/taco', createTodoInput);
   }
 
   static getTodos(): void {
     appStore.filterTag$.pipe(take(1)).subscribe((statusTag: TodoTag) => {
-      let requestUrl: string;
+      let statusParams;
       switch (statusTag) {
-        case TodoTag.All:
-          requestUrl = `/api/todos`;
+        case 'Doing':
+        case 'Done': {
+          statusParams = statusTag;
           break;
-        case TodoTag.Done:
-          requestUrl = `/api/todos/done`;
-          break;
-        case TodoTag.Doing:
-          requestUrl = `/api/tacos`;
-          break;
+        }
+        case 'All':
+        default:
+          statusParams = 'Done,Doing';
       }
-      if (!requestUrl || !statusTag) {
-        throw new Error('Todo tag incorrect');
-      }
-      axios.get<Todo[]>(requestUrl).then(resp => {
-        appStore.todos$.next(resp.data);
-      });
+      axios
+        .get<Todo[]>(`/api/tacos`, {
+          params: {
+            status: statusParams
+          }
+        })
+        .then(resp => {
+          appStore.todos$.next(resp.data);
+        });
     });
   }
 
   static updateTodo(updatedTodo: Todo): Promise<void> {
-    return axios.put(`/api/todo/${updatedTodo.id}`, updatedTodo).then(() => {
+    return axios.put(`/api/taco/${updatedTodo.id}`, updatedTodo).then(() => {
       AppAction.getTodos();
     });
   }
 
   static updateTodoTag(todoTag: TodoTag): void {
     appStore.filterTag$.next(todoTag);
-    AppAction.getTodos();
   }
 }

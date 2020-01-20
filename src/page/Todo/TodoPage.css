@@ -15,5 +15,14 @@
 }
 
 .todo-page--main {
-  padding-left: 20px;
+  background-color: #f8f8f8;
+  padding: 20px;
+  width: 100%;
+}
+
+.todo-page--main .main-heading {
+  font-size: 30px;
+  font-weight: 900;
+  color: #0074b3;
+  margin-bottom: 8px;
 }

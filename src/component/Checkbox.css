@@ -1,18 +1,18 @@
 .app-rounded-checkbox {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   position: relative;
-  margin: 20px auto;
+  margin: auto;
   background: #80d7ff;
   border-radius: 50px;
 }
 
 .app-rounded-checkbox .label {
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   position: absolute;
-  top: 3px;
-  left: 3px;
+  top: 2px;
+  left: 2px;
   cursor: pointer;
   background: white;
   border-radius: 50px;
@@ -20,12 +20,12 @@
 
 .app-rounded-checkbox .label::after {
   content: "";
-  width: 13px;
-  height: 8px;
+  width: 10px;
+  height: 6px;
   position: absolute;
-  top: 7px;
-  left: 5.5px;
-  border: 3.5px solid #28bbff;
+  top: 4px;
+  left: 2.5px;
+  border: 3px solid #28bbff;
   border-top: none;
   border-right: none;
   background: transparent;

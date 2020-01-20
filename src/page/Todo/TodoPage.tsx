@@ -7,7 +7,6 @@ import { AsideBar } from './Aside/AsideBar';
 import { AppAction } from '../../action';
 import { Todo } from '../../model/todo';
 import { Subject } from 'rxjs';
-import { TodoFilter } from './TodoFilter';
 import { takeUntil } from 'rxjs/operators';
 
 import './TodoPage.css';
@@ -44,11 +43,10 @@ export class TodoPage extends Component<
         <AsideBar />
 
         <div className="todo-page--main">
+          <div className="main-heading">任务</div>
           <TodoCreator />
           <TodoList todos={todos} />
         </div>
-
-        <TodoFilter />
       </div>
     );
   }

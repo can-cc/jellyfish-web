@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TodoBoxes } from './Boxes/TodoBoxes';
 import { TodoSearcher } from './TodoSearcher/TodoSearcher';
+import { TodoFilter } from './TodoFilter';
 
 export class AsideBar extends Component<
   {},
@@ -51,6 +52,8 @@ export class AsideBar extends Component<
               <div className="todo-page-aside--info">
                 <Link to="/profile">{this.state.username}</Link>
               </div>
+
+              <TodoFilter />
 
               <TodoBoxes />
             </aside>

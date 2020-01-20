@@ -6,7 +6,7 @@ export interface CreateTodoInput {
 export class Todo {
   public id: string;
   public content: string;
-  public done: boolean;
+  public status: string;
   public deadline: Date;
   public createdAt: Date;
   public updatedAt: Date;

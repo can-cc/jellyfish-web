@@ -1,16 +1,13 @@
 .todo-creator {
   position: relative;
-  height: 56px;
-  width: 520px;
-  border: 1px solid #ccc;
-  border-radius: 30px;
+  height: 42px;
 }
 
 .todo-creator .svg-inline--fa {
   position: absolute;
   z-index: 1;
   top: 50%;
-  left: 24px;
+  left: 16px;
   transform: translate(0, -50%);
   color: #28bbff;
   font-size: 18px;
@@ -22,13 +19,18 @@
   position: relative;
   height: 100%;
   width: 100%;
-  padding-left: 48px;
-  border-radius: 30px;
-  font-size: 18px;
+  padding-left: 42px;
+  border-radius: 5px;
+  font-size: 14px;
   box-shadow: 0 0 8px #fff;
   transition: all 100ms ease-in-out;
+  color: #006fa2;
+  background-color: #80d7ff3b;
+}
+
+.todo-creator input::placeholder {
+  color: #006fa2;
 }
 
 .todo-creator input:focus {
-  box-shadow: 0 0 8px #28bbff;
 }

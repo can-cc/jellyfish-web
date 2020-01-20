@@ -1,0 +1,26 @@
+.TagSelect {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.TagSelect--item {
+  align-items: center;
+  display: flex;
+  font-size: 12px;
+  border-radius: 3px;
+  padding: 3px 12px 2px;
+  cursor: pointer;
+  background-color: #fff;
+  margin-bottom: 8px;
+  width: 32%;
+}
+
+.TagSelect--item.selected {
+  font-weight: bolder;
+}
+
+.TagSelect--item svg {
+  margin-top: -1px;
+  margin-right: 6px;
+}
