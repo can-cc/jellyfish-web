@@ -1,7 +1,8 @@
 .TodoDetail {
-  padding: 24px 12px;
+  padding: 24px 36px 12px 12px;
   flex-shrink: 0;
   width: 320px;
+  overflow: scroll;
 }
 
 .TodoDetail-todo-content {
@@ -14,4 +15,17 @@
 .TodoDetail-todo-content .app-checkbox {
   margin-top: 2px;
   margin-right: 12px;
+}
+
+.TodoDetail .comment-field  {
+  padding-top: 8px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.TodoDetail .comment-field textarea {
+  border: 0;
+  width: 100%;
+  resize: none;
+  outline: none;
+  -webkit-appearance: none;
 }

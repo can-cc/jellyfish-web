@@ -1,14 +1,18 @@
 .DetailField {
   border-bottom: 1px solid #e8e8e8;
-  padding-top: 18px;
-  line-height: 38px;
+  line-height: 50px;
+  color: #777;
 }
 
 .DetailField svg {
-    width: 24px !important;
-    margin-right: 10px;
-    margin-left: -2px;
-    font-size: 18px;
-    position: relative;
-    top: 2px;
+  width: 24px !important;
+  margin-right: 10px;
+  margin-left: -2px;
+  font-size: 18px;
+  position: relative;
+  top: 1px;
+}
+
+.TodoDetail--fields {
+  padding-top: 18px;
 }

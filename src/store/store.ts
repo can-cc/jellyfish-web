@@ -9,9 +9,7 @@ export class AppStore {
   public userInfo$: Subject<UserInfo> = new Subject();
   public userAvatar$: Subject<string> = new Subject();
   public filterTag$: BehaviorSubject<TodoTag> = new BehaviorSubject<TodoTag>(TodoTag.Doing);
-  public selectedTodoID$: Subject<string> = new BehaviorSubject(
-    '404cced9-7af8-4c85-9a0f-e30ea6df5a2b'
-  );
+  public selectedTodoID$: Subject<string> = new BehaviorSubject(null);
   private storeAction: StoreAction;
 
   constructor() {
