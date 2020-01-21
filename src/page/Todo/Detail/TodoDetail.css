@@ -1,0 +1,17 @@
+.TodoDetail {
+  padding: 24px 12px;
+  flex-shrink: 0;
+  width: 320px;
+}
+
+.TodoDetail-todo-content {
+  display: flex;
+  justify-content: flex-start;
+  font-weight: bold;
+  color: #333;
+}
+
+.TodoDetail-todo-content .app-checkbox {
+  margin-top: 2px;
+  margin-right: 12px;
+}

@@ -11,6 +11,7 @@ import { AppAction } from '../../action';
 export class TodoItem extends Component<
   {
     todo: Todo;
+    selected: boolean;
   },
   any
 > {
@@ -21,16 +22,20 @@ export class TodoItem extends Component<
     });
   }
 
+  onTodoClick = () => {
+    AppAction.selectTodo(this.props.todo.id);
+  };
+
   render() {
     const todo = this.props.todo;
     return (
-      <List.Item className="todo-item" style={{}} key={todo.id}>
+      <List.Item className={`todo-item${this.props.selected ? ' selected' : ''}`} key={todo.id}>
         <Checkbox
           defaultChecked={todo.status === 'Done'}
           onChange={(checked: boolean) => this.onDoneChanged(checked)}
         />
 
-        <div className="todo-item--content">
+        <div className="todo-item--content" onClick={this.onTodoClick}>
           <div>{todo.content}</div>
 
           {todo.deadline && (

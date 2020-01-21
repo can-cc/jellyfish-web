@@ -2,9 +2,9 @@
   width: 20px;
   height: 20px;
   position: relative;
-  margin: auto;
   background: #80d7ff;
   border-radius: 50px;
+  display: block;
 }
 
 .app-rounded-checkbox .label {

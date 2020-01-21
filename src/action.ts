@@ -60,4 +60,8 @@ export class AppAction {
   static updateTodoTag(todoTag: TodoTag): void {
     appStore.filterTag$.next(todoTag);
   }
+
+  static selectTodo(todoID: string) {
+    appStore.selectedTodoID$.next(todoID);
+  }
 }

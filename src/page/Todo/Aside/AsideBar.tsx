@@ -20,8 +20,16 @@ export class AsideBar extends Component<
 > {
   state = { avatar: undefined, username: undefined };
   complete$ = new Subject();
+  appStore: AppStore;
 
-  componentDidMount(): void {}
+  componentDidMount(): void {
+    this.appStore.userAvatar$
+      .pipe(takeUntil(this.complete$))
+      .subscribe(a => this.setState({ avatar: a }));
+    this.appStore.userInfo$
+      .pipe(takeUntil(this.complete$))
+      .subscribe(u => this.setState({ username: u.username }));
+  }
 
   componentWillUnmount(): void {
     this.complete$.next();
@@ -32,12 +40,9 @@ export class AsideBar extends Component<
     return (
       <AppStoreContext.Consumer>
         {(appStore: AppStore) => {
-          appStore.userAvatar$
-            .pipe(takeUntil(this.complete$))
-            .subscribe(a => this.setState({ avatar: a }));
-          appStore.userInfo$
-            .pipe(takeUntil(this.complete$))
-            .subscribe(u => this.setState({ username: u.username }));
+          if (!this.appStore) {
+            this.appStore = appStore;
+          }
 
           return (
             <aside className="todo-page-aside">

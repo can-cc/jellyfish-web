@@ -5,10 +5,13 @@ import { Todo } from '../model/todo';
 import { StoreAction } from './store-action';
 
 export class AppStore {
-  public todos$: Subject<Todo[]> = new Subject<Todo[]>();
+  public todos$: Subject<Todo[]> = new BehaviorSubject<Todo[]>([]);
   public userInfo$: Subject<UserInfo> = new Subject();
   public userAvatar$: Subject<string> = new Subject();
   public filterTag$: BehaviorSubject<TodoTag> = new BehaviorSubject<TodoTag>(TodoTag.Doing);
+  public selectedTodoID$: Subject<string> = new BehaviorSubject(
+    '404cced9-7af8-4c85-9a0f-e30ea6df5a2b'
+  );
   private storeAction: StoreAction;
 
   constructor() {
