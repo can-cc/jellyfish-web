@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:12.14.0-stretch'
-        }
-    }
+    agent none
     triggers {
         pollSCM('*/1 * * * *')
     }
@@ -13,11 +9,21 @@ pipeline {
     }
     stages {
         stage('Npm install') {
+            agent {
+                docker {
+                    image 'node:12.14.0-stretch'
+                }
+            }
             steps {
                 sh 'npm install'
             }
         }
         stage('Test') { 
+            agent {
+                docker {
+                    image 'node:12.14.0-stretch'
+                }
+            }
             steps {
                 sh 'npm run test' 
             }
