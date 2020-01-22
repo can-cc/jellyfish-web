@@ -8,6 +8,8 @@ import { DetailField } from './DetailField/DetailField';
 import { faBell, faSun } from '@fortawesome/free-regular-svg-icons';
 import './TodoDetail.css';
 import { Todo } from '../../../model/todo';
+import { faRedoAlt } from '@fortawesome/free-solid-svg-icons';
+import { DetailFooter } from './DetailFooter/DetailFooter';
 
 interface InputProps {
   todoID: string;
@@ -19,16 +21,17 @@ export function TodoDetail({ todoID }: InputProps) {
 
   const onTodoChange = todo => {
     AppAction.updateTodo(todo);
+    AppAction.getTodos();
   };
   var appStore: AppStore
 
   useEffect(() => {
     appStore.todos$.pipe(take(1)).subscribe((todos: Todo[]) => {
       const todo = todos.find(t => t.id === todoID);
+      setTodo(todo);
       if (!todo) {
         return
       }
-      setTodo(todo);
       setDetail(todo.detail || '')
     });
   }, [todoID])
@@ -61,6 +64,7 @@ export function TodoDetail({ todoID }: InputProps) {
             <div className="TodoDetail--fields">
               <DetailField icon={faSun} name="myDay" placeholder="添加到我的一天" />
               <DetailField icon={faBell} name="notification" placeholder="提醒我" />
+              <DetailField icon={faRedoAlt} name="repeat" placeholder="重复" />
 
               <div className="comment-field">
                 <textarea
@@ -73,6 +77,8 @@ export function TodoDetail({ todoID }: InputProps) {
                 ></textarea>
               </div>
             </div>
+
+            <DetailFooter time={todo.createdAt} />
           </div>
         );
       }}

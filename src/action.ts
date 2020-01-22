@@ -46,7 +46,11 @@ export class AppAction {
           }
         })
         .then(resp => {
-          appStore.todos$.next(resp.data);
+          appStore.todos$.next(resp.data.map(t => ({
+            ...t,
+            createdAt: new Date(t.createdAt),
+            updatedAt: new Date(t.updatedAt)
+          })));
         });
     });
   }
@@ -59,7 +63,7 @@ export class AppAction {
 
   static updateTodoTag(todoTag: TodoTag): void {
     appStore.filterTag$.next(todoTag);
-  }
+}
 
   static selectTodo(todoID: string) {
     appStore.selectedTodoID$.next(todoID);

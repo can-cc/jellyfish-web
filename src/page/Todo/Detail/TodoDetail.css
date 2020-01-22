@@ -2,7 +2,13 @@
   padding: 24px 36px 12px 12px;
   flex-shrink: 0;
   width: 320px;
+  position: relative;
+}
+
+.TodoDetail--fields {
   overflow: scroll;
+  height: 100%;
+  width: calc(100% + 36px);
 }
 
 .TodoDetail-todo-content {

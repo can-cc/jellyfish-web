@@ -56,7 +56,7 @@ export class TodoFilter extends Component<
 
   render() {
     return (
-      <div>
+      <div className="TodoFilter">
         <TagSelect
           options={tagOptions}
           defaultSelectedValue={this.state.selectedTag}

@@ -1,0 +1,19 @@
+.DetailFooter {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+  width: 100%;
+}
+
+.DetailFooter .app-button {
+  padding-left: 0;
+}
+
+.DetailFooter--time {
+  text-align: center;
+  width: 100%;
+  padding-right: 36px;
+  font-size: 13px;
+}
