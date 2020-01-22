@@ -36,7 +36,6 @@ pipeline {
                 }
             }
             steps {
-                sh "ls"
                 sh "docker build . -t $DOCKER_REGISTER/jellyfish-web:v0.0.$BUILD_NUMBER"
             }
         }
