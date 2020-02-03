@@ -14,7 +14,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: jellyfish-web
+  IMAGE_NAME: image
 
 jobs:
   # Run tests.
