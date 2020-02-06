@@ -1,63 +1,71 @@
-import store, { AppStore } from './store/store';
+import { appStore } from './store/store';
 import axios from 'axios';
 import { CreateTodoInput, Todo } from './model/todo';
 import { TodoTag } from './model/todo-tag';
 import { take } from 'rxjs/operators';
+import { UserInfo } from './model/user-info';
 
 export class AppAction {
   static getUserInfo() {
-    const userId = window.localStorage.getItem('userId');
-
     axios
       .get<{
-        avatarUrl: string;
+        id: string;
         username: string;
-      }>(`/api/user/${userId}`)
+      }>(`/api/user/me`)
       .then(resp => {
-        store.userInfo$.next({
-          avatarUrl: resp.data.avatarUrl,
-          username: resp.data.username
-        });
+        appStore.userInfo$.next(
+          UserInfo.new({
+            id: resp.data.id,
+            username: resp.data.username
+          })
+        );
       });
   }
 
   static createTodo(createTodoInput: CreateTodoInput): Promise<void> {
-    return axios.post('/api/todo', createTodoInput).then(() => {
-      AppAction.getTodos();
-    });
+    return axios.post('/api/taco', createTodoInput);
   }
 
   static getTodos(): void {
-    AppStore.filterTag$.pipe(take(1)).subscribe((statusTag: TodoTag) => {
-      let requestUrl: string;
+    appStore.filterTag$.pipe(take(1)).subscribe((statusTag: TodoTag) => {
+      let statusParams;
       switch (statusTag) {
-        case TodoTag.All:
-          requestUrl = `/api/todos`;
+        case 'Doing':
+        case 'Done': {
+          statusParams = statusTag;
           break;
-        case TodoTag.Done:
-          requestUrl = `/api/todos/done`;
-          break;
-        case TodoTag.Doing:
-          requestUrl = `/api/todos/doing`;
-          break;
+        }
+        case 'All':
+        default:
+          statusParams = 'Done,Doing';
       }
-      if (!requestUrl) {
-        throw new Error('Todo tag incorrect');
-      }
-      axios.get<Todo[]>(requestUrl).then(resp => {
-        AppStore.todos$.next(resp.data);
-      });
+      axios
+        .get<Todo[]>(`/api/tacos`, {
+          params: {
+            status: statusParams
+          }
+        })
+        .then(resp => {
+          appStore.todos$.next(resp.data.map(t => ({
+            ...t,
+            createdAt: new Date(t.createdAt),
+            updatedAt: new Date(t.updatedAt)
+          })));
+        });
     });
   }
 
   static updateTodo(updatedTodo: Todo): Promise<void> {
-    return axios.put(`/api/todo/${updatedTodo.id}`, updatedTodo).then(() => {
+    return axios.put(`/api/taco/${updatedTodo.id}`, updatedTodo).then(() => {
       AppAction.getTodos();
     });
   }
 
   static updateTodoTag(todoTag: TodoTag): void {
-    store.filterTag$.next(todoTag);
-    AppAction.getTodos();
+    appStore.filterTag$.next(todoTag);
+}
+
+  static selectTodo(todoID: string) {
+    appStore.selectedTodoID$.next(todoID);
   }
 }

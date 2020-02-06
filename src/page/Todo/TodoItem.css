@@ -1,3 +1,14 @@
+.todo-item {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 0px 12px !important;
+  line-height: 1.5;
+}
+
+.todo-item.selected {
+  background-color: #80d7ff26;
+}
+
 .todo-item .ant-list-item-content {
   align-items: center;
 }
@@ -7,7 +18,6 @@
 }
 
 .todo-item--content {
-  padding-left: 18px;
+  padding: 9px 10px;
   width: 100%;
 }
-

@@ -2,20 +2,22 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { ImageUpload } from '../../component/ImageUpload/ImageUpload';
 import { AppAction } from '../../action';
-import store from '../../store/store';
-import { UserInfo } from '../../model/user-info';
+import { AppStore } from '../../store/store';
 import { Subject } from 'rxjs';
+import { AppStoreContext } from '../../context/store-context';
 import { takeUntil } from 'rxjs/operators';
 
-export class Profile extends Component<any, {
-  loading: boolean,
-  avatarUrl: string | null,
-  username: string
-}> {
-
+export class Profile extends Component<
+  any,
+  {
+    loading: boolean;
+    avatar?: string;
+    username: string;
+  }
+> {
   public state = {
     loading: false,
-    avatarUrl: null,
+    avatar: null,
     username: ''
   };
   public complete$ = new Subject<void>();
@@ -24,12 +26,6 @@ export class Profile extends Component<any, {
 
   public componentWillMount() {
     AppAction.getUserInfo();
-
-    store.userInfo$.pipe(takeUntil(this.complete$)).subscribe((userInfo: UserInfo) => {
-      this.setState({
-        avatarUrl: userInfo.avatarUrl
-      })
-    });
   }
 
   public componentWillUnmount() {
@@ -38,22 +34,31 @@ export class Profile extends Component<any, {
 
   public uploadAvatar = (imageBase64: string) => {
     axios
-      .post('/api/avatar/base64', {
-        avatarData: imageBase64
+      .post('/api/user/avatar', {
+        avatar: imageBase64
       })
       .then(resp => {
-        this.setState({ avatarUrl: resp.data.avatarUrl });
+        this.setState({ avatar: resp.data.avatarUrl });
       });
   };
 
   render() {
     return (
-      <div>
-        <div style={{ textAlign: 'center' }}>
-          <ImageUpload imageSource={this.state.avatarUrl} onCrop={this.uploadAvatar} />
-          <div>{this.state.username}</div>
-        </div>
-      </div>
+      <AppStoreContext.Consumer>
+        {(appStore: AppStore) => {
+          appStore.userAvatar$
+            .pipe(takeUntil(this.complete$))
+            .subscribe(a => this.setState({ avatar: a }));
+          return (
+            <div>
+              <div style={{ textAlign: 'center' }}>
+                <ImageUpload imageSource={this.state.avatar} onCrop={this.uploadAvatar} />
+                <div>{this.state.username}</div>
+              </div>
+            </div>
+          );
+        }}
+      </AppStoreContext.Consumer>
     );
   }
 }

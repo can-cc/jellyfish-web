@@ -1,42 +1,40 @@
 import React, { Component } from 'react';
 import { TodoList } from './TodoList';
 import { TodoCreator } from './TodoCreator';
-import { takeUntil } from 'rxjs/operators';
-import { AppStore } from '../../store/store';
-import { AsideBar } from './AsideBar';
+import { AppStore, appStore } from '../../store/store';
+import { AsideBar } from './Aside/AsideBar';
 
-import './TodoPage.css';
 import { AppAction } from '../../action';
 import { Todo } from '../../model/todo';
 import { Subject } from 'rxjs';
-import { UserInfo } from '../../model/user-info';
-import { TodoFilter } from './TodoFilter';
+import { takeUntil, tap, distinctUntilChanged } from 'rxjs/operators';
+
+import './TodoPage.css';
+import { TodoDetail } from './Detail/TodoDetail';
+import { AppStoreContext } from '../../context/store-context';
 
 export class TodoPage extends Component<
   {},
   {
     todos: Todo[];
-    avatarUrl: string;
-    username: string;
+    selectedTodoID: string;
   }
 > {
-  state = { todos: [], avatarUrl: '', username: '' };
+  state = { todos: [], selectedTodoID: undefined };
   complete$ = new Subject<void>();
+  store: AppStore;
 
   componentDidMount() {
     AppAction.getTodos();
     AppAction.getUserInfo();
 
-    AppStore.todos$.subscribe((todos: Todo[]) => {
+    appStore.todos$.pipe(distinctUntilChanged(),takeUntil(this.complete$)).subscribe((todos: Todo[]) => {
       this.setState({ todos });
     });
 
-    AppStore.userInfo$.pipe(takeUntil(this.complete$)).subscribe((userInfo: UserInfo) => {
-      this.setState({
-        username: userInfo.username,
-        avatarUrl: userInfo.avatarUrl
-      });
-    });
+    this.store.selectedTodoID$
+      .pipe(distinctUntilChanged(), takeUntil(this.complete$))
+      .subscribe(id => this.setState({ selectedTodoID: id }));
   }
 
   componentWillUnmount() {
@@ -47,16 +45,27 @@ export class TodoPage extends Component<
   render() {
     const { todos } = this.state;
     return (
-      <div className="todo-page">
-        <AsideBar avatarUrl={this.state.avatarUrl} username={this.state.username} />
+      <AppStoreContext.Consumer>
+        {(store: AppStore) => {
+          if (!this.store) {
+            this.store = store;
+          }
 
-        <div>
-          <TodoCreator />
-          <TodoList todos={todos} />
-        </div>
+          return (
+            <div className="todo-page">
+              <AsideBar />
 
-        <TodoFilter />
-      </div>
+              <div className="todo-page--main">
+                <div className="main-heading">任务</div>
+                <TodoCreator />
+                <TodoList todos={todos} selectedTodoID={this.state.selectedTodoID} />
+              </div>
+
+              <TodoDetail todoID={this.state.selectedTodoID} />
+            </div>
+          );
+        }}
+      </AppStoreContext.Consumer>
     );
   }
 }

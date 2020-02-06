@@ -1,0 +1,30 @@
+.todo-page-aside {
+  width: 300px;
+  flex-shrink: 0;
+  background-color: #80d7ff;
+  padding: 10px 12px;
+  border-right: 1px solid #80d7ff;
+  box-shadow: 0 0 5px #16a8f8;
+}
+
+.todo-page-aside--avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+
+.todo-page-aside--info {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.todo-page-aside--info a {
+  color: white;
+}
+.todo-page-aside--info a:hover {
+  color: white;
+}

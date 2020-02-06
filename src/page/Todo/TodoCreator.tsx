@@ -5,14 +5,14 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import './TodoCreator.css';
 import { AppAction } from '../../action';
-  
+
 export interface CreateTodoInput {
   content: string;
 }
 
 export class TodoCreator extends Component<
   {
-    onCreated?: () => void
+    onCreated?: () => void;
   },
   {
     value: string;
@@ -34,13 +34,16 @@ export class TodoCreator extends Component<
     AppAction.createTodo({
       content: this.state.content,
       deadline: this.state.deadline
-    });
-
-    this.props.onCreated && this.props.onCreated();
-
-    this.resetForm();
-
-    message.success('Add todo successful');
+    })
+      .then(() => {
+        message.success('添加成功');
+        AppAction.getTodos();
+        this.props.onCreated && this.props.onCreated();
+        this.resetForm();
+      })
+      .catch(() => {
+        message.error('添加任务失败，请检查网络');
+      });
   };
 
   onDeadlineChange = (value: any) => {
@@ -56,7 +59,7 @@ export class TodoCreator extends Component<
       <div className="todo-creator">
         <FontAwesomeIcon icon={faPlus} />
         <input
-          placeholder="Add Todo.."
+          placeholder="添加任务"
           value={this.state.content}
           onChange={this.handleChange}
           onKeyPress={this.handleKeyPress}

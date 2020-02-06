@@ -3,7 +3,7 @@ import ReactCrop from 'react-image-crop';
 import ReactModal from '../Modal';
 import { getCroppedImage } from './ImageUpload.helper';
 import { ModalHeader } from '../ModalHeader';
-import { Button } from '../Button';
+import { AppButton } from '../AppButton';
 
 import './ImageUpload.css';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -18,19 +18,22 @@ const customStyles = {
   }
 };
 
-export class ImageUpload extends Component<{
-  imageSource: string;
-  onCrop: (data: string) => void;
-}, {
-  modalVisible: boolean;
-  cropedImageData: string;
-  imageDataURL: string;
-  crop: {
-    x: number;
-    y: number;
-    aspect: number;
+export class ImageUpload extends Component<
+  {
+    imageSource: string;
+    onCrop: (data: string) => void;
+  },
+  {
+    modalVisible: boolean;
+    cropedImageData: string;
+    imageDataURL: string;
+    crop: {
+      x: number;
+      y: number;
+      aspect: number;
+    };
   }
-}> {
+> {
   state = {
     modalVisible: false,
     imageDataURL: '',
@@ -113,7 +116,7 @@ export class ImageUpload extends Component<{
           src={this.props.imageSource}
           onClick={this.openFilePicker}
         />
-        <Button
+        <AppButton
           className="app-image-upload--upload-button"
           onClick={this.upload}
           title="Upload Avatar"
@@ -143,7 +146,7 @@ export class ImageUpload extends Component<{
             />
           </div>
 
-          <Button type="primary" onClick={this.upload} title="上传头像" />
+          <AppButton type="primary" onClick={this.upload} title="上传头像" />
         </ReactModal>
       </div>
     );

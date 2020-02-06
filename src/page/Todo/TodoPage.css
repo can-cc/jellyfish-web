@@ -1,8 +1,8 @@
 .todo-page {
   display: flex;
-  justify-content: center;
-  padding: 40px 100px;
-  margin: auto auto;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .todo-page .tag-select {
@@ -11,5 +11,20 @@
 }
 
 .todo-creator {
-  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.todo-page--main {
+  background-color: #f8f8f8;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-page--main .main-heading {
+  font-size: 30px;
+  font-weight: 900;
+  color: #0074b3;
+  margin-bottom: 8px;
 }

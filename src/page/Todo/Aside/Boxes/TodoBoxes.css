@@ -1,0 +1,48 @@
+.TodoBoxes {
+}
+
+.TodoBoxes ul {
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 8px;
+  list-style: none;
+}
+
+.TodoBoxes ul li {
+  cursor: pointer;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+
+.TodoBoxes ul li svg {
+  width: 28px !important;
+  margin-left: -6px;
+}
+
+.TodoBoxes ul li.selected {
+  background-color: #eeeeee;
+  font-weight: bolder;
+}
+
+.TodoBoxes .divider {
+  height: 1px;
+  width: 100%;
+  background-color: #fff;
+}
+
+.TodoBoxes .add-todo-list {
+  color: #fff;
+}
+
+.TodoBoxes .add-todo-list button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 5px;
+}
+
+.TodoBoxes .add-todo-list button svg {
+  margin-top: -2px;
+  margin-right: 6px;
+}
