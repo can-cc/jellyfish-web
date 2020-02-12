@@ -7,7 +7,6 @@ import { StoreAction } from './store-action';
 export class AppStore {
   public todos$: Subject<Todo[]> = new BehaviorSubject<Todo[]>([]);
   public userInfo$: Subject<UserInfo> = new Subject();
-  public userAvatar$: Subject<string> = new Subject();
   public filterTag$: BehaviorSubject<TodoTag> = new BehaviorSubject<TodoTag>(TodoTag.Doing);
   public selectedTodoID$: Subject<string> = new BehaviorSubject(null);
   private storeAction: StoreAction;

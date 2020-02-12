@@ -15,6 +15,7 @@
   margin: auto;
   margin-bottom: 2px;
   cursor: pointer;
+  background-color: aliceblue;
 }
 
 .todo-page-aside--info {

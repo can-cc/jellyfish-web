@@ -7,7 +7,7 @@ import { AsideBar } from './Aside/AsideBar';
 import { AppAction } from '../../action';
 import { Todo } from '../../model/todo';
 import { Subject } from 'rxjs';
-import { takeUntil, tap, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntil, distinctUntilChanged } from 'rxjs/operators';
 
 import './TodoPage.css';
 import { TodoDetail } from './Detail/TodoDetail';

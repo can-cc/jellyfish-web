@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Profile } from './Profile';
+import './ProfilePage.css';
 
 export class ProfilePage extends Component {
   componentDidMount() {}

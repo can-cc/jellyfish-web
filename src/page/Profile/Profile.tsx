@@ -6,18 +6,19 @@ import { AppStore } from '../../store/store';
 import { Subject } from 'rxjs';
 import { AppStoreContext } from '../../context/store-context';
 import { takeUntil } from 'rxjs/operators';
+import { generateAvatar } from '../../helper/avatar.helper';
 
 export class Profile extends Component<
-  any,
+  {},
   {
     loading: boolean;
-    avatar?: string;
+    avatar: string;
     username: string;
   }
 > {
   public state = {
     loading: false,
-    avatar: null,
+    avatar: undefined,
     username: ''
   };
   public complete$ = new Subject<void>();
@@ -35,10 +36,10 @@ export class Profile extends Component<
   public uploadAvatar = (imageBase64: string) => {
     axios
       .post('/api/user/avatar', {
-        avatar: imageBase64
+        avatar: imageBase64.substring(imageBase64.indexOf(',') + 1)
       })
-      .then(resp => {
-        this.setState({ avatar: resp.data.avatarUrl });
+      .then(() => {
+        AppAction.getUserInfo();
       });
   };
 
@@ -46,13 +47,16 @@ export class Profile extends Component<
     return (
       <AppStoreContext.Consumer>
         {(appStore: AppStore) => {
-          appStore.userAvatar$
-            .pipe(takeUntil(this.complete$))
-            .subscribe(a => this.setState({ avatar: a }));
+          appStore.userInfo$.pipe(takeUntil(this.complete$)).subscribe(a => {
+            this.setState({ avatar: a.avatar });
+          });
           return (
             <div>
               <div style={{ textAlign: 'center' }}>
-                <ImageUpload imageSource={this.state.avatar} onCrop={this.uploadAvatar} />
+                <ImageUpload
+                  imageSource={generateAvatar(this.state.avatar)}
+                  onCrop={this.uploadAvatar}
+                />
                 <div>{this.state.username}</div>
               </div>
             </div>

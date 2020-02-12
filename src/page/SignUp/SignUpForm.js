@@ -1,4 +1,3 @@
-//
 import React, { Component } from 'react';
 import axios from 'axios';
 import AntForm from 'antd/lib/form';
@@ -9,10 +8,6 @@ import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 
 const FormItem = AntForm.Item;
-
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
 
 class FormComponent extends Component {
   state = {

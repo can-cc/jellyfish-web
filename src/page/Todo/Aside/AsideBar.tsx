@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { TodoBoxes } from './Boxes/TodoBoxes';
 import { TodoSearcher } from './TodoSearcher/TodoSearcher';
 import { TodoFilter } from './TodoFilter';
+import { generateAvatar } from '../../../helper/avatar.helper';
 
 export class AsideBar extends Component<
   {},
@@ -23,12 +24,9 @@ export class AsideBar extends Component<
   appStore: AppStore;
 
   componentDidMount(): void {
-    this.appStore.userAvatar$
-      .pipe(takeUntil(this.complete$))
-      .subscribe(a => this.setState({ avatar: a }));
     this.appStore.userInfo$
       .pipe(takeUntil(this.complete$))
-      .subscribe(u => this.setState({ username: u.username }));
+      .subscribe(u => this.setState({ username: u.username, avatar: u.avatar }));
   }
 
   componentWillUnmount(): void {
@@ -49,9 +47,9 @@ export class AsideBar extends Component<
               <TodoSearcher />
 
               <img
-                alt="todo-page-aside--avatar"
+                alt=""
                 className="todo-page-aside--avatar"
-                src={this.state.avatar}
+                src={generateAvatar(this.state.avatar)}
               />
 
               <div className="todo-page-aside--info">
