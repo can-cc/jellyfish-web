@@ -5,7 +5,8 @@ pipeline {
     }
     environment {
         DOCKER_REGISTER = credentials('jenkins-blog-docker-register')
-        CI = 'true' 
+        CI = 'true'
+        HOME = '.'
     }
     stages {
         stage('Npm install') {
