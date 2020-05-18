@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Redirect, Switch } from 'react-router-dom';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
 import { Login } from './page/Login/Login';
 import { SignUp } from './page/SignUp/SignUp';
 import { TodoPage } from './page/Todo/TodoPage';
@@ -20,7 +20,7 @@ export class App extends Component {
               <Route exact path="/">
                 <Redirect to="/home" />
               </Route>
-              <Route path="/signin">
+              <Route path="/login">
                 <Login />
               </Route>
               <Route path="/signup">

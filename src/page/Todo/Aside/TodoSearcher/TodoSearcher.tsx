@@ -2,7 +2,7 @@ import React from 'react';
 
 import './TodoSearcher.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faTasks } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export function TodoSearcher() {
   return (

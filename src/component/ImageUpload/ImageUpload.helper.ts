@@ -1,13 +1,11 @@
-export function getCroppedImage(
-  image, crop
-) {
+export function getCroppedImage(image, crop) {
   const canvas = document.createElement('canvas');
   const scaleX = image.naturalWidth / image.width;
   const scaleY = image.naturalHeight / image.height;
   canvas.width = crop.width;
   canvas.height = crop.height;
   const ctx = canvas.getContext('2d');
- 
+
   ctx.drawImage(
     image,
     crop.x * scaleX,
@@ -17,10 +15,8 @@ export function getCroppedImage(
     0,
     0,
     crop.width,
-    crop.height,
+    crop.height
   );
- 
- 
+
   return canvas.toDataURL();
 }
-

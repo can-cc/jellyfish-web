@@ -1,4 +1,4 @@
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { UserInfo } from '../model/user-info';
 import { TodoTag } from '../model/todo-tag';
 import { Todo } from '../model/todo';

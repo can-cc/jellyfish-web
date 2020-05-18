@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { LoginForm } from './LoginForm';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import { authService } from '../../service/auth.service';
 import { appInterceptorService } from '../../service/interceptor.service';

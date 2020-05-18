@@ -7,7 +7,7 @@ import { AsideBar } from './Aside/AsideBar';
 import { AppAction } from '../../action';
 import { Todo } from '../../model/todo';
 import { Subject } from 'rxjs';
-import { takeUntil, distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 import './TodoPage.css';
 import { TodoDetail } from './Detail/TodoDetail';
@@ -28,9 +28,11 @@ export class TodoPage extends Component<
     AppAction.getTodos();
     AppAction.getUserInfo();
 
-    appStore.todos$.pipe(distinctUntilChanged(),takeUntil(this.complete$)).subscribe((todos: Todo[]) => {
-      this.setState({ todos });
-    });
+    appStore.todos$
+      .pipe(distinctUntilChanged(), takeUntil(this.complete$))
+      .subscribe((todos: Todo[]) => {
+        this.setState({ todos });
+      });
 
     this.store.selectedTodoID$
       .pipe(distinctUntilChanged(), takeUntil(this.complete$))
@@ -57,7 +59,13 @@ export class TodoPage extends Component<
 
               <div className="todo-page--main">
                 <div className="main-heading">任务</div>
-                <TodoCreator />
+                <div
+                  style={{
+                    padding: '0 20px'
+                  }}
+                >
+                  <TodoCreator />
+                </div>
                 <TodoList todos={todos} selectedTodoID={this.state.selectedTodoID} />
               </div>
 

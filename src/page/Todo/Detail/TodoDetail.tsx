@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppStoreContext } from '../../../context/store-context';
 import { AppStore } from '../../../store/store';
 import { take } from 'rxjs/operators';
@@ -23,25 +23,24 @@ export function TodoDetail({ todoID }: InputProps) {
     AppAction.updateTodo(todo);
     AppAction.getTodos();
   };
-  var appStore: AppStore
+  var appStore: AppStore;
 
   useEffect(() => {
     appStore.todos$.pipe(take(1)).subscribe((todos: Todo[]) => {
       const todo = todos.find(t => t.id === todoID);
       setTodo(todo);
       if (!todo) {
-        return
+        return;
       }
-      setDetail(todo.detail || '')
+      setDetail(todo.detail || '');
     });
-  }, [todoID])
+  }, [todoID]);
 
   return (
-    
     <AppStoreContext.Consumer>
       {(a: AppStore) => {
-        if (!appStore){
-          appStore = a
+        if (!appStore) {
+          appStore = a;
         }
         if (!todo) {
           return null;
@@ -72,7 +71,7 @@ export function TodoDetail({ todoID }: InputProps) {
                   value={detail}
                   rows={3}
                   placeholder="添加备注"
-                  onBlur={() => onTodoChange({...todo, detail})}
+                  onBlur={() => onTodoChange({ ...todo, detail })}
                   onChange={e => setDetail(e.target.value)}
                 ></textarea>
               </div>

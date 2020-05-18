@@ -1,11 +1,11 @@
-
 .ReactModal__Overlay {
   z-index: 100;
 }
 
 .ReactModal__Content {
-  border: 1px solid rgba(204, 204, 204, 0.3) !important;
   min-width: 450px;
-  box-shadow: 2px 4px 9px #eee;
+  box-shadow: 0 0 9px #ddd;
+  border-radius: 8px !important;
+  border: none !important;
   overflow: hidden !important;
 }

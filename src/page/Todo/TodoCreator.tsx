@@ -6,10 +6,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import './TodoCreator.css';
 import { AppAction } from '../../action';
 
-export interface CreateTodoInput {
-  content: string;
-}
-
 export class TodoCreator extends Component<
   {
     onCreated?: () => void;
@@ -50,10 +46,6 @@ export class TodoCreator extends Component<
     this.setState({ deadline: value });
   };
 
-  private resetForm(): void {
-    this.setState({ content: '', deadline: null });
-  }
-
   render() {
     return (
       <div className="todo-creator">
@@ -66,5 +58,9 @@ export class TodoCreator extends Component<
         />
       </div>
     );
+  }
+
+  private resetForm(): void {
+    this.setState({ content: '', deadline: null });
   }
 }

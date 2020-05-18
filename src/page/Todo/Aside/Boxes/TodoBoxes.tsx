@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import './TodoBoxes.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faStar, faSun } from '@fortawesome/free-regular-svg-icons';
 import { faPlus, faTasks } from '@fortawesome/free-solid-svg-icons';
 import { AppButton } from '../../../../component/AppButton';
+import { CreateBoxModal } from '../../CreateBoxModal/CreateBoxModal';
 
 export function TodoBoxes() {
+  const [createBoxModalOpen, setCreateBoxModalOpen] = useState(false);
+
   return (
     <div className="TodoBoxes">
       <ul>
@@ -28,14 +31,22 @@ export function TodoBoxes() {
         </li>
       </ul>
 
-      <div className="divider"></div>
+      <div className="divider" />
 
       <div className="add-todo-list">
-        <AppButton bgColor={'transparent'} onClick={() => {}}>
+        <AppButton
+          bgColor={'transparent'}
+          onClick={useCallback(() => setCreateBoxModalOpen(true), [])}
+        >
           <FontAwesomeIcon color="#fff" icon={faPlus} />
           <span>新建清单</span>
         </AppButton>
       </div>
+
+      <CreateBoxModal
+        isOpen={createBoxModalOpen}
+        onClose={useCallback(() => setCreateBoxModalOpen(false), [])}
+      />
     </div>
   );
 }

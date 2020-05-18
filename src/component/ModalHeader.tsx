@@ -9,7 +9,6 @@ export class ModalHeader extends Component<{
   closeable?: boolean;
   onClose?: () => void;
 }> {
-
   onClose = (): void => {
     if (!this.props.onClose) {
       return;

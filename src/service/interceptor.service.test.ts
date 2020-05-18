@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { Interceptor } from './interceptor.service';
 import { StoreAuthHeaderKey } from '../config/constrant';
 

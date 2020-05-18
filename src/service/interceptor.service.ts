@@ -4,25 +4,25 @@ import { RequestAuthHeaderKey, StoreAuthHeaderKey } from '../config/constrant';
 import { authService } from './auth.service';
 
 export class Interceptor {
+  setupAxiosInterceptor() {
+    axios.interceptors.response.use(
+      this.responseSuccessInterceptor,
+      Interceptor.responseFailureInterceptor
+    );
+    axios.defaults.headers.common[RequestAuthHeaderKey] =
+      'Bearer ' + window.localStorage.getItem(StoreAuthHeaderKey);
+  }
+
   private responseSuccessInterceptor(response: AxiosResponse) {
     return response;
   }
 
-  private responseFailureInterceptor(error: any) {
+  private static responseFailureInterceptor(error: any) {
     if (error.response.status === 401) {
       authService.removeStoreAuthToken();
-      history.push('/signin');
+      history.push('/login');
     }
     return Promise.reject(error);
-  }
-
-  setupAxiosInterceptor() {
-    axios.interceptors.response.use(
-      this.responseSuccessInterceptor,
-      this.responseFailureInterceptor
-    );
-    axios.defaults.headers.common[RequestAuthHeaderKey] =
-      'Bearer ' + window.localStorage.getItem(StoreAuthHeaderKey);
   }
 }
 

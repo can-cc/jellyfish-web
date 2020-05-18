@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faCheckSquare, faWalking } from '@fortawesome/free-solid-svg-icons';
+import { faCheckSquare, faList, faWalking } from '@fortawesome/free-solid-svg-icons';
 
 import './TagSelect.css';
 

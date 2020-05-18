@@ -16,7 +16,6 @@
 
 .todo-page--main {
   background-color: #f8f8f8;
-  padding: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -27,4 +26,5 @@
   font-weight: 900;
   color: #0074b3;
   margin-bottom: 8px;
+  padding: 20px 20px 0;
 }

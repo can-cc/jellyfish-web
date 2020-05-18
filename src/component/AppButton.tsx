@@ -35,6 +35,7 @@ export class AppButton extends Component<{
         style={{
           background: this.props.bgColor
         }}
+        type={this.props.htmlType}
         className={this.buildClassName()}
         onClick={this.onClick}
       >

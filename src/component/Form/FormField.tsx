@@ -34,7 +34,8 @@ export function FormField({
           style={{
             marginRight: 12,
             color: TextSecondaryColor,
-            display: type === 'inline' ? 'inline-block' : 'block'
+            display: type === 'inline' ? 'inline-block' : 'block',
+            marginBottom: 2
           }}
         >
           {name}

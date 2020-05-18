@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { SignUpForm } from './SignUpForm';
-import { withRouter, RouterHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import message from 'antd/lib/message';
 
 import './SignUp.css';
@@ -22,7 +22,7 @@ export const SignUp = withRouter(
       axios
         .post('/api/signup', data)
         .then(() => {
-          this.props.history.push('/signin');
+          this.props.history.push('/login');
         })
         .catch(error => {
           if (error.response && error.response.status === 401) {
