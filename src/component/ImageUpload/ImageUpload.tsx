@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactCrop from 'react-image-crop';
-import ReactModal from '../Modal';
+import { AppModal } from '../Modal';
 import { getCroppedImage } from './ImageUpload.helper';
 import { ModalHeader } from '../ModalHeader';
 import { AppButton } from '../AppButton';
@@ -129,7 +129,7 @@ export class ImageUpload extends Component<
           onChange={this.openModal}
         />
 
-        <ReactModal
+        <AppModal
           style={customStyles}
           isOpen={this.state.modalVisible}
           // isOpen={true}
@@ -147,7 +147,7 @@ export class ImageUpload extends Component<
           </div>
 
           <AppButton type="primary" onClick={this.upload} title="上传头像" />
-        </ReactModal>
+        </AppModal>
       </div>
     );
   }

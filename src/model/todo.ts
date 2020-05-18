@@ -3,12 +3,12 @@ export interface CreateTodoInput {
   deadline?: Date;
 }
 
-export class Todo {
-  public id: string;
-  public content: string;
-  public detail?: string;
-  public status: string;
-  public deadline: Date;
-  public createdAt: Date;
-  public updatedAt: Date;
+export interface Todo {
+  id: string;
+  content: string;
+  detail?: string;
+  status: string;
+  deadline: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 
-import './Button.css';
+import './AppButton.css';
 
-export type ButtonType = 'primary';
+export type ButtonType = 'primary' | 'link';
+
+export type ButtonSize = 'lg' | 'md';
 
 export class AppButton extends Component<{
   title?: string;
   type?: ButtonType;
-  onClick: () => void;
+  size?: ButtonSize;
+  disabled?: boolean;
+  htmlType?: 'submit' | 'button';
+  onClick?: () => void;
   bgColor?: string;
   className?: string;
 }> {
@@ -19,14 +24,20 @@ export class AppButton extends Component<{
   };
 
   buildClassName(): string {
-    return [this.props.className, this.props.type, 'app-button'].filter(v => !!v).join(' ');
+    return [this.props.className, this.props.type, this.props.size || 'md', 'app-button']
+      .filter(v => !!v)
+      .join(' ');
   }
 
   render() {
     return (
-      <button style={{
-        background: this.props.bgColor
-      }} className={this.buildClassName()} onClick={this.onClick}>
+      <button
+        style={{
+          background: this.props.bgColor
+        }}
+        className={this.buildClassName()}
+        onClick={this.onClick}
+      >
         {this.props.title ? this.props.title : this.props.children}
       </button>
     );

@@ -11,6 +11,7 @@ import { TodoBoxes } from './Boxes/TodoBoxes';
 import { TodoSearcher } from './TodoSearcher/TodoSearcher';
 import { TodoFilter } from './TodoFilter';
 import { generateAvatar } from '../../../helper/avatar.helper';
+import { ColorBgPrimary } from '../../../Constant/Color';
 
 export class AsideBar extends Component<
   {},
@@ -43,14 +44,21 @@ export class AsideBar extends Component<
           }
 
           return (
-            <aside className="todo-page-aside">
+            <aside
+              style={{
+                backgroundColor: ColorBgPrimary
+              }}
+              className="todo-page-aside"
+            >
               <TodoSearcher />
 
-              <img
-                alt=""
-                className="todo-page-aside--avatar"
-                src={generateAvatar(this.state.avatar)}
-              />
+              <Link to="/profile">
+                <img
+                  alt=""
+                  className="todo-page-aside--avatar"
+                  src={generateAvatar(this.state.avatar)}
+                />
+              </Link>
 
               <div className="todo-page-aside--info">
                 <Link to="/profile">{this.state.username}</Link>

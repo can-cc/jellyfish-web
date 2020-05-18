@@ -1,7 +1,6 @@
 .todo-page-aside {
   width: 300px;
   flex-shrink: 0;
-  background-color: #80d7ff;
   padding: 10px 12px;
   border-right: 1px solid #80d7ff;
   box-shadow: 0 0 5px #16a8f8;

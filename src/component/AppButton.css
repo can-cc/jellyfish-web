@@ -1,7 +1,7 @@
 .app-button {
   border: none;
   -webkit-appearance: none;
-  border-radius: 6px;
+  border-radius: 5px;
   padding: 6px 12px;
   white-space: nowrap;
   cursor: pointer;
@@ -11,4 +11,9 @@
 .app-button.primary {
   background-color: #16a8f8;
   color: white;
+}
+
+.app-button.lg {
+  padding: 6px 28px;
+  font-size: 16px;
 }
