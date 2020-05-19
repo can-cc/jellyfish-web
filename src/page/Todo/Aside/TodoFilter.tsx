@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TagSelect } from '../../../component/TagSelect/TagSelect';
-import { TodoTag } from '../../../model/todo-tag';
+import { TodoTag } from '../../../type/todo-tag';
 import './TodoFilter.css';
 import { AppAction } from '../../../action';
 import { Subject } from 'rxjs';

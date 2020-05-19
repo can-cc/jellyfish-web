@@ -12,6 +12,7 @@ import { TodoSearcher } from './TodoSearcher/TodoSearcher';
 import { TodoFilter } from './TodoFilter';
 import { generateAvatar } from '../../../helper/avatar.helper';
 import { ColorBgPrimary } from '../../../Constant/Color';
+import { AppAction } from '../../../action';
 
 export class AsideBar extends Component<
   {},
@@ -28,6 +29,8 @@ export class AsideBar extends Component<
     this.appStore.userInfo$
       .pipe(takeUntil(this.complete$))
       .subscribe(u => this.setState({ username: u.username, avatar: u.avatar }));
+
+    AppAction.getBoxes().then();
   }
 
   componentWillUnmount(): void {

@@ -1,9 +1,11 @@
 import { appStore } from './store/store';
 import axios from 'axios';
-import { CreateTodoInput, Todo } from './model/todo';
-import { TodoTag } from './model/todo-tag';
+import { CreateTodoInput, Todo } from './type/todo';
+import { TodoTag } from './type/todo-tag';
 import { take } from 'rxjs/operators';
-import { UserInfo } from './model/user-info';
+import { UserInfo } from './type/user-info';
+import { Box, CreateBoxInput } from './type/box';
+import { App } from './App';
 
 export class AppAction {
   static getUserInfo() {
@@ -19,6 +21,16 @@ export class AppAction {
 
   static createTodo(createTodoInput: CreateTodoInput): Promise<void> {
     return axios.post('/api/taco', createTodoInput);
+  }
+
+  static createBox(createBoxInput: CreateBoxInput): Promise<void> {
+    return axios.post<string>(`/api/box`, createBoxInput).then(() => {
+      AppAction.getBoxes().then();
+    });
+  }
+
+  static getBoxes(): Promise<void> {
+    return axios.get<Box[]>(`/api/boxes`).then(resp => appStore.box$.next(resp.data));
   }
 
   static getTodos(): void {

@@ -6,10 +6,13 @@ import { faCalendar, faStar, faSun } from '@fortawesome/free-regular-svg-icons';
 import { faPlus, faTasks } from '@fortawesome/free-solid-svg-icons';
 import { AppButton } from '../../../../component/AppButton';
 import { CreateBoxModal } from '../../CreateBoxModal/CreateBoxModal';
+import { useStore } from '../../../../hook/useStore';
+import { AppStore } from '../../../../store/store';
+import { Box } from '../../../../type/box';
 
 export function TodoBoxes() {
   const [createBoxModalOpen, setCreateBoxModalOpen] = useState(false);
-
+  const boxes = useStore((appStore: AppStore) => appStore.box$) || [];
   return (
     <div className="TodoBoxes">
       <ul>
@@ -29,6 +32,12 @@ export function TodoBoxes() {
           <FontAwesomeIcon color="#9FCC2E" icon={faCalendar} />
           <span>已安排日程</span>
         </li>
+      </ul>
+
+      <ul>
+        {boxes.map((box: Box) => (
+          <li key={box.id}>{box.name}</li>
+        ))}
       </ul>
 
       <div className="divider" />

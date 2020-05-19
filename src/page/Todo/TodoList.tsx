@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import List from 'antd/lib/list';
 import { TodoItem } from './TodoItem';
-import { Todo } from '../../model/todo';
+import { Todo } from '../../type/todo';
 
 import './TodoList.css';
 

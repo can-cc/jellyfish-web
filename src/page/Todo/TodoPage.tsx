@@ -5,7 +5,7 @@ import { AppStore, appStore } from '../../store/store';
 import { AsideBar } from './Aside/AsideBar';
 
 import { AppAction } from '../../action';
-import { Todo } from '../../model/todo';
+import { Todo } from '../../type/todo';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 

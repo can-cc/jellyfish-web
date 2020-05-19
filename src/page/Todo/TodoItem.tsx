@@ -3,7 +3,7 @@ import List from 'antd/lib/list';
 import Tag from 'antd/lib/tag';
 import moment from 'moment';
 import { Checkbox } from '../../component/Checkbox';
-import { Todo } from '../../model/todo';
+import { Todo } from '../../type/todo';
 
 import './TodoItem.css';
 import { AppAction } from '../../action';

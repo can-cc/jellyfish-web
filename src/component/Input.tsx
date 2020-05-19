@@ -4,7 +4,7 @@ import { buildClassName } from '../util/component';
 import { Subject } from 'rxjs';
 import './Input.css';
 import { debounceTime } from 'rxjs/operators';
-import { useFocus } from '../hook/focusHook';
+import { useFocus } from '../hook/useFocus';
 
 export type InputType = 'normal' | 'ghost';
 

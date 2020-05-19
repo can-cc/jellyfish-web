@@ -6,6 +6,7 @@ import { Input } from '../../../component/Input';
 import { FormErrorMessage } from '../../../component/Form/FormErrorMessage';
 import { AppButton } from '../../../component/AppButton';
 import * as Yup from 'yup';
+import { AppAction } from '../../../action';
 
 const validationSchema = Yup.object({
   name: Yup.string().required('请输入清单名称')
@@ -21,6 +22,11 @@ export interface CreateBoxModalProps {
 }
 
 export function CreateBoxModal(props: CreateBoxModalProps) {
+  const createBox = (name: string) => {
+    return AppAction.createBox({
+      name
+    });
+  };
   return (
     <AppModal
       isOpen={props.isOpen}
@@ -40,7 +46,12 @@ export function CreateBoxModal(props: CreateBoxModalProps) {
       <Formik<FormValues>
         initialValues={{ name: '' }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {}}
+        onSubmit={(values, { setSubmitting }) => {
+          createBox(values.name).then(() => {
+            setSubmitting(false);
+            props.onClose();
+          });
+        }}
       >
         {({ isSubmitting, isValid, touched, handleReset, handleSubmit }) => (
           <form onReset={handleReset} onSubmit={handleSubmit}>

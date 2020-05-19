@@ -6,10 +6,11 @@ import { Checkbox } from '../../../component/Checkbox';
 import { AppAction } from '../../../action';
 import { DetailField } from './DetailField/DetailField';
 import { faBell, faSun } from '@fortawesome/free-regular-svg-icons';
-import './TodoDetail.css';
-import { Todo } from '../../../model/todo';
+import { Todo } from '../../../type/todo';
 import { faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import { DetailFooter } from './DetailFooter/DetailFooter';
+
+import './TodoDetail.css';
 
 interface InputProps {
   todoID: string;
@@ -20,10 +21,9 @@ export function TodoDetail({ todoID }: InputProps) {
   const [detail, setDetail] = useState(undefined);
 
   const onTodoChange = todo => {
-    AppAction.updateTodo(todo);
-    AppAction.getTodos();
+    AppAction.updateTodo(todo).then();
   };
-  var appStore: AppStore;
+  let appStore: AppStore;
 
   useEffect(() => {
     appStore.todos$.pipe(take(1)).subscribe((todos: Todo[]) => {
@@ -73,7 +73,7 @@ export function TodoDetail({ todoID }: InputProps) {
                   placeholder="添加备注"
                   onBlur={() => onTodoChange({ ...todo, detail })}
                   onChange={e => setDetail(e.target.value)}
-                ></textarea>
+                />
               </div>
             </div>
 
