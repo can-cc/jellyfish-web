@@ -38,6 +38,7 @@ export class AppButton extends Component<{
         type={this.props.htmlType}
         className={this.buildClassName()}
         onClick={this.onClick}
+        disabled={this.props.disabled}
       >
         {this.props.title ? this.props.title : this.props.children}
       </button>

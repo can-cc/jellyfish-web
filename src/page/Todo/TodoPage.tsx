@@ -57,7 +57,15 @@ export class TodoPage extends Component<
             <div className="todo-page">
               <AsideBar />
 
-              <div className="todo-page--main">
+              <div
+                className="todo-page--main"
+                tabIndex={0}
+                onKeyDown={event => {
+                  if (event.key === 'Escape') {
+                    this.setState({ selectedTodoID: undefined });
+                  }
+                }}
+              >
                 <div className="main-heading">任务</div>
                 <div
                   style={{

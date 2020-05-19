@@ -65,7 +65,11 @@ export function CreateBoxModal(props: CreateBoxModalProps) {
                 textAlign: 'left'
               }}
             >
-              <AppButton type="primary" htmlType="submit" disabled={isSubmitting || !isValid}>
+              <AppButton
+                type="primary"
+                htmlType="submit"
+                disabled={isSubmitting || !isValid || !touched}
+              >
                 确定
               </AppButton>
             </div>

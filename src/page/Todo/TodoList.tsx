@@ -11,15 +11,17 @@ class TodoCollection extends Component<{
 }> {
   render() {
     return (
-      <List
-        size="default"
-        header={null}
-        footer={null}
-        dataSource={this.props.todos}
-        renderItem={(todo: Todo) => (
-          <TodoItem todo={todo} selected={todo.id === this.props.selectedTodoID} />
-        )}
-      />
+      <div>
+        <List
+          size="default"
+          header={null}
+          footer={null}
+          dataSource={this.props.todos}
+          renderItem={(todo: Todo) => (
+            <TodoItem todo={todo} selected={todo.id === this.props.selectedTodoID} />
+          )}
+        />
+      </div>
     );
   }
 }

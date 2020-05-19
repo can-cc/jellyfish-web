@@ -8,6 +8,10 @@
   outline: none;
 }
 
+.app-button[disabled] {
+  background-color: #d8d8d8 !important;
+}
+
 .app-button.primary {
   background-color: #16a8f8;
   color: white;

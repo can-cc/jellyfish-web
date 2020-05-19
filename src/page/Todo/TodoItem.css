@@ -1,8 +1,9 @@
 .todo-item {
   background-color: #fff;
   border-radius: 5px;
-  padding: 0px 12px !important;
+  padding: 0 12px !important;
   line-height: 1.5;
+  cursor: pointer;
 }
 
 .todo-item.selected {
