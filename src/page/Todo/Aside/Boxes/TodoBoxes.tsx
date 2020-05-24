@@ -28,7 +28,7 @@ function BoxItem(props: {
 
 export function TodoBoxes() {
   const [createBoxModalOpen, setCreateBoxModalOpen] = useState(false);
-  const boxes = useStore((appStore: AppStore) => appStore.boxes$) || [];
+  const boxes = useStore((appStore: AppStore) => appStore.boxes$);
 
   useEffect(() => {
     appStore.selectedBoxId$.next('@TASK');
@@ -72,18 +72,20 @@ export function TodoBoxes() {
         />
       </ul>
 
-      <ul>
-        {boxes.map((box: Box) => (
-          <BoxItem
-            key={box.id}
-            iconColor="#2292A4"
-            icon={faListAlt}
-            name={box.name}
-            selected={selectedBoxId === box.id}
-            onClick={() => onBoxClick(box.id)}
-          />
-        ))}
-      </ul>
+      {!!boxes && (
+        <ul>
+          {boxes.map((box: Box) => (
+            <BoxItem
+              key={box.id}
+              iconColor="#2292A4"
+              icon={faListAlt}
+              name={box.name}
+              selected={selectedBoxId === box.id}
+              onClick={() => onBoxClick(box.id)}
+            />
+          ))}
+        </ul>
+      )}
 
       <div className="divider" />
 
