@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { AppButton } from '../../../../component/AppButton';
-import { AppAction } from '../../../../action';
+import { AppAction } from '../../../../store/action';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 

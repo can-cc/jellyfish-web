@@ -1,42 +1,87 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import './TodoBoxes.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faStar, faSun } from '@fortawesome/free-regular-svg-icons';
-import { faPlus, faTasks } from '@fortawesome/free-solid-svg-icons';
+import { faListAlt, faPlus, faTasks } from '@fortawesome/free-solid-svg-icons';
 import { AppButton } from '../../../../component/AppButton';
 import { CreateBoxModal } from '../../CreateBoxModal/CreateBoxModal';
 import { useStore } from '../../../../hook/useStore';
-import { AppStore } from '../../../../store/store';
+import { appStore, AppStore } from '../../../../store/store';
 import { Box } from '../../../../type/box';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+
+function BoxItem(props: {
+  iconColor: string;
+  icon: IconProp;
+  name: string;
+  selected: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <li className={props.selected ? 'selected' : ''} onClick={props.onClick}>
+      <FontAwesomeIcon color={props.iconColor} icon={props.icon} />
+      <span>{props.name}</span>
+    </li>
+  );
+}
 
 export function TodoBoxes() {
   const [createBoxModalOpen, setCreateBoxModalOpen] = useState(false);
-  const boxes = useStore((appStore: AppStore) => appStore.box$) || [];
+  const boxes = useStore((appStore: AppStore) => appStore.boxes$) || [];
+
+  useEffect(() => {
+    appStore.selectedBoxId$.next('@TASK');
+  }, []);
+
+  const selectedBoxId = useStore(appStore => appStore.selectedBoxId$);
+  const onBoxClick = useCallback((boxId: string) => {
+    appStore.selectedBoxId$.next(boxId);
+  }, []);
+
   return (
     <div className="TodoBoxes">
       <ul>
-        <li>
-          <FontAwesomeIcon color="#ECC30B" icon={faSun} />
-          <span>我的一天</span>
-        </li>
-        <li>
-          <FontAwesomeIcon color="#FF0000" icon={faStar} />
-          <span>重要</span>
-        </li>
-        <li className="selected">
-          <FontAwesomeIcon color="#2292A4" icon={faTasks} />
-          <span>任务</span>
-        </li>
-        <li>
-          <FontAwesomeIcon color="#9FCC2E" icon={faCalendar} />
-          <span>已安排日程</span>
-        </li>
+        <BoxItem
+          iconColor="#ECC30B"
+          icon={faSun}
+          name="我的一天"
+          selected={selectedBoxId === '@MY_DAILY'}
+          onClick={() => onBoxClick('@MY_DAILY')}
+        />
+        <BoxItem
+          iconColor="#FF0000"
+          icon={faStar}
+          name="重要"
+          selected={selectedBoxId === '@IMPORTANT'}
+          onClick={() => onBoxClick('@IMPORTANT')}
+        />
+        <BoxItem
+          iconColor="#2292A4"
+          icon={faTasks}
+          name="任务"
+          selected={selectedBoxId === '@TASK'}
+          onClick={() => onBoxClick('@TASK')}
+        />
+        <BoxItem
+          iconColor="#9FCC2E"
+          icon={faCalendar}
+          name="已安排日程"
+          selected={selectedBoxId === '@SCHEDULE'}
+          onClick={() => onBoxClick('@SCHEDULE')}
+        />
       </ul>
 
       <ul>
         {boxes.map((box: Box) => (
-          <li key={box.id}>{box.name}</li>
+          <BoxItem
+            key={box.id}
+            iconColor="#2292A4"
+            icon={faListAlt}
+            name={box.name}
+            selected={selectedBoxId === box.id}
+            onClick={() => onBoxClick(box.id)}
+          />
         ))}
       </ul>
 

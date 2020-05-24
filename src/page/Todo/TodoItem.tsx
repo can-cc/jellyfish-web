@@ -6,7 +6,7 @@ import { Checkbox } from '../../component/Checkbox';
 import { Todo } from '../../type/todo';
 
 import './TodoItem.css';
-import { AppAction } from '../../action';
+import { AppAction } from '../../store/action';
 
 export class TodoItem extends Component<
   {

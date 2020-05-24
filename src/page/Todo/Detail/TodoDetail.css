@@ -3,6 +3,7 @@
   flex-shrink: 0;
   width: 320px;
   position: relative;
+  outline: none;
 }
 
 .TodoDetail--fields {

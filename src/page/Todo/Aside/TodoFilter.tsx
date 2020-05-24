@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TagSelect } from '../../../component/TagSelect/TagSelect';
 import { TodoTag } from '../../../type/todo-tag';
 import './TodoFilter.css';
-import { AppAction } from '../../../action';
+import { AppAction } from '../../../store/action';
 import { Subject } from 'rxjs';
 import { appStore } from '../../../store/store';
 import { takeUntil } from 'rxjs/operators';

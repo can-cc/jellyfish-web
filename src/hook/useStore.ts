@@ -10,7 +10,7 @@ export function useStore<T>(selector: (appStore: AppStore) => Observable<T>) {
     return function() {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [selector]);
 
   return result;
 }

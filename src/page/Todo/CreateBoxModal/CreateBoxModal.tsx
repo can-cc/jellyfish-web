@@ -6,7 +6,7 @@ import { Input } from '../../../component/Input';
 import { FormErrorMessage } from '../../../component/Form/FormErrorMessage';
 import { AppButton } from '../../../component/AppButton';
 import * as Yup from 'yup';
-import { AppAction } from '../../../action';
+import { AppAction } from '../../../store/action';
 
 const validationSchema = Yup.object({
   name: Yup.string().required('请输入清单名称')

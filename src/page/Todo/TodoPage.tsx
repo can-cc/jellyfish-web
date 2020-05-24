@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { TodoList } from './TodoList';
 import { TodoCreator } from './TodoCreator';
-import { AppStore, appStore } from '../../store/store';
+import { appStore } from '../../store/store';
 import { AsideBar } from './Aside/AsideBar';
 
-import { AppAction } from '../../action';
+import { AppAction } from '../../store/action';
 import { Todo } from '../../type/todo';
 import { Subject } from 'rxjs';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, map, mergeMap, takeUntil } from 'rxjs/operators';
 
 import './TodoPage.css';
 import { TodoDetail } from './Detail/TodoDetail';
-import { AppStoreContext } from '../../context/store-context';
 
 export class TodoPage extends Component<
   {},
@@ -22,19 +21,31 @@ export class TodoPage extends Component<
 > {
   state = { todos: [], selectedTodoID: undefined };
   complete$ = new Subject<void>();
-  store: AppStore;
 
   componentDidMount() {
     AppAction.getTodos();
     AppAction.getUserInfo();
 
-    appStore.todos$
-      .pipe(distinctUntilChanged(), takeUntil(this.complete$))
+    appStore.currentTodoIds$
+      .pipe(
+        distinctUntilChanged(),
+        takeUntil(this.complete$),
+        mergeMap((ids: string[]) =>
+          appStore.todos$.pipe(
+            map(todos =>
+              ids
+                .map(id => todos.get(id))
+                .filter(v => !!v)
+                .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+            )
+          )
+        )
+      )
       .subscribe((todos: Todo[]) => {
         this.setState({ todos });
       });
 
-    this.store.selectedTodoID$
+    appStore.selectedTodoID$
       .pipe(distinctUntilChanged(), takeUntil(this.complete$))
       .subscribe(id => this.setState({ selectedTodoID: id }));
   }
@@ -47,41 +58,36 @@ export class TodoPage extends Component<
   render() {
     const { todos } = this.state;
     return (
-      <AppStoreContext.Consumer>
-        {(store: AppStore) => {
-          if (!this.store) {
-            this.store = store;
-          }
+      <div className="todo-page">
+        <AsideBar />
 
-          return (
-            <div className="todo-page">
-              <AsideBar />
+        <div
+          className="todo-page--main"
+          tabIndex={0}
+          onKeyDown={event => {
+            if (event.key === 'Escape') {
+              this.setState({ selectedTodoID: undefined });
+            }
+          }}
+        >
+          <div className="main-heading">任务</div>
+          <div
+            style={{
+              padding: '0 20px'
+            }}
+          >
+            <TodoCreator />
+          </div>
+          <TodoList todos={todos} selectedTodoID={this.state.selectedTodoID} />
+        </div>
 
-              <div
-                className="todo-page--main"
-                tabIndex={0}
-                onKeyDown={event => {
-                  if (event.key === 'Escape') {
-                    this.setState({ selectedTodoID: undefined });
-                  }
-                }}
-              >
-                <div className="main-heading">任务</div>
-                <div
-                  style={{
-                    padding: '0 20px'
-                  }}
-                >
-                  <TodoCreator />
-                </div>
-                <TodoList todos={todos} selectedTodoID={this.state.selectedTodoID} />
-              </div>
-
-              <TodoDetail todoID={this.state.selectedTodoID} />
-            </div>
-          );
-        }}
-      </AppStoreContext.Consumer>
+        <TodoDetail
+          todoId={this.state.selectedTodoID}
+          onClose={() => {
+            this.setState({ selectedTodoID: undefined });
+          }}
+        />
+      </div>
     );
   }
 }

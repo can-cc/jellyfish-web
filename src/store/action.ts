@@ -1,11 +1,10 @@
-import { appStore } from './store/store';
+import { appStore } from './store';
 import axios from 'axios';
-import { CreateTodoInput, Todo } from './type/todo';
-import { TodoTag } from './type/todo-tag';
+import { CreateTodoInput, Todo } from '../type/todo';
+import { TodoTag } from '../type/todo-tag';
 import { take } from 'rxjs/operators';
-import { UserInfo } from './type/user-info';
-import { Box, CreateBoxInput } from './type/box';
-import { App } from './App';
+import { UserInfo } from '../type/user-info';
+import { Box, CreateBoxInput } from '../type/box';
 
 export class AppAction {
   static getUserInfo() {
@@ -30,7 +29,7 @@ export class AppAction {
   }
 
   static getBoxes(): Promise<void> {
-    return axios.get<Box[]>(`/api/boxes`).then(resp => appStore.box$.next(resp.data));
+    return axios.get<Box[]>(`/api/boxes`).then(resp => appStore.boxes$.next(resp.data));
   }
 
   static getTodos(): void {
@@ -53,13 +52,14 @@ export class AppAction {
           }
         })
         .then(resp => {
-          appStore.todos$.next(
+          appStore.addTodoList$.next(
             resp.data.map(t => ({
               ...t,
               createdAt: new Date(t.createdAt),
               updatedAt: new Date(t.updatedAt)
             }))
           );
+          appStore.currentTodoIds$.next(resp.data.map(t => t.id));
         });
     });
   }
