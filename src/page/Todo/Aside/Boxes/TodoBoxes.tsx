@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import './TodoBoxes.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faStar, faSun } from '@fortawesome/free-regular-svg-icons';
-import { faListAlt, faPlus, faTasks } from '@fortawesome/free-solid-svg-icons';
+import { faListAlt, faPlus, faSortAlphaUp, faTasks } from '@fortawesome/free-solid-svg-icons';
 import { AppButton } from '../../../../component/AppButton';
 import { CreateBoxModal } from '../../CreateBoxModal/CreateBoxModal';
 import { useStore } from '../../../../hook/useStore';
@@ -69,6 +69,13 @@ export function TodoBoxes() {
           name="已安排日程"
           selected={selectedBoxId === '@SCHEDULE'}
           onClick={() => onBoxClick('@SCHEDULE')}
+        />
+        <BoxItem
+          iconColor="#556735"
+          icon={faSortAlphaUp}
+          name="全部"
+          selected={selectedBoxId === '@ALL'}
+          onClick={() => onBoxClick('@ALL')}
         />
       </ul>
 

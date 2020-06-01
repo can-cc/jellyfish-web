@@ -9,7 +9,7 @@ import Col from 'antd/lib/col';
 
 const FormItem = AntForm.Item;
 
-class FormComponent extends Component {
+class FormComponent extends Component<any> {
   state = {
     confirmDirty: false,
     captchaId: null
@@ -61,7 +61,7 @@ class FormComponent extends Component {
   };
 
   render() {
-    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
+    const { getFieldDecorator } = this.props.form;
     return (
       <AntForm style={{ textAlign: 'left' }} onSubmit={this.handleSubmit}>
         <FormItem>
@@ -120,23 +120,15 @@ class FormComponent extends Component {
                 />
               </Col>
               <Col span={12}>
-                {this.state.captchaId ? (
-                  <img
-                    onClick={this.refreshCaptcha}
-                    style={{
-                      height: '32px',
-                      cursor: 'pointer'
-                    }}
-                    alt="验证码"
-                    src={'/api/captcha/' + this.state.captchaId + '.png'}
-                  />
-                ) : (
-                  <img
-                    style={{ height: '32px', backgroudColor: 'white' }}
-                    onClick={this.refreshCaptcha}
-                    src=""
-                  />
-                )}
+                <img
+                  onClick={this.refreshCaptcha}
+                  style={{
+                    height: '32px',
+                    cursor: 'pointer'
+                  }}
+                  alt="验证码"
+                  src={'/api/captcha/' + this.state.captchaId + '.png'}
+                />
               </Col>
             </Row>
           )}

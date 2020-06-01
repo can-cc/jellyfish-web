@@ -1,6 +1,7 @@
 export interface CreateTodoInput {
   content: string;
   deadline?: Date;
+  boxId?: string;
 }
 
 export interface Todo {
