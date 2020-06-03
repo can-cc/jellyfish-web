@@ -17,6 +17,10 @@
   color: white;
 }
 
+.app-button.ghost {
+  background-color: transparent;
+}
+
 .app-button.lg {
   padding: 6px 28px;
   font-size: 16px;

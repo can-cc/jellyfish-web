@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './AppButton.css';
 
-export type ButtonType = 'primary' | 'link';
+export type ButtonType = 'primary' | 'link' | 'ghost';
 
 export type ButtonSize = 'lg' | 'md';
 

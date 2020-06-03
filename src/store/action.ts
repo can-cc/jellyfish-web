@@ -5,6 +5,7 @@ import { TodoTag } from '../type/todo-tag';
 import { take } from 'rxjs/operators';
 import { UserInfo } from '../type/user-info';
 import { Box, CreateBoxInput } from '../type/box';
+import { combineLatest } from 'rxjs';
 
 export class AppAction {
   static getUserInfo() {
@@ -33,35 +34,38 @@ export class AppAction {
   }
 
   static getTodos(): void {
-    appStore.filterTag$.pipe(take(1)).subscribe((statusTag: TodoTag) => {
-      let statusParams;
-      switch (statusTag) {
-        case 'Doing':
-        case 'Done': {
-          statusParams = statusTag;
-          break;
-        }
-        case 'All':
-        default:
-          statusParams = 'Done,Doing';
-      }
-      axios
-        .get<Todo[]>(`/api/tacos`, {
-          params: {
-            status: statusParams
+    combineLatest(appStore.filterTag$, appStore.selectedBoxId$)
+      .pipe(take(1))
+      .subscribe(([statusTag, boxId]) => {
+        let statusParams;
+        switch (statusTag) {
+          case 'Doing':
+          case 'Done': {
+            statusParams = statusTag;
+            break;
           }
-        })
-        .then(resp => {
-          appStore.addTodoList$.next(
-            resp.data.map(t => ({
-              ...t,
-              createdAt: new Date(t.createdAt),
-              updatedAt: new Date(t.updatedAt)
-            }))
-          );
-          appStore.currentTodoIds$.next(resp.data.map(t => t.id));
-        });
-    });
+          case 'All':
+          default:
+            statusParams = 'Done,Doing';
+        }
+        axios
+          .get<Todo[]>(`/api/tacos`, {
+            params: {
+              status: statusParams,
+              box: boxId
+            }
+          })
+          .then(resp => {
+            appStore.addTodoList$.next(
+              resp.data.map(t => ({
+                ...t,
+                createdAt: new Date(t.createdAt),
+                updatedAt: new Date(t.updatedAt)
+              }))
+            );
+            appStore.currentTodoIds$.next(resp.data.map(t => t.id));
+          });
+      });
   }
 
   static updateTodo(updatedTodo: Todo): Promise<void> {
@@ -76,5 +80,10 @@ export class AppAction {
 
   static selectTodo(todoID: string) {
     appStore.selectedTodoID$.next(todoID);
+  }
+
+  static selectBox(boxId: string) {
+    appStore.selectedBoxId$.next(boxId);
+    AppAction.getTodos();
   }
 }

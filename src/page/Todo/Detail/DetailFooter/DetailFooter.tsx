@@ -35,7 +35,7 @@ export function timeDistance(time: Date, now: Date = new Date()): string {
 export function DetailFooter({ time }: InputProps) {
   return (
     <div className="DetailFooter">
-      <AppButton onClick={() => AppAction.selectTodo(null)}>
+      <AppButton type="ghost" onClick={() => AppAction.selectTodo(null)}>
         <FontAwesomeIcon icon={faArrowLeft} />
       </AppButton>
       <div className="DetailFooter--time">创建于 {timeDistance(time)}</div>

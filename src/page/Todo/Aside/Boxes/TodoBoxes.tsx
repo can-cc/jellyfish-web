@@ -7,9 +7,10 @@ import { faListAlt, faPlus, faSortAlphaUp, faTasks } from '@fortawesome/free-sol
 import { AppButton } from '../../../../component/AppButton';
 import { CreateBoxModal } from '../../CreateBoxModal/CreateBoxModal';
 import { useStore } from '../../../../hook/useStore';
-import { appStore, AppStore } from '../../../../store/store';
+import { AppStore } from '../../../../store/store';
 import { Box } from '../../../../type/box';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { AppAction } from '../../../../store/action';
 
 function BoxItem(props: {
   iconColor: string;
@@ -31,17 +32,24 @@ export function TodoBoxes() {
   const boxes = useStore((appStore: AppStore) => appStore.boxes$);
 
   useEffect(() => {
-    appStore.selectedBoxId$.next('@TASK');
+    AppAction.selectBox('@ALL');
   }, []);
 
   const selectedBoxId = useStore(appStore => appStore.selectedBoxId$);
   const onBoxClick = useCallback((boxId: string) => {
-    appStore.selectedBoxId$.next(boxId);
+    AppAction.selectBox(boxId);
   }, []);
 
   return (
     <div className="TodoBoxes">
       <ul>
+        <BoxItem
+          iconColor="#556735"
+          icon={faSortAlphaUp}
+          name="全部"
+          selected={selectedBoxId === '@ALL'}
+          onClick={() => onBoxClick('@ALL')}
+        />
         <BoxItem
           iconColor="#ECC30B"
           icon={faSun}
@@ -69,13 +77,6 @@ export function TodoBoxes() {
           name="已安排日程"
           selected={selectedBoxId === '@SCHEDULE'}
           onClick={() => onBoxClick('@SCHEDULE')}
-        />
-        <BoxItem
-          iconColor="#556735"
-          icon={faSortAlphaUp}
-          name="全部"
-          selected={selectedBoxId === '@ALL'}
-          onClick={() => onBoxClick('@ALL')}
         />
       </ul>
 
