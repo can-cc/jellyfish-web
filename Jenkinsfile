@@ -37,7 +37,7 @@ pipeline {
                 }
             }
             steps {
-                sh "docker build . -t $DOCKER_REGISTER/jellyfish-web:v0.0.$BUILD_NUMBER"
+                sh "docker build . -t $DOCKER_REGISTER/jellyfish-web:latest"
             }
         }
         stage('Publish image') {
@@ -48,8 +48,8 @@ pipeline {
                 }
             }
             steps {
-                sh 'docker push $DOCKER_REGISTER/jellyfish-web:v0.0.$BUILD_NUMBER'
-                sh 'echo "$DOCKER_REGISTER/jellyfish-web:v0.0.$BUILD_NUMBER" > .artifacts'
+                sh 'docker push $DOCKER_REGISTER/jellyfish-web:latest'
+                sh 'echo "$DOCKER_REGISTER/jellyfish-web:latest" > .artifacts'
                 archiveArtifacts(artifacts: '.artifacts')
             }
         }
@@ -61,7 +61,7 @@ pipeline {
                 }
             }
             steps {
-                sh "docker image rm $DOCKER_REGISTER/jellyfish-web:v0.0.$BUILD_NUMBER"
+                sh "docker image rm $DOCKER_REGISTER/jellyfish-web:latest"
             }
         }
     }
