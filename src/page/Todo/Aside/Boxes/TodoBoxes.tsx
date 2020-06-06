@@ -80,7 +80,7 @@ export function TodoBoxes() {
         />
       </ul>
 
-      {!!boxes && (
+      {!!boxes && !!boxes.length && (
         <ul>
           {boxes.map((box: Box) => (
             <BoxItem
