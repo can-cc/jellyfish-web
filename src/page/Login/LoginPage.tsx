@@ -8,14 +8,22 @@ import { appInterceptorService } from '../../service/interceptor.service';
 import { ResponseAuthHeaderKey } from '../../config/constrant';
 import { ColorBgPrimary } from '../../Constant/Color';
 
-class LoginPage extends Component<RouteComponentProps & {}, any> {
+class LoginPageComponent extends Component<RouteComponentProps & {}, { errMsg: string }> {
+  state = { errMsg: '' };
+
   signIn = async (cred: { username: string; password: string }) => {
     try {
+      this.setState({ errMsg: '' });
       const resp = await axios.post('/api/login', cred);
       authService.onLoggedIn(resp.headers[ResponseAuthHeaderKey]);
       appInterceptorService.setupAxiosInterceptor();
       this.props.history.push('/');
     } catch (error) {
+      if (error.response.status === 401) {
+        this.setState({ errMsg: '用户名或密码错误，请重试' });
+      } else {
+        this.setState({ errMsg: '登陆错误，清重试' });
+      }
       throw error;
     }
   };
@@ -87,11 +95,11 @@ class LoginPage extends Component<RouteComponentProps & {}, any> {
           }}
         >
           <h1>登录</h1>
-          <LoginForm submit={this.signIn} />
+          <LoginForm errorMsg={this.state.errMsg} submit={this.signIn} />
         </div>
       </div>
     );
   }
 }
 
-export const Login = withRouter(LoginPage);
+export const LoginPage = withRouter(LoginPageComponent);

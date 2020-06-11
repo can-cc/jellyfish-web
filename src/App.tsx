@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Router, Switch } from 'react-router-dom';
-import { Login } from './page/Login/Login';
+import { LoginPage } from './page/Login/LoginPage';
 import { SignUp } from './page/SignUp/SignUp';
 import { TodoPage } from './page/Todo/TodoPage';
 import { ProfilePage } from './page/Profile/ProfilePage';
@@ -18,7 +18,7 @@ export class App extends Component {
               <Redirect to="/home" />
             </Route>
             <Route path="/login">
-              <Login />
+              <LoginPage />
             </Route>
             <Route path="/signup">
               <SignUp />

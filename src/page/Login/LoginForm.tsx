@@ -17,6 +17,7 @@ interface FormValues {
 }
 
 export class LoginForm extends Component<{
+  errorMsg?: string;
   submit: (values: FormValues) => Promise<void>;
 }> {
   render() {
@@ -41,6 +42,10 @@ export class LoginForm extends Component<{
               <Field type="password" as={Input} name="password" block />
               <ErrorMessage name="password" component={FormErrorMessage} />
             </FormField>
+
+            <div style={{ position: 'relative', paddingTop: 20 }}>
+              {this.props.errorMsg && <FormErrorMessage>{this.props.errorMsg}</FormErrorMessage>}
+            </div>
 
             <div
               style={{
