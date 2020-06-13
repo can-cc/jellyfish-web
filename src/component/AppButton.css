@@ -17,6 +17,11 @@
   color: white;
 }
 
+.app-button.error {
+  background-color: orangered;
+  color: white;
+}
+
 .app-button.ghost {
   background-color: transparent;
 }

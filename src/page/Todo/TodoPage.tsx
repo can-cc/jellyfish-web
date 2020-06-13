@@ -23,7 +23,6 @@ export class TodoPage extends Component<
   complete$ = new Subject<void>();
 
   componentDidMount() {
-    AppAction.getTodos();
     AppAction.getUserInfo();
 
     appStore.currentTodoIds$

@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { AppButton } from '../../../../component/AppButton';
 import { AppAction } from '../../../../store/action';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './DetailFooter.css';
+import { Todo } from '../../../../type/todo';
+import { ConfirmModal } from '../../../../component/ConfirmModal';
 
 interface InputProps {
-  time: Date;
+  todo: Todo;
 }
 
 export function timeDistance(time: Date, now: Date = new Date()): string {
@@ -32,13 +34,32 @@ export function timeDistance(time: Date, now: Date = new Date()): string {
   return moment(time).format('YYYY年MM月DD号');
 }
 
-export function DetailFooter({ time }: InputProps) {
+export function DetailFooter({ todo }: InputProps) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const deleteTodo = () => {
+    AppAction.deleteTodo(todo).then(() => {
+      setIsDeleteModalOpen(false);
+    });
+  };
+
   return (
-    <div className="DetailFooter">
-      <AppButton type="ghost" onClick={() => AppAction.selectTodo(null)}>
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </AppButton>
-      <div className="DetailFooter--time">创建于 {timeDistance(time)}</div>
-    </div>
+    <>
+      <div className="DetailFooter">
+        <AppButton type="ghost" onClick={() => AppAction.selectTodo(null)}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </AppButton>
+        <div className="DetailFooter--time">创建于 {timeDistance(todo.createdAt)}</div>
+
+        <AppButton type="ghost" onClick={() => setIsDeleteModalOpen(true)}>
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </AppButton>
+      </div>
+      <ConfirmModal
+        tip={<span>确认要删除吗？</span>}
+        isOpen={isDeleteModalOpen}
+        confirm={() => deleteTodo()}
+        cancel={() => setIsDeleteModalOpen(false)}
+      />
+    </>
   );
 }

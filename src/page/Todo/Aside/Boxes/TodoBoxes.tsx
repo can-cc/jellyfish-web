@@ -3,14 +3,15 @@ import React, { useCallback, useEffect, useState } from 'react';
 import './TodoBoxes.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faStar, faSun } from '@fortawesome/free-regular-svg-icons';
-import { faListAlt, faPlus, faSortAlphaUp, faTasks } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faSortAlphaUp, faTasks } from '@fortawesome/free-solid-svg-icons';
 import { AppButton } from '../../../../component/AppButton';
 import { CreateBoxModal } from '../../CreateBoxModal/CreateBoxModal';
 import { useStore } from '../../../../hook/useStore';
-import { AppStore } from '../../../../store/store';
+import { appStore, AppStore } from '../../../../store/store';
 import { Box } from '../../../../type/box';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { AppAction } from '../../../../store/action';
+import { faListOl } from '@fortawesome/free-solid-svg-icons/faListOl';
 
 function BoxItem(props: {
   iconColor: string;
@@ -37,6 +38,7 @@ export function TodoBoxes() {
 
   const selectedBoxId = useStore(appStore => appStore.selectedBoxId$);
   const onBoxClick = useCallback((boxId: string) => {
+    appStore.selectedTodoID$.next(null);
     AppAction.selectBox(boxId);
   }, []);
 
@@ -81,12 +83,12 @@ export function TodoBoxes() {
       </ul>
 
       {!!boxes && !!boxes.length && (
-        <ul>
+        <ul className="list-boxes-container">
           {boxes.map((box: Box) => (
             <BoxItem
               key={box.id}
               iconColor="#2292A4"
-              icon={faListAlt}
+              icon={faListOl}
               name={box.name}
               selected={selectedBoxId === box.id}
               onClick={() => onBoxClick(box.id)}

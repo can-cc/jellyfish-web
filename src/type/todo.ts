@@ -5,6 +5,7 @@ export interface CreateTodoInput {
 }
 
 export interface Todo {
+  boxId?: string;
   id: string;
   content: string;
   detail?: string;

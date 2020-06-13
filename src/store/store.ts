@@ -9,16 +9,16 @@ export class AppStore {
   public currentTodoIds$ = new BehaviorSubject<string[]>([]);
   public selectedTodoID$: Subject<string> = new BehaviorSubject(null);
   public todos$: Observable<Map<string, Todo>>;
-  private updateTodo$: Subject<(todos: Map<string, Todo>) => Map<string, Todo>> = new Subject();
+  private updateTodoMap$: Subject<(todos: Map<string, Todo>) => Map<string, Todo>> = new Subject();
   public addTodoList$ = new Subject<Todo[]>();
-
+  public updateTodo$ = new Subject<Todo>();
   public userInfo$: Subject<UserInfo> = new Subject();
   public filterTag$: BehaviorSubject<TodoTag> = new BehaviorSubject<TodoTag>(TodoTag.Doing);
   public boxes$: BehaviorSubject<Box[]> = new BehaviorSubject<Box[]>([]);
   public selectedBoxId$ = new BehaviorSubject<string>(null);
 
   constructor() {
-    this.todos$ = this.updateTodo$.pipe(
+    this.todos$ = this.updateTodoMap$.pipe(
       scan(
         (todos: Map<string, Todo>, updateFn: (todos: Map<string, Todo>) => Map<string, Todo>) => {
           return updateFn(todos);
@@ -35,7 +35,21 @@ export class AppStore {
           return todos;
         })
       )
-      .subscribe(this.updateTodo$);
+      .subscribe(this.updateTodoMap$);
+
+    this.updateTodo$
+      .pipe(
+        map(todo => {
+          return (todos: Map<string, Todo>) => {
+            todos.set(todo.id, {
+              ...todos.get(todo.id),
+              ...todo
+            });
+            return todos;
+          };
+        })
+      )
+      .subscribe(this.updateTodoMap$);
   }
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -8,13 +8,14 @@ interface InputProps {
   name: string;
   icon: IconDefinition;
   placeholder: string;
+  children?: ReactNode;
 }
 
-export function DetailField({ icon, name, placeholder }: InputProps) {
+export function DetailField({ icon, name, placeholder, children }: InputProps) {
   return (
     <div className="DetailField">
       <FontAwesomeIcon icon={icon} />
-      <span>{placeholder}</span>
+      {children || <span>{placeholder}</span>}
     </div>
   );
 }

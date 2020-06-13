@@ -24,6 +24,11 @@
   font-weight: bolder;
 }
 
+.TodoBoxes .list-boxes-container li svg {
+  position: relative;
+  top: 1px;
+}
+
 .TodoBoxes .divider {
   height: 1px;
   width: 100%;

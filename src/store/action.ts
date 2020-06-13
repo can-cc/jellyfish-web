@@ -69,9 +69,11 @@ export class AppAction {
   }
 
   static updateTodo(updatedTodo: Todo): Promise<void> {
-    return axios.put(`/api/taco/${updatedTodo.id}`, updatedTodo).then(() => {
-      AppAction.getTodos();
-    });
+    if (!updatedTodo.boxId) {
+      updatedTodo.boxId = undefined;
+    }
+    appStore.updateTodo$.next(updatedTodo);
+    return axios.put(`/api/taco/${updatedTodo.id}`, updatedTodo).then(() => {});
   }
 
   static updateTodoTag(todoTag: TodoTag): void {
@@ -85,5 +87,11 @@ export class AppAction {
   static selectBox(boxId: string) {
     appStore.selectedBoxId$.next(boxId);
     AppAction.getTodos();
+  }
+
+  static deleteTodo(todo: Todo) {
+    return axios.delete(`/api/taco/${todo.id}`).then(() => {
+      AppAction.getTodos();
+    });
   }
 }
