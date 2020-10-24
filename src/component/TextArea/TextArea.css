@@ -1,0 +1,27 @@
+.AppTextArea {
+  width: 100%;
+  line-height: 1.6;
+  padding: 8px 8px;
+  border: none;
+  background-color: transparent;
+  border-radius: 6px;
+  overflow-y: auto;
+  resize: none;
+  outline: none;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.AppTextArea.border {
+  background-color: white;
+  border: 1px solid #e8e8e8;
+}
+
+.AppTextArea:focus {
+  box-shadow: inset 0 0 0 2px #999;
+}
+
+.AppTextArea:focus,
+.AppTextArea:hover {
+  background-color: white;
+}

@@ -10,6 +10,7 @@ import { useStore } from '../../../hook/useStore';
 import './TodoDetail.css';
 import { Select } from '../../../component/Select';
 import { Todo } from '../../../type/todo';
+import { AppTextArea } from '../../../component/TextArea/TextArea';
 
 interface InputProps {
   todoId: string;
@@ -61,7 +62,12 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
             })
           }
         />
-        <div>{todo.content}</div>
+        <div style={{ marginTop: -8, width: '100%' }}>
+          <AppTextArea
+            value={todo.content}
+            onChange={value => onTodoChange({ ...todo, content: value }, false)}
+          />
+        </div>
       </div>
 
       <div className="TodoDetail--fields">

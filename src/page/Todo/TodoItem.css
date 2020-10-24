@@ -23,3 +23,8 @@
   padding: 9px 10px;
   width: 100%;
 }
+
+.todo-item--content .content-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

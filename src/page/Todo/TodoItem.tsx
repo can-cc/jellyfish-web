@@ -36,7 +36,7 @@ export class TodoItem extends Component<
         />
 
         <div className="todo-item--content" onClick={this.onTodoClick}>
-          <div>{todo.content}</div>
+          <div className="content-text">{todo.content}</div>
 
           {todo.deadline && (
             <Tag color="#f50" style={{ marginLeft: '10px' }}>

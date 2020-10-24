@@ -24,6 +24,7 @@ class TodoCollection extends Component<{
   selectedTodoID?: string;
 }> {
   onDragEnd(result) {
+    // https://codesandbox.io/s/k260nyxq9v?file=/index.js
     if (!result.destination) {
       return;
     }
