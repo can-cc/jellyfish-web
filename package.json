@@ -20,6 +20,7 @@
     "ramda": "^0.25.0",
     "rc-checkbox": "^2.1.7",
     "react": "^16.8.6",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.8.6",
     "react-image-crop": "^8.0.3",
     "react-modal": "^3.8.1",

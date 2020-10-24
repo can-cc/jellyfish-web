@@ -10,7 +10,7 @@ import { TodoBoxes } from './Boxes/TodoBoxes';
 import { TodoSearcher } from './TodoSearcher/TodoSearcher';
 import { TodoFilter } from './TodoFilter';
 import { generateAvatar } from '../../../helper/avatar.helper';
-import { ColorBgPrimary } from '../../../Constant/Color';
+import { ColorBgPrimary } from '../../../constant/Color';
 import { AppAction } from '../../../store/action';
 
 export class AsideBar extends Component<

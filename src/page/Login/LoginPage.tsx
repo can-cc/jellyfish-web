@@ -6,7 +6,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { authService } from '../../service/auth.service';
 import { appInterceptorService } from '../../service/interceptor.service';
 import { ResponseAuthHeaderKey } from '../../config/constrant';
-import { ColorBgPrimary } from '../../Constant/Color';
+import { ColorBgPrimary } from '../../constant/Color';
 
 class LoginPageComponent extends Component<RouteComponentProps & {}, { errMsg: string }> {
   state = { errMsg: '' };

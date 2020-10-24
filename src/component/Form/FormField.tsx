@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { TextSecondaryColor } from '../../Constant/Color';
+import { TextSecondaryColor } from '../../constant/Color';
 
 interface InputProps {
   name?: string;

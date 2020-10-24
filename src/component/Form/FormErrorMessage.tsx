@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { ColorErrorMessage } from '../../Constant/Color';
+import { ColorErrorMessage } from '../../constant/Color';
 
 export function FormErrorMessage(props: { children: ReactNode }) {
   return (
