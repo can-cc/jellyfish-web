@@ -20,7 +20,6 @@
     "ramda": "^0.25.0",
     "rc-checkbox": "^2.1.7",
     "react": "^16.8.6",
-    "react-app-rewire-workbox": "^2.0.1",
     "react-app-rewired": "^2.1.6",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.8.6",
@@ -43,8 +42,16 @@
     "build-docker": "docker build ."
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
     "@types/react-router-dom": "^4.3.3",

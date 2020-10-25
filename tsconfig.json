@@ -15,8 +15,9 @@
     "strictNullChecks": false,
     "noImplicitAny": false,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "react",
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
-  "exclude": ["src/setupProxy.js", "src/custom-sw.js"]
+  "exclude": ["src/setupProxy.js", "src/service-worker.js"]
 }
