@@ -7,7 +7,7 @@ import { registerRoute } from 'workbox-routing/registerRoute';
 
 precacheAndRoute(self.__WB_MANIFEST);
 
-registerRoute('/', NetworkFirst());
+registerRoute('/', new NetworkFirst());
 
 registerRoute(
   '/static/',
