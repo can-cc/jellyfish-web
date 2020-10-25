@@ -48,7 +48,7 @@ export class Profile extends Component<
   render() {
     return (
       <div>
-        <h1>我的</h1>
+        <h1>我的2</h1>
         <div style={{ textAlign: 'center' }}>
           <ImageUpload imageSource={generateAvatar(this.state.avatar)} onCrop={this.uploadAvatar} />
           <div>{this.state.username}</div>
