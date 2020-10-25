@@ -27,7 +27,7 @@ export class App extends Component {
               <TodoPage />
             </Route>
             <Route path="/profile">
-              <ProfilePage />>
+              <ProfilePage />
             </Route>
             <Route path="*">
               <Redirect to="/home" />
