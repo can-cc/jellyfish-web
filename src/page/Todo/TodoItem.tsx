@@ -12,8 +12,7 @@ export class TodoItem extends Component<
   {
     todo: Todo;
     selected: boolean;
-  },
-  any
+  }
 > {
   onDoneChanged(checked: boolean) {
     AppAction.updateTodo({

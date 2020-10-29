@@ -8,6 +8,7 @@ export interface Todo {
   boxId?: string;
   id: string;
   content: string;
+  order?: number;
   detail?: string;
   status: string;
   deadline: Date;

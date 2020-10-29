@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { Checkbox } from '../../../component/Checkbox';
 import { AppAction } from '../../../store/action';
 import { DetailField } from './DetailField/DetailField';
-import { faBell, faSun } from '@fortawesome/free-regular-svg-icons';
+import { faBell, faCalendar, faSun } from '@fortawesome/free-regular-svg-icons';
 import { faListOl, faReply } from '@fortawesome/free-solid-svg-icons';
 import { DetailFooter } from './DetailFooter/DetailFooter';
 import { useStore } from '../../../hook/useStore';
@@ -11,6 +11,7 @@ import './TodoDetail.css';
 import { Select } from '../../../component/Select';
 import { Todo } from '../../../type/todo';
 import { AppTextArea } from '../../../component/TextArea/TextArea';
+import { DetailDateTimePickerPopup } from './DetailDateTimePickerPopup/DetailDateTimePickerPopup';
 
 interface InputProps {
   todoId: string;
@@ -73,6 +74,16 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
       <div className="TodoDetail--fields">
         <DetailField icon={faSun} name="myDay" placeholder="添加到我的一天" />
         <DetailField icon={faBell} name="notification" placeholder="提醒我" />
+        <DetailField icon={faCalendar} name="notification" placeholder="截止时间">
+          <div>
+            <span>click</span>
+            <DetailDateTimePickerPopup 
+               isOpen={false}
+               position={{x: 0, y: 0}}
+               onClose={() => {}} />
+          </div>
+
+        </DetailField>
         <DetailField icon={faReply} name="repeat" placeholder="重复" />
         <DetailField icon={faListOl} name="box" placeholder="清单">
           <Select

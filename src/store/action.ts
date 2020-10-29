@@ -76,6 +76,14 @@ export class AppAction {
     return axios.put(`/api/taco/${updatedTodo.id}`, updatedTodo).then(() => {});
   }
 
+  static sortTodo({boxId, todoId, targetTodoId, isBefore}): Promise<void> {
+    return axios.post(`/api/taco/resort`, {
+      tacoId: todoId,
+      targetTacoId: targetTodoId,
+      boxId
+    });
+  }
+
   static updateTodoTag(todoTag: TodoTag): void {
     appStore.filterTag$.next(todoTag);
   }
