@@ -20,7 +20,6 @@
     "ramda": "^0.25.0",
     "rc-checkbox": "^2.1.7",
     "react": "^16.8.6",
-    "react-app-rewire-workbox": "^2.0.1",
     "react-app-rewired": "^2.1.6",
     "react-beautiful-dnd": "^13.0.0",
     "react-datepicker": "^3.3.0",
