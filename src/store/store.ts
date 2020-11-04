@@ -7,7 +7,7 @@ import { map, scan, shareReplay } from 'rxjs/operators';
 
 export class AppStore {
   public currentTodoIds$ = new BehaviorSubject<string[]>([]);
-  public selectedTodoID$: Subject<string> = new BehaviorSubject(null);
+  public selectedTodoId$: Subject<string> = new BehaviorSubject(null);
   public todos$: Observable<Map<string, Todo>>;
   private updateTodoMap$: Subject<(todos: Map<string, Todo>) => Map<string, Todo>> = new Subject();
   public addTodoList$ = new Subject<Todo[]>();

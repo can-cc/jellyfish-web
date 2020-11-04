@@ -76,7 +76,7 @@ export class AppAction {
     return axios.put(`/api/taco/${updatedTodo.id}`, updatedTodo).then(() => {});
   }
 
-  static sortTodo({boxId, todoId, targetTodoId, isBefore}): Promise<void> {
+  static sortTodo({ boxId, todoId, targetTodoId, isBefore }): Promise<void> {
     return axios.post(`/api/taco/resort`, {
       tacoId: todoId,
       targetTacoId: targetTodoId,
@@ -89,7 +89,7 @@ export class AppAction {
   }
 
   static selectTodo(todoID: string) {
-    appStore.selectedTodoID$.next(todoID);
+    appStore.selectedTodoId$.next(todoID);
   }
 
   static selectBox(boxId: string) {

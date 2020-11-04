@@ -17,9 +17,10 @@ export class TodoPage extends Component<
   {
     todos: Todo[];
     selectedTodoID: string;
+    selectedBoxId: string;
   }
 > {
-  state = { todos: [], selectedTodoID: undefined };
+  state = { todos: [], selectedTodoID: undefined, selectedBoxId: undefined };
   complete$ = new Subject<void>();
 
   componentDidMount() {
@@ -44,7 +45,13 @@ export class TodoPage extends Component<
         this.setState({ todos });
       });
 
-    appStore.selectedTodoID$
+    appStore.selectedBoxId$
+      .pipe(distinctUntilChanged(), takeUntil(this.complete$))
+      .subscribe((selectedBoxId: string) => {
+        this.setState({ selectedBoxId: selectedBoxId });
+      });
+
+    appStore.selectedTodoId$
       .pipe(distinctUntilChanged(), takeUntil(this.complete$))
       .subscribe(id => this.setState({ selectedTodoID: id }));
   }
@@ -77,7 +84,7 @@ export class TodoPage extends Component<
           >
             <TodoCreator />
           </div>
-          <TodoList todos={todos} selectedTodoID={this.state.selectedTodoID} />
+          <TodoList boxId={null} todos={todos} selectedTodoId={this.state.selectedTodoID} />
         </div>
 
         <TodoDetail

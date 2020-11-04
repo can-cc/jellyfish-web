@@ -22,7 +22,7 @@ const getListStyle = isDraggingOver => ({});
 
 class TodoCollection extends Component<{
   todos: Todo[];
-  selectedTodoID?: string;
+  selectedTodoId?: string;
   onSort: Function;
 }> {
   render() {
@@ -48,7 +48,7 @@ class TodoCollection extends Component<{
                         <TodoItem
                           key={todo.id}
                           todo={todo}
-                          selected={todo.id === this.props.selectedTodoID}
+                          selected={todo.id === this.props.selectedTodoId}
                         />
                       </div>
                     )}
@@ -64,22 +64,19 @@ class TodoCollection extends Component<{
   }
 }
 
-export class TodoList extends Component<
-  {
-    todos: Todo[];
-    selectedTodoID?: string;
-    boxId: string;
-  }
-> {
-
-  onReSort = (result) => {
+export class TodoList extends Component<{
+  todos: Todo[];
+  selectedTodoId?: string;
+  boxId: string;
+}> {
+  onReSort = result => {
     // https://codesandbox.io/s/k260nyxq9v?file=/index.js
     if (!result.destination) {
       return;
     }
     const todoId = this.props.todos[result.source.index].id;
     const targetTodoId = this.props.todos[result.destination.index].id;
-    const isBefore = result.source.index > result.destination.index
+    const isBefore = result.source.index > result.destination.index;
     AppAction.sortTodo({
       boxId: this.props.boxId,
       todoId,
@@ -90,7 +87,7 @@ export class TodoList extends Component<
     // this.setState({
     //   items
     // });
-  }
+  };
 
   sort(todos: Todo[]) {
     return todos.sort((a, b) => a.order - b.order);
@@ -99,10 +96,11 @@ export class TodoList extends Component<
   render() {
     return (
       <div className="todo-list-container">
-        <TodoCollection 
-          todos={this.sort(this.props.todos)} 
-          selectedTodoID={this.props.selectedTodoID}
-          onSort={this.onReSort} />
+        <TodoCollection
+          todos={this.sort(this.props.todos)}
+          selectedTodoId={this.props.selectedTodoId}
+          onSort={this.onReSort}
+        />
       </div>
     );
   }

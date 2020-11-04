@@ -63,16 +63,11 @@ class FormComponent extends Component<any> {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <AntForm style={{ textAlign: 'left' }} onSubmit={this.handleSubmit}>
+      <AntForm style={{ textAlign: 'left' }}>
         <FormItem>
           {getFieldDecorator('username', {
             rules: [{ required: true, message: '请输入用户名' }]
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0, 0, 0, .25)' }} />}
-              placeholder="用户名"
-            />
-          )}
+          })(<Input placeholder="用户名" />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator('password', {
@@ -82,13 +77,7 @@ class FormComponent extends Component<any> {
                 validator: this.validateToNextPassword
               }
             ]
-          })(
-            <Input
-              prefix={<Icon type="lock" style={{ color: 'rgba(0, 0, 0, .25)' }} />}
-              type="password"
-              placeholder="密码"
-            />
-          )}
+          })(<Input type="password" placeholder="密码" />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator('confirm', {
@@ -98,14 +87,7 @@ class FormComponent extends Component<any> {
                 validator: this.compareToFirstPassword
               }
             ]
-          })(
-            <Input
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="password"
-              placeholder="确认密码"
-              onBlur={this.handleConfirmBlur}
-            />
-          )}
+          })(<Input type="password" placeholder="确认密码" onBlur={this.handleConfirmBlur} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator('captcha', {
@@ -113,11 +95,7 @@ class FormComponent extends Component<any> {
           })(
             <Row gutter={8}>
               <Col span={12}>
-                <Input
-                  prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                  type="tet"
-                  placeholder="验证码"
-                />
+                <Input type="tet" placeholder="验证码" />
               </Col>
               <Col span={12}>
                 <img
@@ -136,14 +114,7 @@ class FormComponent extends Component<any> {
         <FormItem style={{ display: 'none' }}>
           {getFieldDecorator('captchaId', {
             rules: [{ required: true, message: '请刷新验证码' }]
-          })(
-            <Input
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="text"
-              disabled
-              placeholder="确认密码"
-            />
-          )}
+          })(<Input type="text" disabled placeholder="确认密码" />)}
         </FormItem>
         <FormItem>
           <Button type="primary" htmlType="submit">
@@ -155,4 +126,4 @@ class FormComponent extends Component<any> {
   }
 }
 
-export const SignUpForm = AntForm.create()(FormComponent);
+export const SignUpForm = FormComponent;
