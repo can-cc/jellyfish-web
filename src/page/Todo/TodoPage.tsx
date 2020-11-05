@@ -84,7 +84,7 @@ export class TodoPage extends Component<
           >
             <TodoCreator />
           </div>
-          <TodoList boxId={null} todos={todos} selectedTodoId={this.state.selectedTodoID} />
+          <TodoList boxId={this.state.selectedBoxId} todos={todos} selectedTodoId={this.state.selectedTodoID} />
         </div>
 
         <TodoDetail

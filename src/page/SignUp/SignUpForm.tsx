@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import AntForm from 'antd/lib/form';
-import Icon from 'antd/lib/icon';
 import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
 import Row from 'antd/lib/row';
@@ -62,6 +61,7 @@ class FormComponent extends Component<any> {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    // 现在无法提交表单
     return (
       <AntForm style={{ textAlign: 'left' }}>
         <FormItem>
