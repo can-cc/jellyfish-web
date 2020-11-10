@@ -26,7 +26,7 @@ export class AsideBar extends Component<
   componentDidMount(): void {
     appStore.userInfo$
       .pipe(takeUntil(this.complete$))
-      .subscribe((u) => this.setState({ username: u.username, avatar: u.avatar }));
+      .subscribe(u => this.setState({ username: u.username, avatar: u.avatar }));
 
     AppAction.getBoxes().then();
   }
@@ -40,14 +40,18 @@ export class AsideBar extends Component<
     return (
       <aside
         style={{
-          backgroundColor: ColorBgPrimary,
+          backgroundColor: ColorBgPrimary
         }}
         className="todo-page-aside"
       >
         <TodoSearcher />
 
         <Link to="/profile">
-          <img alt="" className="todo-page-aside--avatar" src={generateAvatar(this.state.avatar)} />
+          <img
+            alt="avatar"
+            className="todo-page-aside--avatar"
+            src={generateAvatar(this.state.avatar)}
+          />
         </Link>
 
         <div className="todo-page-aside--info">
