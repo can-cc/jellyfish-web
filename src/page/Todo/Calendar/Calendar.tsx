@@ -1,7 +1,8 @@
 import React from 'react';
+import { ScheduleCalendar } from './ScheduleCalendar';
 
 export function Calendar() {
-    return <div>
-        calendar
-    </div>
+  return <div>
+    <ScheduleCalendar />
+  </div>;
 }

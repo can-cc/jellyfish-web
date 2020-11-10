@@ -17,7 +17,7 @@ export function FormField({
   children,
   className = '',
   type,
-  require = false
+  require = false,
 }: InputProps) {
   return (
     <div
@@ -25,7 +25,7 @@ export function FormField({
       style={{
         verticalAlign: 'center',
         position: 'relative',
-        paddingBottom: 26
+        paddingBottom: 26,
       }}
     >
       {name && (
@@ -35,7 +35,7 @@ export function FormField({
             marginRight: 12,
             color: TextSecondaryColor,
             display: type === 'inline' ? 'inline-block' : 'block',
-            marginBottom: 2
+            marginBottom: 2,
           }}
         >
           {name}

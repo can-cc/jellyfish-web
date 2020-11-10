@@ -8,7 +8,7 @@ import { FormErrorMessage } from '../../component/Form/FormErrorMessage';
 
 const validationSchema = Yup.object({
   username: Yup.string().required('请输入用户名'),
-  password: Yup.string().required('请输入密码')
+  password: Yup.string().required('请输入密码'),
 });
 
 interface FormValues {
@@ -50,7 +50,7 @@ export class LoginForm extends Component<{
             <div
               style={{
                 marginTop: 12,
-                textAlign: 'left'
+                textAlign: 'left',
               }}
             >
               <AppButton

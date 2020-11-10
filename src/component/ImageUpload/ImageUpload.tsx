@@ -14,8 +14,8 @@ const customStyles = {
     left: '50%',
     right: 'auto',
     bottom: 'auto',
-    transform: 'translate(-50%, -50%)'
-  }
+    transform: 'translate(-50%, -50%)',
+  },
 };
 
 export class ImageUpload extends Component<
@@ -41,15 +41,15 @@ export class ImageUpload extends Component<
     crop: {
       x: 0,
       y: 0,
-      aspect: 1
-    }
+      aspect: 1,
+    },
   };
   fileInput: any;
   imageRef: HTMLImageElement;
 
   handleCancelModal = () => {
     this.setState({
-      modalVisible: false
+      modalVisible: false,
     });
   };
 
@@ -58,7 +58,7 @@ export class ImageUpload extends Component<
     this.closeModal();
   };
 
-  cropImage = crop => {
+  cropImage = (crop) => {
     if (!crop || !this.imageRef) {
       return;
     }
@@ -67,7 +67,7 @@ export class ImageUpload extends Component<
     this.setState({ crop });
   };
 
-  onCropChange = crop => {
+  onCropChange = (crop) => {
     this.setState({ crop });
   };
 
@@ -110,7 +110,7 @@ export class ImageUpload extends Component<
             height: '180px',
             borderRadius: '50%',
             border: '0',
-            backgroundColor: '#f8f8f8'
+            backgroundColor: '#f8f8f8',
           }}
           alt=""
           src={this.props.imageSource}
@@ -123,7 +123,7 @@ export class ImageUpload extends Component<
         />
 
         <input
-          ref={ref => (this.fileInput = ref)}
+          ref={(ref) => (this.fileInput = ref)}
           type="file"
           accept="image/*"
           onChange={this.openModal}

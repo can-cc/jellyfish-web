@@ -10,7 +10,6 @@ const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 const localizer = momentLocalizer(moment); // or globalizeLocalizer
 
-
 export function ScheduleCalendar() {
   const [events, setEvents] = useState(es);
   const [displayDragItemInCell, setDisplayDragItemInCell] = useState(true);
@@ -32,9 +31,7 @@ export function ScheduleCalendar() {
 
   const resizeEvent = ({ event, start, end }) => {
     const nextEvents = events.map((existingEvent) => {
-      return existingEvent.id === event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent;
+      return existingEvent.id === event.id ? { ...existingEvent, start, end } : existingEvent;
     });
 
     setEvents(nextEvents);
@@ -52,9 +49,7 @@ export function ScheduleCalendar() {
     }
 
     const nextEvents = events.map((existingEvent) => {
-      return existingEvent.id == event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent;
+      return existingEvent.id == event.id ? { ...existingEvent, start, end } : existingEvent;
     });
 
     setEvents(nextEvents);
@@ -107,34 +102,6 @@ export function ScheduleCalendar() {
         onDropFromOutside={onDropFromOutside}
         handleDragStart={handleDragStart}
       />
-
-      <Table
-        dataSource={[
-          {
-            name: 'Tony',
-            age: 13,
-            sex: '男',
-            grade: '六年级',
-          },
-          {
-            name: 'Hans',
-            age: 12,
-            sex: '男',
-            grade: '五年级',
-          },
-          {
-            name: 'Sally',
-            age: 10,
-            sex: '女',
-            grade: '三年级',
-          },
-        ]}
-      >
-        <Column prop="name" label="姓名"></Column>
-        <Column prop="age" label="年龄"></Column>
-        <Column prop="sex" label="性别"></Column>
-        <Column prop="grade" label="年级"></Column>
-      </Table>
     </div>
   );
 }

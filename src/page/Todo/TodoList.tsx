@@ -8,10 +8,10 @@ import './TodoList.css';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
-  ...draggableStyle
+  ...draggableStyle,
 });
 
-const getListStyle = isDraggingOver => ({});
+const getListStyle = (isDraggingOver) => ({});
 
 // const reorder = (list, startIndex, endIndex) => {
 //   const result = Array.from(list);
@@ -69,7 +69,7 @@ export class TodoList extends Component<{
   selectedTodoId?: string;
   boxId: string;
 }> {
-  onReSort = result => {
+  onReSort = (result) => {
     // https://codesandbox.io/s/k260nyxq9v?file=/index.js
     if (!result.destination) {
       return;
@@ -81,7 +81,7 @@ export class TodoList extends Component<{
       boxId: this.props.boxId,
       todoId,
       targetTodoId,
-      isBefore
+      isBefore,
     });
     // const items = reorder(this.state.items, result.source.index, result.destination.index);
     // this.setState({

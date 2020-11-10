@@ -36,7 +36,7 @@ export function TodoBoxes() {
     AppAction.selectBox('@ALL');
   }, []);
 
-  const selectedBoxId = useStore(appStore => appStore.selectedBoxId$);
+  const selectedBoxId = useStore((appStore) => appStore.selectedBoxId$);
   const onBoxClick = useCallback((boxId: string) => {
     appStore.selectedTodoId$.next(null);
     AppAction.selectBox(boxId);

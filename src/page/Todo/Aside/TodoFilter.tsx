@@ -11,18 +11,18 @@ const tagOptions = [
   {
     value: TodoTag.Doing,
     viewValue: '进行中',
-    icon: 'walking'
+    icon: 'walking',
   },
   {
     value: TodoTag.All,
     viewValue: '全部',
-    icon: 'list'
+    icon: 'list',
   },
   {
     value: TodoTag.Done,
     viewValue: '已完成',
-    icon: 'checkSquare'
-  }
+    icon: 'checkSquare',
+  },
 ];
 
 export class TodoFilter extends Component<
@@ -32,14 +32,14 @@ export class TodoFilter extends Component<
   }
 > {
   state = {
-    selectedTag: null
+    selectedTag: null,
   };
   complete$ = new Subject();
 
   componentWillMount() {
     appStore.filterTag$.pipe(takeUntil(this.complete$)).subscribe((tag: TodoTag) => {
       this.setState({
-        selectedTag: tag
+        selectedTag: tag,
       });
     });
   }

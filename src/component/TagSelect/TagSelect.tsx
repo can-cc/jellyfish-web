@@ -7,7 +7,7 @@ import './TagSelect.css';
 const faIconMap = {
   list: faList,
   checkSquare: faCheckSquare,
-  walking: faWalking
+  walking: faWalking,
 };
 
 export interface TagSelectOption {
@@ -32,12 +32,12 @@ export class TagSelect extends Component<
   }
 > {
   state = {
-    selectValue: null
+    selectValue: null,
   };
 
   componentWillMount() {
     this.setState({
-      selectValue: this.props.defaultSelectedValue
+      selectValue: this.props.defaultSelectedValue,
     });
   }
 
@@ -63,7 +63,7 @@ export class TagSelect extends Component<
               style={{
                 backgroundColor:
                   this.state.selectValue === option.value ? selectedBgColor : option.bgColor,
-                color: this.state.selectValue === option.value ? selectedColor : option.color
+                color: this.state.selectValue === option.value ? selectedColor : option.color,
               }}
               onClick={() => {
                 this.onChange(option.value);

@@ -41,14 +41,14 @@ class LoginPageComponent extends Component<RouteComponentProps & {}, { errMsg: s
             paddingTop: 28,
             display: 'flex',
             alignItems: 'flex-end',
-            flexDirection: 'column'
+            flexDirection: 'column',
           }}
         >
           <div style={{}}>
             <img
               style={{
                 width: 60,
-                height: 60
+                height: 60,
               }}
               alt="logo"
               src="/assets/imgs/logo.png"
@@ -58,7 +58,7 @@ class LoginPageComponent extends Component<RouteComponentProps & {}, { errMsg: s
                 verticalAlign: 'bottom',
                 fontSize: 25,
                 fontWeight: 'bold',
-                marginLeft: 12
+                marginLeft: 12,
               }}
             >
               水母清单
@@ -72,7 +72,7 @@ class LoginPageComponent extends Component<RouteComponentProps & {}, { errMsg: s
               fontWeight: 'bold',
               width: 280,
               textAlign: 'right',
-              lineHeight: 1.2
+              lineHeight: 1.2,
             }}
           >
             更好地管理你的待办事项
@@ -91,7 +91,7 @@ class LoginPageComponent extends Component<RouteComponentProps & {}, { errMsg: s
             paddingTop: 50,
             paddingLeft: 40,
             paddingRight: 40,
-            height: '100%'
+            height: '100%',
           }}
         >
           <h1>登录</h1>

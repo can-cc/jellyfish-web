@@ -11,7 +11,7 @@ export class ProfilePage extends Component {
     return (
       <div
         style={{
-          padding: '40px 20px'
+          padding: '40px 20px',
         }}
       >
         <Profile />

@@ -25,7 +25,7 @@ export class AppButton extends Component<{
 
   buildClassName(): string {
     return [this.props.className, this.props.type, this.props.size || 'md', 'app-button']
-      .filter(v => !!v)
+      .filter((v) => !!v)
       .join(' ');
   }
 
@@ -33,7 +33,7 @@ export class AppButton extends Component<{
     return (
       <button
         style={{
-          background: this.props.bgColor
+          background: this.props.bgColor,
         }}
         type={this.props.htmlType}
         className={this.buildClassName()}

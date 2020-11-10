@@ -9,7 +9,7 @@ import { useStore } from '../../hook/useStore';
 export function TodoCreator() {
   const [content, setContent] = useState('');
 
-  const boxId: string = useStore(appStore => appStore.selectedBoxId$);
+  const boxId: string = useStore((appStore) => appStore.selectedBoxId$);
 
   const resetForm = () => {
     setContent('');
@@ -26,7 +26,7 @@ export function TodoCreator() {
 
     AppAction.createTodo({
       content,
-      boxId
+      boxId,
     })
       .then(() => {
         message.success('添加成功');

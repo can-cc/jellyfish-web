@@ -10,7 +10,7 @@ export function FormErrorMessage(props: { children: ReactNode }) {
         color: ColorErrorMessage,
         position: 'absolute',
         left: 0,
-        bottom: 6
+        bottom: 6,
       }}
     >
       {props.children}

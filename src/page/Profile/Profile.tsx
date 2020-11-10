@@ -18,7 +18,7 @@ export class Profile extends Component<
   public state = {
     loading: false,
     avatar: undefined,
-    username: ''
+    username: '',
   };
   public complete$ = new Subject<void>();
 
@@ -26,7 +26,7 @@ export class Profile extends Component<
 
   public componentWillMount() {
     AppAction.getUserInfo();
-    appStore.userInfo$.pipe(takeUntil(this.complete$)).subscribe(a => {
+    appStore.userInfo$.pipe(takeUntil(this.complete$)).subscribe((a) => {
       this.setState({ avatar: a.avatar });
     });
   }
@@ -38,7 +38,7 @@ export class Profile extends Component<
   public uploadAvatar = (imageBase64: string) => {
     axios
       .post('/api/user/avatar', {
-        avatar: imageBase64.substring(imageBase64.indexOf(',') + 1)
+        avatar: imageBase64.substring(imageBase64.indexOf(',') + 1),
       })
       .then(() => {
         AppAction.getUserInfo();

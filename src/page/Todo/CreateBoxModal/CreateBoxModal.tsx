@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import { AppAction } from '../../../store/action';
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('请输入清单名称')
+  name: Yup.string().required('请输入清单名称'),
 });
 
 interface FormValues {
@@ -24,7 +24,7 @@ export interface CreateBoxModalProps {
 export function CreateBoxModal(props: CreateBoxModalProps) {
   const createBox = (name: string) => {
     return AppAction.createBox({
-      name
+      name,
     });
   };
   return (
@@ -39,8 +39,8 @@ export function CreateBoxModal(props: CreateBoxModalProps) {
           left: '50%',
           top: '50%',
           transform: 'translate(-50%, -100%)',
-          padding: '20px'
-        }
+          padding: '20px',
+        },
       }}
     >
       <Formik<FormValues>
@@ -62,7 +62,7 @@ export function CreateBoxModal(props: CreateBoxModalProps) {
 
             <div
               style={{
-                textAlign: 'left'
+                textAlign: 'left',
               }}
             >
               <AppButton

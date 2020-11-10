@@ -27,11 +27,11 @@ export function Select({ options, value, placeholder, onChange, style }: Props) 
         outline: 'none',
         background: 'transparent',
         lineHeight: 1.8,
-        ...style
+        ...style,
       }}
     >
       <option value={''}>{placeholder}</option>
-      {options.map(option => {
+      {options.map((option) => {
         return (
           <option key={option.value} value={option.value}>
             {option.label}

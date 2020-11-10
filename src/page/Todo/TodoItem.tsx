@@ -8,16 +8,14 @@ import { Todo } from '../../type/todo';
 import './TodoItem.css';
 import { AppAction } from '../../store/action';
 
-export class TodoItem extends Component<
-  {
-    todo: Todo;
-    selected: boolean;
-  }
-> {
+export class TodoItem extends Component<{
+  todo: Todo;
+  selected: boolean;
+}> {
   onDoneChanged(checked: boolean) {
     AppAction.updateTodo({
       ...this.props.todo,
-      status: checked ? 'Done' : 'Doing'
+      status: checked ? 'Done' : 'Doing',
     });
   }
 

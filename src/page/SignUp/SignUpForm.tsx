@@ -11,7 +11,7 @@ const FormItem = AntForm.Item;
 class FormComponent extends Component<any> {
   state = {
     confirmDirty: false,
-    captchaId: null
+    captchaId: null,
   };
 
   componentWillMount() {
@@ -21,13 +21,13 @@ class FormComponent extends Component<any> {
   componentDidMount() {}
 
   refreshCaptcha = () => {
-    axios.post('/api/captcha').then(resp => {
+    axios.post('/api/captcha').then((resp) => {
       this.setState({ captchaId: resp.data.id });
       this.props.form.setFieldsValue({ captchaId: resp.data.id });
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     this.props.form.validateFields();
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -54,7 +54,7 @@ class FormComponent extends Component<any> {
     callback();
   };
 
-  handleConfirmBlur = e => {
+  handleConfirmBlur = (e) => {
     const value = e.target.value;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
@@ -66,7 +66,7 @@ class FormComponent extends Component<any> {
       <AntForm style={{ textAlign: 'left' }}>
         <FormItem>
           {getFieldDecorator('username', {
-            rules: [{ required: true, message: '请输入用户名' }]
+            rules: [{ required: true, message: '请输入用户名' }],
           })(<Input placeholder="用户名" />)}
         </FormItem>
         <FormItem>
@@ -74,9 +74,9 @@ class FormComponent extends Component<any> {
             rules: [
               { required: true, message: '请输入密码' },
               {
-                validator: this.validateToNextPassword
-              }
-            ]
+                validator: this.validateToNextPassword,
+              },
+            ],
           })(<Input type="password" placeholder="密码" />)}
         </FormItem>
         <FormItem>
@@ -84,14 +84,14 @@ class FormComponent extends Component<any> {
             rules: [
               { required: true, message: '请输入确认密码' },
               {
-                validator: this.compareToFirstPassword
-              }
-            ]
+                validator: this.compareToFirstPassword,
+              },
+            ],
           })(<Input type="password" placeholder="确认密码" onBlur={this.handleConfirmBlur} />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator('captcha', {
-            rules: [{ required: true, message: '请输入验证码' }]
+            rules: [{ required: true, message: '请输入验证码' }],
           })(
             <Row gutter={8}>
               <Col span={12}>
@@ -102,7 +102,7 @@ class FormComponent extends Component<any> {
                   onClick={this.refreshCaptcha}
                   style={{
                     height: '32px',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                   alt="验证码"
                   src={'/api/captcha/' + this.state.captchaId + '.png'}
@@ -113,7 +113,7 @@ class FormComponent extends Component<any> {
         </FormItem>
         <FormItem style={{ display: 'none' }}>
           {getFieldDecorator('captchaId', {
-            rules: [{ required: true, message: '请刷新验证码' }]
+            rules: [{ required: true, message: '请刷新验证码' }],
           })(<Input type="text" disabled placeholder="确认密码" />)}
         </FormItem>
         <FormItem>

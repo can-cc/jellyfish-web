@@ -26,17 +26,17 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
       }
     });
   };
-  const todo = useStore(appStore =>
+  const todo = useStore((appStore) =>
     appStore.todos$.pipe(
-      map(todos => {
+      map((todos) => {
         return todos.get(todoId);
       })
     )
   );
 
-  const boxOptions = (useStore(appStore => appStore.boxes$) || []).map(box => ({
+  const boxOptions = (useStore((appStore) => appStore.boxes$) || []).map((box) => ({
     value: box.id,
-    label: box.name
+    label: box.name,
   }));
 
   if (!todo) {
@@ -47,7 +47,7 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
     <div
       className="TodoDetail"
       tabIndex={0}
-      onKeyDown={event => {
+      onKeyDown={(event) => {
         if (event.key === 'Escape') {
           onClose();
         }
@@ -59,14 +59,14 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
           onChange={(checked: boolean) =>
             onTodoChange({
               ...todo,
-              status: checked ? 'Done' : 'Doing'
+              status: checked ? 'Done' : 'Doing',
             })
           }
         />
         <div style={{ marginTop: -8, width: '100%' }}>
           <AppTextArea
             value={todo.content}
-            onChange={value => onTodoChange({ ...todo, content: value }, false)}
+            onChange={(value) => onTodoChange({ ...todo, content: value }, false)}
           />
         </div>
       </div>
@@ -77,23 +77,23 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
         <DetailField icon={faCalendar} name="notification" placeholder="截止时间">
           <div>
             <span>click</span>
-            <DetailDateTimePickerPopup 
-               isOpen={false}
-               position={{x: 0, y: 0}}
-               onClose={() => {}} />
+            <DetailDateTimePickerPopup
+              isOpen={false}
+              position={{ x: 0, y: 0 }}
+              onClose={() => {}}
+            />
           </div>
-
         </DetailField>
         <DetailField icon={faReply} name="repeat" placeholder="重复" />
         <DetailField icon={faListOl} name="box" placeholder="清单">
           <Select
             style={{
-              marginLeft: -3
+              marginLeft: -3,
             }}
             placeholder="清单"
             value={todo.boxId || ''}
             options={boxOptions}
-            onChange={value => onTodoChange({ ...todo, boxId: value }, true)}
+            onChange={(value) => onTodoChange({ ...todo, boxId: value }, true)}
           />
         </DetailField>
 
@@ -103,8 +103,8 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
             value={todo.detail || ''}
             rows={3}
             placeholder="添加备注"
-            onBlur={e => onTodoChange({ ...todo, detail: e.target.value })}
-            onChange={e => onTodoChange({ ...todo, detail: e.target.value })}
+            onBlur={(e) => onTodoChange({ ...todo, detail: e.target.value })}
+            onChange={(e) => onTodoChange({ ...todo, detail: e.target.value })}
           />
         </div>
       </div>

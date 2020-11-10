@@ -21,8 +21,8 @@ export function ConfirmModal({ tip, isOpen, confirm, cancel }: Props) {
           bottom: 'auto',
           left: '50%',
           marginLeft: -110,
-          textAlign: 'center'
-        }
+          textAlign: 'center',
+        },
       }}
       isOpen={isOpen}
     >
@@ -31,7 +31,7 @@ export function ConfirmModal({ tip, isOpen, confirm, cancel }: Props) {
         style={{
           marginTop: 20,
           display: 'flex',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
         }}
       >
         <AppButton onClick={cancel}>取消</AppButton>

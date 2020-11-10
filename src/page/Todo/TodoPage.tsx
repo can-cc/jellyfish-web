@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { TodoList } from './TodoList';
 import { TodoCreator } from './TodoCreator';
 import { appStore } from '../../store/store';
 import { AsideBar } from './Aside/AsideBar';
@@ -11,6 +10,9 @@ import { distinctUntilChanged, map, mergeMap, takeUntil } from 'rxjs/operators';
 
 import './TodoPage.css';
 import { TodoDetail } from './Detail/TodoDetail';
+import { TodoListContainer } from './List/TodoListContainer';
+import { Switch, Route } from 'react-router-dom';
+import { Calendar } from './Calendar/Calendar';
 
 export class TodoPage extends Component<
   {},
@@ -32,10 +34,10 @@ export class TodoPage extends Component<
         takeUntil(this.complete$),
         mergeMap((ids: string[]) =>
           appStore.todos$.pipe(
-            map(todos =>
+            map((todos) =>
               ids
-                .map(id => todos.get(id))
-                .filter(v => !!v)
+                .map((id) => todos.get(id))
+                .filter((v) => !!v)
                 .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
             )
           )
@@ -53,7 +55,7 @@ export class TodoPage extends Component<
 
     appStore.selectedTodoId$
       .pipe(distinctUntilChanged(), takeUntil(this.complete$))
-      .subscribe(id => this.setState({ selectedTodoID: id }));
+      .subscribe((id) => this.setState({ selectedTodoID: id }));
   }
 
   componentWillUnmount() {
@@ -70,7 +72,7 @@ export class TodoPage extends Component<
         <div
           className="todo-page--main"
           tabIndex={0}
-          onKeyDown={event => {
+          onKeyDown={(event) => {
             if (event.key === 'Escape') {
               this.setState({ selectedTodoID: undefined });
             }
@@ -79,12 +81,20 @@ export class TodoPage extends Component<
           <div className="main-heading">任务</div>
           <div
             style={{
-              padding: '0 20px'
+              padding: '0 20px',
             }}
           >
             <TodoCreator />
           </div>
-          <TodoList boxId={this.state.selectedBoxId} todos={todos} selectedTodoId={this.state.selectedTodoID} />
+
+          <Switch>
+             <Route path="calendar">
+              <Calendar />
+            </Route>
+            <Route path="">
+              <TodoListContainer todos={todos} />
+            </Route>
+          </Switch>
         </div>
 
         <TodoDetail
