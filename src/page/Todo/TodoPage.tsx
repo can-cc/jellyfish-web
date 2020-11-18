@@ -18,11 +18,11 @@ export class TodoPage extends Component<
   {},
   {
     todos: Todo[];
-    selectedTodoID: string;
+    selectedTodoId: string;
     selectedBoxId: string;
   }
 > {
-  state = { todos: [], selectedTodoID: undefined, selectedBoxId: undefined };
+  state = { todos: [], selectedTodoId: undefined, selectedBoxId: undefined };
   complete$ = new Subject<void>();
 
   componentDidMount() {
@@ -34,10 +34,10 @@ export class TodoPage extends Component<
         takeUntil(this.complete$),
         mergeMap((ids: string[]) =>
           appStore.todos$.pipe(
-            map((todos) =>
+            map(todos =>
               ids
-                .map((id) => todos.get(id))
-                .filter((v) => !!v)
+                .map(id => todos.get(id))
+                .filter(v => !!v)
                 .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
             )
           )
@@ -55,7 +55,7 @@ export class TodoPage extends Component<
 
     appStore.selectedTodoId$
       .pipe(distinctUntilChanged(), takeUntil(this.complete$))
-      .subscribe((id) => this.setState({ selectedTodoID: id }));
+      .subscribe(id => this.setState({ selectedTodoId: id }));
   }
 
   componentWillUnmount() {
@@ -72,23 +72,23 @@ export class TodoPage extends Component<
         <div
           className="todo-page--main"
           tabIndex={0}
-          onKeyDown={(event) => {
+          onKeyDown={event => {
             if (event.key === 'Escape') {
-              this.setState({ selectedTodoID: undefined });
+              this.setState({ selectedTodoId: undefined });
             }
           }}
         >
           <div className="main-heading">任务</div>
           <div
             style={{
-              padding: '0 20px',
+              padding: '0 20px'
             }}
           >
             <TodoCreator />
           </div>
 
           <Switch>
-             <Route path="calendar">
+            <Route path="calendar">
               <Calendar />
             </Route>
             <Route path="">
@@ -98,9 +98,9 @@ export class TodoPage extends Component<
         </div>
 
         <TodoDetail
-          todoId={this.state.selectedTodoID}
+          todoId={this.state.selectedTodoId}
           onClose={() => {
-            this.setState({ selectedTodoID: undefined });
+            this.setState({ selectedTodoId: undefined });
           }}
         />
       </div>

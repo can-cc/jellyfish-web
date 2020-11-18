@@ -34,12 +34,14 @@ export function TodoBoxes() {
 
   useEffect(() => {
     AppAction.selectBox('@ALL');
+    AppAction.getTodos();
   }, []);
 
-  const selectedBoxId = useStore((appStore) => appStore.selectedBoxId$);
+  const selectedBoxId = useStore(appStore => appStore.selectedBoxId$);
   const onBoxClick = useCallback((boxId: string) => {
     appStore.selectedTodoId$.next(null);
     AppAction.selectBox(boxId);
+    AppAction.getTodos();
   }, []);
 
   return (

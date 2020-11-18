@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UserInfo } from '../type/user-info';
-import { TodoTag } from '../type/todo-tag';
+import { TodoStatus } from '../type/todo-status';
 import { Todo } from '../type/todo';
 import { Box } from '../type/box';
 import { map, scan, shareReplay } from 'rxjs/operators';
@@ -13,7 +13,9 @@ export class AppStore {
   public addTodoList$ = new Subject<Todo[]>();
   public updateTodo$ = new Subject<Todo>();
   public userInfo$: Subject<UserInfo> = new Subject();
-  public filterTag$: BehaviorSubject<TodoTag> = new BehaviorSubject<TodoTag>(TodoTag.Doing);
+  public statusFilter$: BehaviorSubject<TodoStatus> = new BehaviorSubject<TodoStatus>(
+    TodoStatus.Doing
+  );
   public boxes$: BehaviorSubject<Box[]> = new BehaviorSubject<Box[]>([]);
   public selectedBoxId$ = new BehaviorSubject<string>(null);
 

@@ -1,7 +1,7 @@
 import { appStore } from './store';
 import axios from 'axios';
 import { CreateTodoInput, Todo } from '../type/todo';
-import { TodoTag } from '../type/todo-tag';
+import { TodoStatus } from '../type/todo-status';
 import { take } from 'rxjs/operators';
 import { UserInfo } from '../type/user-info';
 import { Box, CreateBoxInput } from '../type/box';
@@ -34,7 +34,7 @@ export class AppAction {
   }
 
   static getTodos(): void {
-    combineLatest(appStore.filterTag$, appStore.selectedBoxId$)
+    combineLatest(appStore.statusFilter$, appStore.selectedBoxId$)
       .pipe(take(1))
       .subscribe(([statusTag, boxId]) => {
         let statusParams;
@@ -84,8 +84,8 @@ export class AppAction {
     });
   }
 
-  static updateTodoTag(todoTag: TodoTag): void {
-    appStore.filterTag$.next(todoTag);
+  static updateTodoTag(todoTag: TodoStatus): void {
+    appStore.statusFilter$.next(todoTag);
   }
 
   static selectTodo(todoID: string) {
@@ -94,7 +94,6 @@ export class AppAction {
 
   static selectBox(boxId: string) {
     appStore.selectedBoxId$.next(boxId);
-    AppAction.getTodos();
   }
 
   static deleteTodo(todo: Todo) {
