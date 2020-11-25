@@ -11,11 +11,17 @@ interface InputProps {
   children?: ReactNode;
 }
 
-export function DetailField({ icon, name, placeholder, children }: InputProps) {
-  return (
-    <div className="DetailField">
-      <FontAwesomeIcon icon={icon} />
-      {children || <span>{placeholder}</span>}
-    </div>
-  );
-}
+
+export const DetailField = React.forwardRef<HTMLDivElement, InputProps>(
+  ({icon, name, placeholder, children }: InputProps,
+  ref
+  ) => {
+    return (
+      <div ref={ref} className="DetailField">
+        <FontAwesomeIcon icon={icon} />
+        {children || <span>{placeholder}</span>}
+      </div>
+    );
+  }) 
+
+

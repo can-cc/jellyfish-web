@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef, useState } from 'react';
 import { map } from 'rxjs/operators';
 import { Checkbox } from '../../../component/Checkbox';
 import { AppAction } from '../../../store/action';
@@ -19,6 +19,7 @@ interface InputProps {
 }
 
 export function TodoDetail({ todoId, onClose }: InputProps) {
+  const [deadlineDialogOpen, setDeadlineDialogOpen] = useState(false);
   const onTodoChange = (todo: Todo, refreshList: boolean = false) => {
     AppAction.updateTodo(todo).then(() => {
       if (refreshList) {
@@ -38,6 +39,8 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
     value: box.id,
     label: box.name,
   }));
+
+  const deadlineFieldRef = createRef<HTMLDivElement>();
 
   if (!todo) {
     return null;
@@ -74,13 +77,14 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
       <div className="TodoDetail--fields">
         <DetailField icon={faSun} name="myDay" placeholder="添加到我的一天" />
         <DetailField icon={faBell} name="notification" placeholder="提醒我" />
-        <DetailField icon={faCalendar} name="notification" placeholder="截止时间">
+        <DetailField ref={deadlineFieldRef} icon={faCalendar} name="notification" placeholder="截止时间">
           <div>
-            <span>click</span>
+            <span onClick={() => setDeadlineDialogOpen(true)}>click</span>
             <DetailDateTimePickerPopup
-              isOpen={false}
-              position={{ x: 0, y: 0 }}
-              onClose={() => {}}
+              onChange={() => {}}
+              isOpen={deadlineDialogOpen}
+              position={{ x: deadlineFieldRef.current!.getBoundingClientRect().x, y: deadlineFieldRef.current!.getBoundingClientRect().y }}
+              onClose={() => setDeadlineDialogOpen(false)}
             />
           </div>
         </DetailField>

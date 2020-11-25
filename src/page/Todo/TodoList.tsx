@@ -82,11 +82,9 @@ export class TodoList extends Component<{
       todoId,
       targetTodoId,
       isBefore,
+    }).then(() => {
+      AppAction.getTodos();
     });
-    // const items = reorder(this.state.items, result.source.index, result.destination.index);
-    // this.setState({
-    //   items
-    // });
   };
 
   sort(todos: Todo[]) {

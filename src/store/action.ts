@@ -34,9 +34,15 @@ export class AppAction {
   }
 
   static getTodos(): void {
-    combineLatest(appStore.statusFilter$, appStore.selectedBoxId$)
+    combineLatest(
+      appStore.statusFilter$, 
+      appStore.selectedBoxId$, 
+      appStore.selectedTodoType$,
+       appStore.selectedImportantTodo$, 
+       appStore.selectedScheduledTodo$
+       )
       .pipe(take(1))
-      .subscribe(([statusTag, boxId]) => {
+      .subscribe(([statusTag, boxId, type, isImportant, isScheduled]) => {
         let statusParams;
         switch (statusTag) {
           case 'Doing':
@@ -52,7 +58,10 @@ export class AppAction {
           .get<Todo[]>(`/api/tacos`, {
             params: {
               status: statusParams,
-              box: boxId
+              box: boxId,
+              type,
+              isImportant,
+              isScheduled,
             }
           })
           .then(resp => {
@@ -80,7 +89,7 @@ export class AppAction {
     return axios.post(`/api/taco/resort`, {
       tacoId: todoId,
       targetTacoId: targetTodoId,
-      boxId
+      boxId,
     });
   }
 

@@ -40,7 +40,41 @@ export function TodoBoxes() {
   const selectedBoxId = useStore(appStore => appStore.selectedBoxId$);
   const onBoxClick = useCallback((boxId: string) => {
     appStore.selectedTodoId$.next(null);
-    AppAction.selectBox(boxId);
+    if (boxId.startsWith('@')) {
+      AppAction.selectBox(null);
+
+      switch (boxId) {
+        case '@ALL': {
+          appStore.selectedTodoType$.next(null);
+          appStore.selectedImportantTodo$.next(false);
+          appStore.selectedScheduledTodo$.next(false);
+          break;
+        }
+        case '@MY_DAILY': {
+          appStore.selectedTodoType$.next(null);
+          appStore.selectedImportantTodo$.next(false);
+          appStore.selectedScheduledTodo$.next(false);
+          break;
+        }
+        case '@IMPORTANT': {
+          appStore.selectedTodoType$.next(null);
+          appStore.selectedImportantTodo$.next(false);
+          appStore.selectedScheduledTodo$.next(true);
+          break;
+        }
+        case '@SCHEDULE': {
+          appStore.selectedTodoType$.next(null);
+          appStore.selectedImportantTodo$.next(true);
+          appStore.selectedScheduledTodo$.next(false);
+          break;
+        }
+      }
+    } else {
+      AppAction.selectBox(boxId);
+      appStore.selectedTodoType$.next(null);
+      appStore.selectedImportantTodo$.next(false);
+      appStore.selectedScheduledTodo$.next(false);
+    }
     AppAction.getTodos();
   }, []);
 
