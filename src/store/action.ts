@@ -35,12 +35,12 @@ export class AppAction {
 
   static getTodos(): void {
     combineLatest(
-      appStore.statusFilter$, 
-      appStore.selectedBoxId$, 
+      appStore.statusFilter$,
+      appStore.selectedBoxId$,
       appStore.selectedTodoType$,
-       appStore.selectedImportantTodo$, 
-       appStore.selectedScheduledTodo$
-       )
+      appStore.selectedImportantTodo$,
+      appStore.selectedScheduledTodo$
+    )
       .pipe(take(1))
       .subscribe(([statusTag, boxId, type, isImportant, isScheduled]) => {
         let statusParams;
@@ -61,7 +61,7 @@ export class AppAction {
               box: boxId,
               type,
               isImportant,
-              isScheduled,
+              isScheduled
             }
           })
           .then(resp => {
@@ -89,7 +89,7 @@ export class AppAction {
     return axios.post(`/api/taco/resort`, {
       tacoId: todoId,
       targetTacoId: targetTodoId,
-      boxId,
+      boxId
     });
   }
 

@@ -5,13 +5,14 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { AppAction } from '../../store/action';
 
 import './TodoList.css';
+import { App } from '../../App';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
-  ...draggableStyle,
+  ...draggableStyle
 });
 
-const getListStyle = (isDraggingOver) => ({});
+const getListStyle = isDraggingOver => ({});
 
 // const reorder = (list, startIndex, endIndex) => {
 //   const result = Array.from(list);
@@ -69,7 +70,7 @@ export class TodoList extends Component<{
   selectedTodoId?: string;
   boxId: string;
 }> {
-  onReSort = (result) => {
+  onReSort = result => {
     // https://codesandbox.io/s/k260nyxq9v?file=/index.js
     if (!result.destination) {
       return;
@@ -77,11 +78,15 @@ export class TodoList extends Component<{
     const todoId = this.props.todos[result.source.index].id;
     const targetTodoId = this.props.todos[result.destination.index].id;
     const isBefore = result.source.index > result.destination.index;
+    AppAction.updateTodo({
+      ...this.props.todos[result.source.index],
+      order: this.props.todos[result.destination.index].order - (isBefore ? 1 : -1)
+    });
     AppAction.sortTodo({
       boxId: this.props.boxId,
       todoId,
       targetTodoId,
-      isBefore,
+      isBefore
     }).then(() => {
       AppAction.getTodos();
     });

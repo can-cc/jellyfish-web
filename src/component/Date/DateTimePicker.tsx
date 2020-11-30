@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import zh from 'date-fns/locale/zh-CN';
 
+import './DateTimePicker.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
 registerLocale('zh', zh);
@@ -22,6 +23,7 @@ export class AppDateTimePicker extends Component<InputProps> {
         placeholderText={this.props.placeholder || '请选择时间'}
         dateFormat="yyyy年MM月dd日"
         locale="zh"
+        clearButtonTitle="清除"
         selected={this.props.value}
         onChange={this.props.onChange}
       />

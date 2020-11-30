@@ -30,20 +30,23 @@ function BoxItem(props: {
 
 export function TodoBoxes() {
   const [createBoxModalOpen, setCreateBoxModalOpen] = useState(false);
+  const [selectedBox, setSelectBox] = useState('@ALL');
   const boxes = useStore((appStore: AppStore) => appStore.boxes$);
 
   useEffect(() => {
-    AppAction.selectBox('@ALL');
+    setSelectBox('@ALL');
     AppAction.getTodos();
   }, []);
 
   const selectedBoxId = useStore(appStore => appStore.selectedBoxId$);
-  const onBoxClick = useCallback((boxId: string) => {
+
+  const onBoxClick = useCallback((box: string) => {
     appStore.selectedTodoId$.next(null);
-    if (boxId.startsWith('@')) {
+    setSelectBox(box);
+    if (box.startsWith('@')) {
       AppAction.selectBox(null);
 
-      switch (boxId) {
+      switch (box) {
         case '@ALL': {
           appStore.selectedTodoType$.next(null);
           appStore.selectedImportantTodo$.next(false);
@@ -70,7 +73,7 @@ export function TodoBoxes() {
         }
       }
     } else {
-      AppAction.selectBox(boxId);
+      AppAction.selectBox(box);
       appStore.selectedTodoType$.next(null);
       appStore.selectedImportantTodo$.next(false);
       appStore.selectedScheduledTodo$.next(false);
@@ -85,35 +88,35 @@ export function TodoBoxes() {
           iconColor="#556735"
           icon={faSortAlphaUp}
           name="全部"
-          selected={selectedBoxId === '@ALL'}
+          selected={selectedBox === '@ALL'}
           onClick={() => onBoxClick('@ALL')}
         />
         <BoxItem
           iconColor="#ECC30B"
           icon={faSun}
           name="我的一天"
-          selected={selectedBoxId === '@MY_DAILY'}
+          selected={selectedBox === '@MY_DAILY'}
           onClick={() => onBoxClick('@MY_DAILY')}
         />
         <BoxItem
           iconColor="#FF0000"
           icon={faStar}
           name="重要"
-          selected={selectedBoxId === '@IMPORTANT'}
+          selected={selectedBox === '@IMPORTANT'}
           onClick={() => onBoxClick('@IMPORTANT')}
         />
         <BoxItem
           iconColor="#2292A4"
           icon={faTasks}
           name="任务"
-          selected={selectedBoxId === '@TASK'}
+          selected={selectedBox === '@TASK'}
           onClick={() => onBoxClick('@TASK')}
         />
         <BoxItem
           iconColor="#9FCC2E"
           icon={faCalendar}
           name="已安排日程"
-          selected={selectedBoxId === '@SCHEDULE'}
+          selected={selectedBox === '@SCHEDULE'}
           onClick={() => onBoxClick('@SCHEDULE')}
         />
       </ul>
@@ -126,7 +129,7 @@ export function TodoBoxes() {
               iconColor="#2292A4"
               icon={faListOl}
               name={box.name}
-              selected={selectedBoxId === box.id}
+              selected={selectedBox === box.id}
               onClick={() => onBoxClick(box.id)}
             />
           ))}

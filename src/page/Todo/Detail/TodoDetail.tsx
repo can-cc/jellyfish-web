@@ -12,6 +12,7 @@ import { Select } from '../../../component/Select';
 import { Todo } from '../../../type/todo';
 import { AppTextArea } from '../../../component/TextArea/TextArea';
 import { DetailDateTimePickerPopup } from './DetailDateTimePickerPopup/DetailDateTimePickerPopup';
+import { AppDateTimePicker } from '../../../component/Date/DateTimePicker';
 
 interface InputProps {
   todoId: string;
@@ -19,7 +20,6 @@ interface InputProps {
 }
 
 export function TodoDetail({ todoId, onClose }: InputProps) {
-  const [deadlineDialogOpen, setDeadlineDialogOpen] = useState(false);
   const onTodoChange = (todo: Todo, refreshList: boolean = false) => {
     AppAction.updateTodo(todo).then(() => {
       if (refreshList) {
@@ -27,17 +27,17 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
       }
     });
   };
-  const todo = useStore((appStore) =>
+  const todo = useStore(appStore =>
     appStore.todos$.pipe(
-      map((todos) => {
+      map(todos => {
         return todos.get(todoId);
       })
     )
   );
 
-  const boxOptions = (useStore((appStore) => appStore.boxes$) || []).map((box) => ({
+  const boxOptions = (useStore(appStore => appStore.boxes$) || []).map(box => ({
     value: box.id,
-    label: box.name,
+    label: box.name
   }));
 
   const deadlineFieldRef = createRef<HTMLDivElement>();
@@ -50,7 +50,7 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
     <div
       className="TodoDetail"
       tabIndex={0}
-      onKeyDown={(event) => {
+      onKeyDown={event => {
         if (event.key === 'Escape') {
           onClose();
         }
@@ -62,14 +62,14 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
           onChange={(checked: boolean) =>
             onTodoChange({
               ...todo,
-              status: checked ? 'Done' : 'Doing',
+              status: checked ? 'Done' : 'Doing'
             })
           }
         />
         <div style={{ marginTop: -8, width: '100%' }}>
           <AppTextArea
             value={todo.content}
-            onChange={(value) => onTodoChange({ ...todo, content: value }, false)}
+            onChange={value => onTodoChange({ ...todo, content: value }, false)}
           />
         </div>
       </div>
@@ -77,27 +77,33 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
       <div className="TodoDetail--fields">
         <DetailField icon={faSun} name="myDay" placeholder="添加到我的一天" />
         <DetailField icon={faBell} name="notification" placeholder="提醒我" />
-        <DetailField ref={deadlineFieldRef} icon={faCalendar} name="notification" placeholder="截止时间">
-          <div>
-            <span onClick={() => setDeadlineDialogOpen(true)}>click</span>
-            <DetailDateTimePickerPopup
-              onChange={() => {}}
-              isOpen={deadlineDialogOpen}
-              position={{ x: deadlineFieldRef.current!.getBoundingClientRect().x, y: deadlineFieldRef.current!.getBoundingClientRect().y }}
-              onClose={() => setDeadlineDialogOpen(false)}
-            />
-          </div>
+        <DetailField
+          ref={deadlineFieldRef}
+          icon={faCalendar}
+          name="notification"
+          placeholder="截止时间"
+        >
+          <AppDateTimePicker
+            onChange={value => {
+              AppAction.updateTodo({
+                ...todo,
+                deadline: value
+              });
+            }}
+            placeholder={'截止时间'}
+            value={todo.deadline ? new Date(todo.deadline) : null}
+          />
         </DetailField>
         <DetailField icon={faReply} name="repeat" placeholder="重复" />
         <DetailField icon={faListOl} name="box" placeholder="清单">
           <Select
             style={{
-              marginLeft: -3,
+              marginLeft: -3
             }}
             placeholder="清单"
             value={todo.boxId || ''}
             options={boxOptions}
-            onChange={(value) => onTodoChange({ ...todo, boxId: value }, true)}
+            onChange={value => onTodoChange({ ...todo, boxId: value }, true)}
           />
         </DetailField>
 
@@ -107,8 +113,8 @@ export function TodoDetail({ todoId, onClose }: InputProps) {
             value={todo.detail || ''}
             rows={3}
             placeholder="添加备注"
-            onBlur={(e) => onTodoChange({ ...todo, detail: e.target.value })}
-            onChange={(e) => onTodoChange({ ...todo, detail: e.target.value })}
+            onBlur={e => onTodoChange({ ...todo, detail: e.target.value })}
+            onChange={e => onTodoChange({ ...todo, detail: e.target.value })}
           />
         </div>
       </div>
