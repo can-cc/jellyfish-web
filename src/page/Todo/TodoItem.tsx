@@ -7,6 +7,7 @@ import { Todo } from '../../type/todo';
 
 import './TodoItem.css';
 import { AppAction } from '../../store/action';
+import { DeadlineTag } from './DeadlineTag/DeadlineTag';
 
 export class TodoItem extends Component<{
   todo: Todo;
@@ -15,7 +16,7 @@ export class TodoItem extends Component<{
   onDoneChanged(checked: boolean) {
     AppAction.updateTodo({
       ...this.props.todo,
-      status: checked ? 'Done' : 'Doing',
+      status: checked ? 'Done' : 'Doing'
     });
   }
 
@@ -26,7 +27,7 @@ export class TodoItem extends Component<{
   render() {
     const todo = this.props.todo;
     return (
-      <List.Item className={`todo-item${this.props.selected ? ' selected' : ''}`} key={todo.id}>
+      <div className={`todo-item${this.props.selected ? ' selected' : ''}`} key={todo.id}>
         <Checkbox
           defaultChecked={todo.status === 'Done'}
           onChange={(checked: boolean) => this.onDoneChanged(checked)}
@@ -35,13 +36,9 @@ export class TodoItem extends Component<{
         <div className="todo-item--content" onClick={this.onTodoClick}>
           <div className="content-text">{todo.content}</div>
 
-          {todo.deadline && (
-            <Tag color="#f50" style={{ marginLeft: '10px' }}>
-              {moment(todo.deadline).format('YYYY-MM-DD')}
-            </Tag>
-          )}
+          {todo.deadline && <DeadlineTag deadline={todo.deadline} />}
         </div>
-      </List.Item>
+      </div>
     );
   }
 }

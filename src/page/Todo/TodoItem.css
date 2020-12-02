@@ -5,6 +5,8 @@
   line-height: 1.5;
   margin-bottom: 4px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .todo-item.selected {
@@ -22,6 +24,7 @@
 .todo-item--content {
   padding: 9px 10px;
   width: 100%;
+  display: flex;
 }
 
 .todo-item--content .content-text {
