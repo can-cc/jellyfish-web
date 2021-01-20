@@ -1,10 +1,11 @@
 import React from 'react';
-import { AppButton } from '../../../component/AppButton';
+import { NotificationPanel } from './NotificationPanel/NotificationPanel';
 
 export function ProfileSetting() {
   return (
     <div>
-      <AppButton>接受通知</AppButton>
+      <h2>Setting</h2>
+      <NotificationPanel />
     </div>
   );
 }

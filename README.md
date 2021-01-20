@@ -3,3 +3,7 @@
 
 # 启动
 npm
+
+
+# idea
+https://medium.com/curious/sorted-3-an-app-to-schedule-your-day-like-elon-musk-f652ef7637ab

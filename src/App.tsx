@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ToastContainer } from 'react-toastify';
 import { Redirect, Route, Router, Switch } from 'react-router-dom';
 import { LoginPage } from './page/Login/LoginPage';
 import { SignUp } from './page/SignUp/SignUp';
@@ -11,6 +12,7 @@ import './App.css';
 export class App extends Component {
   render() {
     return (
+      <>
       <Router history={history}>
         <div className="App">
           <Switch>
@@ -35,6 +37,8 @@ export class App extends Component {
           </Switch>
         </div>
       </Router>
+<ToastContainer />
+      </>
     );
   }
 }
